@@ -1,5 +1,7 @@
 <?php
 
+include_once '../database/createConnection.php';
+
 function getRouteInfoForMapAPI__FAKE($routeID) {
 
     //TODO: Might be totally different
@@ -56,6 +58,18 @@ function getRouteContributors($routeId) {
 
     //TODO: Look in DB and onstruct array of users and their km
 
+}
+
+function saveRoute($creatingUserID, $totalDistance, $mode) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+
+    $stmn = $conn->prepare("INSERT w2final.Route VALUES (DEFAULT, ?, ?, ?)");
+    $stmn->bind_param('iii',$creatingUserID,$totalDistance, $mode);
+    $stmn->execute();
+
+    $stmn->close();
+    $conn->close();
 }
 
 
