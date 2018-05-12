@@ -45,6 +45,17 @@ function getUserFromUserId($userID) {
     return null;
 }
 
+function getUserRoleFromUserId($userID) {
+    //TODO: Call DB, get real user data
+    return null;
+}
+
+function getUserRoleFromUserId__FAKE($userID) {
+    return array(
+        'roleID' => 1,
+        'role' => ADMIN_ROLE,
+    );
+}
 
 function saveUserToDB_SUCCESS__FAKE($email, $param) {
     return true;
