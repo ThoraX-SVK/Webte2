@@ -1,7 +1,8 @@
 <?php
 
 include_once "../services/saveUserService.php";
-include_once "../utils/sendVerificationEmail.php";
+include_once "../utils/constructVerificationEmailContent.php";
+include_once "../services/sendEmailService.php";
 
 
 //Receive data from POST
@@ -12,12 +13,16 @@ $param = "more parameters placeholder";
  * Call UserSaveService with all params from post
  */
 
-if(saveUserSuccess__FAKE($email, $param) === FAILED) {
+$newUserID = saveUserSuccess__FAKE($email, $param);
+
+if($newUserID === FAILED) {
     //User saving failed, RIP I guess?
 }
 
-if(sendActivationEmail__FAKE($email, $newUserID)) {
-    //Redirect to checkYourEmail.php
-} else {
-    //print some kind of error
+$emailBody = constructActivationEmailBody__FAKE($email, $newUserID);
+
+if($emailBody == null) {
+    //something went wrong
 }
+
+sendEmail__FAKE($email,$emailBody);

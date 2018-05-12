@@ -1,12 +1,13 @@
 <?php
 
 include_once "../services/saveUserService.php";
+include_once "../security/randomPassword.php";
 
 function processCsvFileAndSaveUsers__FAKE($csv) {
 
     return array(
-        'succ@ess.sk' => true,
-        'fa@il.sk' => false
+        'succ@ess.sk' => '12345',
+        'fa@il.sk' => null
     );
 }
 
@@ -18,8 +19,16 @@ function processCsvFileAndSaveUsers($csv) {
     //for every user
     $email = null;
     $params = null;
-    $saveResult = saveUser($email, $params);
-    //do something with save result
+    $userRandomPassword = createRandomPassword__FAKE($params);
+    $saveSuccessful = saveUserSuccess__FAKE($email, $params);
+
+    if($saveSuccessful) {
+        //add to array his email and his set password
+    } else {
+        //add to array but set password to null;
+    }
+    //for END
+
 
 }
 

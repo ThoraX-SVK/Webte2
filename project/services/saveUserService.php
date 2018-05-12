@@ -1,6 +1,6 @@
 <?php
 
-include_once "../utils/emailFormValidator.php";
+include_once "../utils/EmaiValidator.php";
 include_once "../database/userUtils.php";
 
 define("FAILED" , -1);
