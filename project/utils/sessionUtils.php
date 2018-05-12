@@ -8,7 +8,7 @@ function isUserAdmin_YES__FAKE() {
 
 function isUserAdmin() {
 
-    return getActiveUserRole()["role"] == ADMIN_ROLE;
+    return getActiveUserRole() == ADMIN_ROLE;
 
 }
 
