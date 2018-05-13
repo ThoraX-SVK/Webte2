@@ -7,19 +7,20 @@
 </head>
 <body>
 
-<?php
 
-if (isset($_GET["status"])) {
-
-    $status = $_GET["status"];
-    if ($status == "INVALID") {
-        echo "<div class='login-status-message'> Incorrect Email or Password</div>";
-    }
-}
-?>
 
 <body>
 <div class="main">
+    <?php
+
+    if (isset($_GET["status"])) {
+
+        $status = $_GET["status"];
+        if ($status == "INVALID") {
+            echo "<div class='login-status-message'> Incorrect Email or Password</div>";
+        }
+    }
+    ?>
     <form action="../controller/loginController.php" method="post" class="login">
         <span> Email </span>
         <br><input type="text" placeholder="Email" name="email" required
