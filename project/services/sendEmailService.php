@@ -1,14 +1,16 @@
 <?php
 
+
 function sendEmail__FAKE($email, $content) {
 
 }
 
 
-function sendEmail($email, $content) {
+function sendEmail($email, $subject, $txt, $from) {
 
-    //TODO: This service should send email with given content
-
+    //TODO email sending through SMTP server
+    $headers = "From: $from" . "\r\n";
+    mail($email, $subject, $txt, $headers);
 }
 
 
