@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Ned 13. kvě 2018, 20:43
+-- Vytvořeno: Ned 13. kvě 2018, 23:51
 -- Verze serveru: 5.7.21-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.28-0ubuntu0.16.04.1
 
@@ -156,9 +156,8 @@ CREATE TABLE `Street` (
 
 CREATE TABLE `User` (
   `id` int(11) NOT NULL,
-  `login` varchar(96) COLLATE utf8_bin NOT NULL,
-  `password_salt` varchar(64) COLLATE utf8_bin NOT NULL,
-  `password` varchar(64) COLLATE utf8_bin NOT NULL,
+  `passwordSalt` varchar(64) COLLATE utf8_bin NOT NULL,
+  `passwordHash` varchar(64) COLLATE utf8_bin NOT NULL,
   `isActivated` tinyint(1) DEFAULT NULL,
   `email` varchar(64) COLLATE utf8_bin NOT NULL,
   `name` varchar(64) COLLATE utf8_bin DEFAULT NULL,

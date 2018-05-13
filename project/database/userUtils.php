@@ -5,6 +5,8 @@
  */
 
 include_once '../database/createConnection.php';
+include_once '../security/saltGenerator.php';
+include_once '../security/passwordHashGenerator.php';
 
 function getUserIdFromEmail__FAKE($email) {
     return 1;
@@ -59,11 +61,6 @@ function isEmailAlreadyInDatabase($email) {
     return getUserIdFromEmail($email) == null ? false : true;
 }
 
-function isPasswordMatched($password, $passwordConfirm) {
-    return $password == $passwordConfirm;
-}
-
-
 function getUserFromUserId__FAKE($userID) {
 
     //TODO: Add more stuff to represent user, might be class in future
@@ -100,18 +97,64 @@ function saveUserToDB_SUCCESS__FAKE($email, $name, $surname, $password) {
     return 1;
 }
 
-function saveUserToDB($email, $login, $name, $surname, $password) {
 
+/**
+ *
+ *  Function saves user to DB returning his new userID or null if
+ *  user was no saved successfully.
+ *
+ * @param $email
+ * @param $name
+ * @param $surname
+ * @param $password
+ * @return int|null
+ */
+function saveUserToDB($email, $name, $surname, $password) {
+
+    $userSalt = generateNewSalt__FAKE();
+    $hashedPassword = computePasswordHash__FAKE($userSalt,$password);
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("INSERT w2final.User VALUES (DEFAULT, ?, ?, true, ?, ?, ?,null, 1)");
+    $stmn->bind_param("sssss",$userSalt,$hashedPassword, $email, $name, $surname);
+    $isSaved = $stmn->execute();
+
+    $stmn->close();
+    $conn->close();
+
+    if($isSaved) {
+        return getUserIdFromEmail($email);
+    } else {
+        return null;
+    }
 }
 
 function findUsersActiveRoute__FAKE($userID) {
     return 1;
 }
 
+/**
+ *  Based on given userID, function will find his active routeID to which
+ *  he is currently contributing. If he is not contributing to any route
+ *  function returns null.
+ *
+ * @param $userID
+ * @return int|null
+ */
 function findUsersActiveRoute($userID) {
 
-    //TODO: Look in DB and find his active routeID
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT route_fk FROM w2final.UserActiveRoute WHERE user_fk = ?");
+    $stmn->bind_param("i", $userID);
+    $stmn->execute();
 
+    $result = $stmn->get_result();
+
+    if(mysqli_num_rows($result) === 0) {
+        return null;
+    }
+
+    return $result['route_fk'];
 }
 
 
