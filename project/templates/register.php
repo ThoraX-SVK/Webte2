@@ -12,7 +12,9 @@ include_once "../constants/registerConstants.php";
 
 $errorMessage = getErrorMessage();
 if ($errorMessage != null) {
+    echo "<h3 class='register-status-message'>";
     echo $errorMessage;
+    echo "</h3>";
 }
 ?>
 
@@ -35,17 +37,19 @@ function getErrorMessage()
 
         $status = $_GET["status"];
 
-        if ($status == ERROR_PASSWORD_MISMATCH) {
-            return "<h3 class='register-status-message'>Heslá sa nezhodujú</h3>";
-        } else if ($status == ERROR_EMAIL_TAKEN) {
-            return "<h3 class='register-status-message'>Email je už používaný</h3>";
-        } else if ($status == ERROR_EMAIL_INVALID) {
-            return "<h3 class='register-status-message'>Email nie je v platnom formáte</h3>";
-        } else if ($status == ERROR_SAVING_FAIL) {
-            return "<h3 class='register-status-message'>Chyba pri ukladaní</h3>";
-        } else if ($status == INVALID_POST) {
-            return "<h3 class='register-status-message'>Nevyplnené registračné údaje</h3>";
+        switch ($status) {
+            case ERROR_PASSWORD_MISMATCH:
+                return "Heslá sa nezhodujú";
+            case ERROR_EMAIL_TAKEN:
+                return "Email je už používaný";
+            case ERROR_EMAIL_INVALID:
+                return "Email nie je v platnom formáte";
+            case ERROR_SAVING_FAIL:
+                return "Chyba pri ukladaní";
+            case INVALID_POST:
+                return "Nevyplnené registračné údaje";
         }
+
     }
 
     return null;
