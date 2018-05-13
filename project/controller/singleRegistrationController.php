@@ -9,6 +9,7 @@ include_once "../constants/registerConstants.php";
 //Receive data from POST and validate
 if (validatePostData() == FAILED) {
     redirectToRegisterWithErrorMessage(INVALID_POST);
+    return;
 }
 
 $email = $_POST["email"];
@@ -30,12 +31,12 @@ if ($saveResult["status"] === FAILED) {
 // user saving successful
 } else {
 
-    $emailBody = constructActivationEmailBody__FAKE($email, $saveResult["userID"]);
-    if ($emailBody == null) {
-        //something went wrong
+    $emailData = constructActivationEmail($email, $saveResult["userID"]);
+    if ($emailData != null) {
+        sendEmail($email, $emailData["subject"], $emailData["body"], $emailData["from"]);
+        redirectToRegistrationSuccess($email);
     }
-    sendEmail__FAKE($email, $emailBody);
-    redirectToRegistrationSuccess($email);
+
 }
 
 

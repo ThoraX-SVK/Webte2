@@ -59,11 +59,6 @@ function isEmailAlreadyInDatabase($email) {
     return getUserIdFromEmail($email) == null ? false : true;
 }
 
-function isPasswordMatched($password, $passwordConfirm) {
-    return $password == $passwordConfirm;
-}
-
-
 function getUserFromUserId__FAKE($userID) {
 
     //TODO: Add more stuff to represent user, might be class in future
