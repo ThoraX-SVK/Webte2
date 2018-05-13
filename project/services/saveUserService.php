@@ -8,8 +8,6 @@ define("FAILED" , -1);
 define("SUCCESS" , 0);
 
 
-
-
 function saveUserSuccess__FAKE($email, $name, $surname, $password, $passwordConfirm) {
 
     return array(
@@ -71,5 +69,4 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
 function isPasswordMatched($password, $passwordConfirm) {
     return $password == $passwordConfirm;
 }
-
 

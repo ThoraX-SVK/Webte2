@@ -6,6 +6,10 @@ function isUserAdmin_YES__FAKE() {
     return true;
 }
 
+function isUserAdmin_FALSE__FAKE() {
+    return false;
+}
+
 function isUserAdmin() {
 
     return getActiveUserRole() == ADMIN_ROLE;
