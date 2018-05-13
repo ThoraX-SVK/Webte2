@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
 </head>
 <body>
 
@@ -17,21 +18,34 @@ if (isset($_GET["status"])) {
 }
 ?>
 
-<form method="POST" action="../controller/loginController.php">
+<body>
+<div class="main">
+    <form action="../controller/loginController.php" method="post" class="login">
+        <span> Email </span>
+        <br><input type="text" placeholder="Email" name="email" required
+            <?php
+            if (isset($_GET["email"])) {
+                echo 'value="' . $_GET["email"] . '"';
+            }
+            ?>
+        >
+        <br><br><span> Password </span>
+        <br><input type="password" placeholder="Password" name="password" required>
+        <br><br><input type="submit" value="Login">
 
-    <input type="email" id="email" name="email" placeholder="Email" required
-        <?php
-        if (isset($_GET["email"])) {
-            echo 'value="' . $_GET["email"] . '"';
-        }
-        ?>
-    >
-    <input type="password" id="password" name="password" placeholder="Heslo" required>
-    <input type="submit" value="Prihlásiť sa">
+    </form>
 
-</form>
+    <form action="register.php" class="bottom-left">
+        <button type="submit" class="bottom-left-button"><span style="color:white; font-size: 40px;"> +</span> New Account</button>
+    </form>
 
-<!--<a href=" passwordResetPage.php "> Zabudol som heslo </a>-->
+    <form action="passwordResetPage.php" class="bottom-right">
+        <button type="submit" class="bottom-right-button">Need help<span style="color:white; font-size: 40px;">?</span></button>
+    </form>
+
+
+
+</div>
 
 </body>
 </html>
