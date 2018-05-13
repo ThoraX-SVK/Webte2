@@ -16,12 +16,20 @@ function getUserIdFromEmail($email) {
     return null;
 }
 
-function isEmailAlreadyInDatabase__FAKE($email) {
+function isEmailAlreadyInDatabase_TRUE__FAKE($email) {
     return true;
+}
+
+function isEmailAlreadyInDatabase_FALSE__FAKE($email) {
+    return false;
 }
 
 function isEmailAlreadyInDatabase($email) {
     return getUserIdFromEmail($email) == null ? false : true;
+}
+
+function isPasswordMatched($password, $passwordConfirm) {
+    return $password == $passwordConfirm;
 }
 
 
@@ -57,11 +65,11 @@ function getUserRoleFromUserId__FAKE($userID) {
     );
 }
 
-function saveUserToDB_SUCCESS__FAKE($email, $param) {
-    return true;
+function saveUserToDB_SUCCESS__FAKE($email, $name, $surname, $password) {
+    return 1;
 }
 
-function saveUserToDB($email, $param) {
+function saveUserToDB($email, $login, $name, $surname, $password) {
 
 }
 
