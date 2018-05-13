@@ -1,6 +1,6 @@
 <?php
 
-include_once "../utils/EmaiValidator.php";
+include_once "../utils/EmailValidator.php";
 include_once "../database/userUtils.php";
 include_once "../constants/registerConstants.php";
 
@@ -42,7 +42,7 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
         );
     }
 
-    if (isEmailAlreadyInDatabase_FALSE__FAKE($email)) {
+    if (isEmailAlreadyInDatabase($email)) {
         //Email is in DB
         return array(
             "status" => FAILED,
@@ -50,7 +50,7 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
         );
     }
 
-    $newUserID = saveUserToDB_SUCCESS__FAKE($email, $name, $surname, $password);
+    $newUserID = saveUserToDB($email, $name, $surname, $password);
 
     if ($newUserID === null) {
         //Something went wrong?

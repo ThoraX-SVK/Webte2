@@ -1,7 +1,7 @@
 <?php
 
 include_once "../services/saveUserService.php";
-include_once "../security/randomPassword.php";
+include_once "../security/randomPasswordGenerator.php";
 
 function processCsvFileAndSaveUsers__FAKE($csv) {
 

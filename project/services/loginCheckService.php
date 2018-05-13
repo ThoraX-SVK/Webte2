@@ -1,7 +1,7 @@
 <?php
 
 include_once "../database/userUtils.php";
-include_once "../security/passwordHash.php";
+include_once "../security/passwordHashGenerator.php";
 
 /**
  * Always returns true
