@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
 
-<?php
-// ERROR SHOWING
-include_once "../constants/registerConstants.php";
+<div id="register" class="main">
+    <?php
+    // ERROR SHOWING
+    include_once "../constants/registerConstants.php";
 
-$errorMessage = getErrorMessage();
-if ($errorMessage != null) {
-    echo "<h3 class='register-status-message'>";
-    echo $errorMessage;
-    echo "</h3>";
-}
-?>
+    $errorMessage = getErrorMessage();
+    if ($errorMessage != null) {
+        echo "<div class='register-status-message'>";
+        echo $errorMessage;
+        echo "</div>";
+    }
+    ?>
 
-<form method="POST" action="../controller/singleRegistrationController.php">
+    <form action="../controller/singleRegistrationController.php" method="POST" id="registerForm" required>
+        <br><span> First Name </span>
+        <br><input type="text" placeholder="First Name" name="name" required>
+        <br><span> Surname</span>
+        <br><input type="text" placeholder="Surname" name="surname" required>
+        <br><span>E-mail </span>
+        <br><input type="text" placeholder="E-mail" name="email" required>
+        <br><span> Password </span>
+        <br><input type="password" placeholder="Password" name="password" required>
+        <br><span> Confirm Password</span>
+        <br><input type="password" placeholder="Password" name="password-confirm" required>
+        <br><input type="submit" value="Register">
+    </form>
+</div>
 
-    <input type="email" id="email" name="email" placeholder="Email" required>
-    <input type="text" id="name" name="name" placeholder="Meno" required>
-    <input type="text" id="surname" name="surname" placeholder="Priezvisko" required>
-    <input type="password" id="password" name="password" placeholder="Heslo" required>
-    <input type="password" id="password-confirm" name="password-confirm" placeholder="Potvrdťe heslo" required>
-    <input type="submit" value="Registrovať účet">
-
-</form>
 
 <?php
 
@@ -39,15 +46,15 @@ function getErrorMessage()
 
         switch ($status) {
             case ERROR_PASSWORD_MISMATCH:
-                return "Heslá sa nezhodujú";
+                return "Passwords do not match";
             case ERROR_EMAIL_TAKEN:
-                return "Email je už používaný";
+                return "Email is already used";
             case ERROR_EMAIL_INVALID:
-                return "Email nie je v platnom formáte";
+                return "Email not valid";
             case ERROR_SAVING_FAIL:
-                return "Chyba pri ukladaní";
+                return "Saving failed";
             case INVALID_POST:
-                return "Nevyplnené registračné údaje";
+                return "Invalid data";
         }
 
     }
