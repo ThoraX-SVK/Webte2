@@ -1,5 +1,6 @@
 <?php
 
+//TODO duplikat s EmailValidator.php?
 function isEmailValid_YES__FAKE($email) {
     return true;
 }
@@ -9,5 +10,5 @@ function isEmailValid_NO__FAKE($email) {
 }
 
 function isEmailValid($email) {
-
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }

@@ -9,5 +9,5 @@ function isEmailValid_NO__FAKE($email) {
 }
 
 function isEmailValid($email) {
-
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }

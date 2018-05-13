@@ -14,7 +14,8 @@ function constructActivationEmailBody($email, $userID) {
     if(saveVerificationHash__FAKE($verificationHash, $userID)) {
 
         $emailBody = null;
-        //construct email body here
+        $emailBody = "Pre aktiváciu účtu registrovaného na email " . $email . "kliknite prosím na nasludujúci odkaz: " .
+            "[link]/" . $verificationHash;
 
         return $emailBody;
     }

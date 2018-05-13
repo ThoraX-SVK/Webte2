@@ -2,39 +2,70 @@
 
 include_once "../utils/EmaiValidator.php";
 include_once "../database/userUtils.php";
+include_once "../constants/registerConstants.php";
 
 define("FAILED" , -1);
+define("SUCCESS" , 0);
 
-function saveUserSuccess__FAKE($email, $param) {
 
-    return 42;
+
+
+function saveUserSuccess__FAKE($email, $name, $surname, $password, $passwordConfirm) {
+
+    return array(
+        "status" => SUCCESS,
+        "userID" => 42
+    );
 }
 
-function saveUserFail__FAKE($email, $param) {
+function saveUserFail__FAKE($email, $name, $surname, $password, $passwordConfirm) {
 
-    return FAILED;
+    return array(
+        "status" => FAILED,
+        "reason" => ERROR_SAVING_FAIL
+    );
 }
 
-function saveUser($email, $param) {
+function saveUser($email, $name, $surname, $password, $passwordConfirm) {
 
-    if(!isEmailValid_YES__FAKE($email)) {
+    if (!isPasswordMatched($password, $passwordConfirm)) {
+        // password and confirm password are different
+        return array(
+            "status" => FAILED,
+            "reason" => ERROR_PASSWORD_MISMATCH
+        );
+    }
+
+    if (!isEmailValid_YES__FAKE($email)) {
         //Email not valid
-        return FAILED;
+        return array(
+            "status" => FAILED,
+            "reason" => ERROR_EMAIL_INVALID
+        );
     }
 
-    if(isEmailAlreadyInDatabase__FAKE($email)) {
+    if (isEmailAlreadyInDatabase_FALSE__FAKE($email)) {
         //Email is in DB
-        return FAILED;
+        return array(
+            "status" => FAILED,
+            "reason" => ERROR_EMAIL_TAKEN
+        );
     }
 
-    $newUserID = saveUserToDB_SUCCESS__FAKE($email, $param);
+    $newUserID = saveUserToDB_SUCCESS__FAKE($email, $name, $surname, $password);
 
-    if($newUserID === null) {
+    if ($newUserID === null) {
         //Something went wrong?
-        return FAILED;
+        return array(
+            "status" => FAILED,
+            "reason" => ERROR_SAVING_FAIL
+        );
     }
 
-    return $newUserID;
+    return array(
+        "status" => SUCCESS,
+        "userID" => $newUserID
+    );
 }
 
 
