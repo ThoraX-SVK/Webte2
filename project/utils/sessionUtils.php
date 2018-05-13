@@ -16,6 +16,16 @@ function getActiveUserID__FAKE() {
     return 42;
 }
 
+/**
+ * Testing function, substitute it for getActiveUserID()
+ * to test case when user did not set up his session yet.
+ *
+ * @return null
+ */
+function getActiveUserID_NO_SESSION__FAKE() {
+    return null;
+}
+
 function getActiveUserID() {
 
     if (!isset($_SESSION["userID"])) {
