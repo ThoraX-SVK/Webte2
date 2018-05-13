@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Čtv 10. kvě 2018, 10:59
+-- Vytvořeno: Ned 13. kvě 2018, 20:43
 -- Verze serveru: 5.7.21-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.28-0ubuntu0.16.04.1
 
@@ -100,8 +100,16 @@ CREATE TABLE `RouteMode` (
 
 CREATE TABLE `Run` (
   `id` int(11) NOT NULL,
-  `date` datetime DEFAULT NULL,
   `distance` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `startAtTime` time DEFAULT NULL,
+  `endAtTime` time DEFAULT NULL,
+  `startLatitude` double DEFAULT NULL,
+  `startLongitude` double DEFAULT NULL,
+  `endLatitude` double DEFAULT NULL,
+  `endLongitde` double DEFAULT NULL,
+  `rating` decimal(1,0) DEFAULT NULL,
+  `note` varchar(512) COLLATE utf8_bin DEFAULT NULL,
   `route_fk` int(11) DEFAULT NULL,
   `user_fk` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
