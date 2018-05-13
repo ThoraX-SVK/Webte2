@@ -19,7 +19,6 @@
         echo "</div>";
     }
     ?>
-
     <form action="../controller/singleRegistrationController.php" method="POST" id="registerForm" required>
         <br><span> First Name </span>
         <br><input type="text" placeholder="First Name" name="name" required>
