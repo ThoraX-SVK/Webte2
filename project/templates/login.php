@@ -13,7 +13,7 @@ if (isset($_GET["status"])) {
 
     $status = $_GET["status"];
     if ($status == "INVALID") {
-        echo "<h3 class='login-status-message'> Neplatné prihlasovacie údaje</h3>";
+        echo "<div class='login-status-message'> Incorrect Email or Password</div>";
     }
 }
 ?>

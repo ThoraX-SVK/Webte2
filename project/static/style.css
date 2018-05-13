@@ -45,7 +45,7 @@ html {
 
 .register-status-message{
     background-color: #c75353;
-    height: 40px;
+    height: auto;
     width: 100%;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
@@ -53,7 +53,24 @@ html {
     border-top-right-radius: 19px;
     border: none;
     color: white;
-    padding: 0px;
+    padding: 5px 0px;
+    text-decoration: none;
+    opacity: 1;
+    font-size: 30px;
+    position: absolute;
+    top: 0px;
+}
+.login-status-message{
+    background-color: #c75353;
+    height: auto;
+    width: 100%;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 19px;
+    border-top-right-radius: 19px;
+    border: none;
+    color: white;
+    padding: 5px 0px;
     text-decoration: none;
     opacity: 1;
     font-size: 30px;
