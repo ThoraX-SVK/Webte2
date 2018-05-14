@@ -20,8 +20,11 @@ $csv = getFileFromPOST();
 
 // file successfully gotten
 if ($csv !== null) {
-    $results = processCsvFileAndSaveUsers($csv);
+    $results = processCsvFileAndSaveUsers__FAKE($csv);
+    $table = createMassRegisterResultsTable($results);
     sendMassEmailsToSuccessfulUsers($results["successful"]);
+
+    echo $table;
 
 // file NOT uploaded
 } else {
@@ -33,6 +36,48 @@ if ($csv !== null) {
 
 
 // methods
+function createMassRegisterResultsTable($arrayOfUserData) {
+    $table = "<table>";
+
+    foreach ($arrayOfUserData["failed"] as $user) {
+        $table .= assembleTableRow($user["email"], getVerboseError($user["FAILURE_REASON"]));
+    }
+
+    foreach ($arrayOfUserData["successful"] as $user) {
+        $table .= assembleTableRow($user["email"], "Successfully created");
+    }
+
+    $table .= "</table>";
+
+    return $table;
+}
+
+function assembleTableRow($userEmail, $userStatus) {
+    $row = "";
+    $row .= "<tr>";
+
+    $row .= "<td>";
+    $row .= $userEmail;
+    $row .= "</td>";
+
+    $row .= "<td>";
+    $row .= $userStatus;
+    $row .= "</td>";
+
+    $row .= "</tr> \n";
+    return $row;
+}
+
+function getVerboseError($error) {
+    switch ($error) {
+        case ERROR_EMAIL_INVALID:
+            return "Invalid email given";
+
+        case ERROR_EMAIL_TAKEN:
+            return "Email is already taken";
+    }
+}
+
 function sendMassEmailsToSuccessfulUsers($arrayOfUserData) {
     foreach ($arrayOfUserData as $userData) {
         $email = $userData["email"];

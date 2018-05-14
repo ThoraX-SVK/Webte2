@@ -129,6 +129,14 @@ function saveUserToDB($email, $name, $surname, $password) {
     }
 }
 
+function saveUserAdditionalDataToDB($userData) {
+    //return $userID;
+}
+
+function saveUserAdditionalDataToDB__FAKE($userData) {
+    return 1;
+}
+
 function findUsersActiveRoute__FAKE($userID) {
     return 1;
 }

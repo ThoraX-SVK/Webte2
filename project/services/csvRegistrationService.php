@@ -29,9 +29,28 @@ function processCsvFileAndSaveUsers__FAKE($csv) {
         )
     );
 
+    $failedResults = array(
+        array (
+            "surname" => "FAIL",
+            "name" =>"FAIL",
+            "email" => "FAIL EMAIL",
+            "password" => "HESLO",
+            "schoolName" => "SKOLA",
+            "schoolStreet" => "SKOLAAD",
+            "schoolStreetNo" => "SKOLA2",
+            "schoolPSC" => "SKOLAPSC",
+            "schoolCity" => "MESTO",
+            "userStreet" => "ULICA",
+            "userStreetNo" => "12",
+            "userCity" => "MESTO",
+            "userPSC" => "54556",
+            "FAILURE_REASON" => ERROR_EMAIL_INVALID
+        )
+    );
+
     return array(
         "successful" => $results,
-        "failed" => array()
+        "failed" => $failedResults
     );
 }
 
@@ -50,9 +69,10 @@ function processCsvFileAndSaveUsers($csv) {
 //        $user["password"] = createRandomPassword__FAKE(null);
         $user["password"] = "passWORD";
 
-        $isSaveSuccessful = saveUserWithAdditionalData__SUCCESS__FAKE($user);
+        $result = saveUserWithAdditionalData__SUCCESS__FAKE($user);
 
-        if ($isSaveSuccessful == FAILED) {
+        if ($result["status"] == FAILED) {
+            $user["FAILURE_REASON"] = $result["reason"];
             array_push($failedUsers, $user);
         } else {
             array_push($successfulUsers, $user);
