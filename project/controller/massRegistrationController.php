@@ -17,7 +17,7 @@ if (!isUserAdmin_YES__FAKE()) {
 $csv = getFileFromPOST();
 
 // file successfully gotten
-if ($csv != null) {
+if ($csv !== null) {
     $results = processCsvFileAndSaveUsers($csv);
     //var_dump($results);
 
