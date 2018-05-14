@@ -2,6 +2,7 @@
 
 include_once '../services/loginCheckService.php';
 include_once '../utils/sessionUtils.php';
+include_once '../constants/loginConstants.php';
 
 /**
  * This php code, will handle login request
@@ -14,7 +15,7 @@ if (isset($_POST["email"]) and isset($_POST["password"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
 } else {
-    redirectToLoginWithErrorMessage($email);
+    redirectToLoginWithErrorMessage(INVALID_LOGIN, $email);
 }
 
 
@@ -30,20 +31,27 @@ if(checkIfLoginCorrect($email, $password)) {
      */
     $userID = getUserIdFromEmail__FAKE($email);
     $userRole = getUserRoleFromUserId__FAKE($userID);
-    createUserSession($userID, $email, $userRole["role"]);
 
+    if (isUserActivated($userID)) {
+        createUserSession($userID, $email, $userRole["role"]);
+
+        // Redirect to home page
+        header('location: ../templates/homePage.php');
+    } else {
+
+        redirectToLoginWithErrorMessage(ACCOUNT_INVACTIVE, $email);
+    }
+
+} else {
     /**
-     * Redirect to home page
+     *  Redirect to login.php with error message.
      */
-    header('location: ../templates/homePage.php');
+    redirectToLoginWithErrorMessage(INVALID_LOGIN, $email);
 }
 
-/**
- *  Redirect to login.php with error message.
- */
-redirectToLoginWithErrorMessage($email);
 
-function redirectToLoginWithErrorMessage($email) {
-    header('location: ../templates/login.php?status=INVALID&email=' . $email);
+
+function redirectToLoginWithErrorMessage($status, $email) {
+    header('location: ../templates/login.php?status=' . $status . '&email=' . $email);
 }
 
