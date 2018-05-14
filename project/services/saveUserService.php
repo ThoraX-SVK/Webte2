@@ -32,7 +32,7 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
         );
     }
 
-    if (!isEmailValid_YES__FAKE($email)) {
+    if (!isEmailValid($email)) {
         //Email not valid
         return array(
             "status" => FAILED,

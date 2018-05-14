@@ -1,7 +1,7 @@
 <?php
 
 
-function sendEmail__FAKE($email, $content) {
+function sendEmail__FAKE($email, $subject, $txt, $from) {
 
 }
 
