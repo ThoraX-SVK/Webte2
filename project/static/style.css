@@ -5,6 +5,65 @@ html {
     -o-background-size: cover;
     background-size: cover;
 }
+
+body {
+    margin: 0;
+    font-family: Arial, Times, serif;
+}
+
+header {
+    margin: auto;
+    padding: 30px 30px 0px;
+    width: 800px;
+    text-shadow: 3px 2px #cecece;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-family: Arial, Times, serif;
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 3px solid #3CA180;
+}
+
+.topnav a {
+    float: left;
+
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+
+    color: black;
+    background-color: #c1f4eb;
+}
+
+.topnav a.active {
+    background-color:#addbd3;
+}
+
+.topnav-right {
+    float: right;
+}
+
+a {text-decoration: none;
+    color: black;
+}
+
+.content{
+    margin: auto;
+    width: 800px;
+    padding: 30px;
+    background-color:#ffffff;
+    border: 3px solid #3CA180;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
 .main {
     position: absolute;
     top: 0;
@@ -42,6 +101,19 @@ html {
     margin: auto;
     text-align:center;
     font-size: 25px;
+}
+
+.middle-relative{
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    margin: auto;
+    text-align:center;
+    font-size: 25px;
+
 }
 
 #registerForm{
@@ -215,5 +287,4 @@ input:-webkit-autofill {
     opacity: 1;
     font-size: 40px;
     z-index: 2;
-
 }
