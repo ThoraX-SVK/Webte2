@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration successful</title>
 </head>
 <body>
 
-<h3 align="center">
-<?php
-    echo getPageContents();
-?>
-</h3>
+<div class="main">
+    <div class="success-message">
+        Registration successful
+    </div>
+
+    <p class="align-middle">
+        <?php
+        echo getPageContents();
+        ?>
+    </p>
+
+
+
+</div>
 
 </body>
 </html>
@@ -28,9 +38,16 @@ function getEmail() {
     return $email;
 }
 
+function enableEmailSplit($email){
+    $split =(explode("@",$email));
+    $email = $split[0] ."@<wbr>". $split[1];
+    return $email;
+}
+
 function getPageContents() {
     $email = getEmail();
-    return "Prosím skontrolujte svoj email $email pre potvrdenie registrácie a aktiváciu svojho používateľského účtu.";
+    $email = enableEmailSplit($email);
+    return "Please check your email <br> <em>$email </em><br> to complete the activation process of your account";
 }
 
 ?>

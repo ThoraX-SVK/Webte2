@@ -13,7 +13,7 @@
 
         $status = $_GET["status"];
         if ($status == "INVALID") {
-            echo "<div class='login-status-message'> Incorrect Email or Password</div>";
+            echo "<div class='login-status-message error-message'> Incorrect Email or Password</div>";
         }
     }
     ?>

@@ -7,7 +7,7 @@ include_once "../constants/registerConstants.php";
 
 
 //check if in session there is admin logged in
-if (!isUserAdmin_FALSE__FAKE()) {
+if (!isUserAdmin_YES__FAKE()) {
     //user not ADMIN, print error
     redirectToRegisterWithMessage(ERROR_USER_NOT_ADMIN);
     return;
@@ -15,7 +15,17 @@ if (!isUserAdmin_FALSE__FAKE()) {
 
 //get .csv file from POST FILES
 $csv = getFileFromPOST();
-$saveResult = processCsvFileAndSaveUsers__FAKE($csv);
+
+// file successfully gotten
+if ($csv !== null) {
+    $results = processCsvFileAndSaveUsers($csv);
+    //var_dump($results);
+
+// file NOT uploaded
+} else {
+
+    echo "RIP";
+}
 
 //For each user from result...
 

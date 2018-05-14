@@ -32,6 +32,18 @@ html {
     text-align:center;
 }
 
+.align-middle{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    margin: auto;
+    text-align:center;
+    font-size: 25px;
+}
+
 #registerForm{
     position: absolute;
     top: 0;
@@ -43,7 +55,7 @@ html {
     text-align:center;
 }
 
-.register-status-message{
+.error-message{
     background-color: #c75353;
     height: auto;
     width: 100%;
@@ -60,8 +72,9 @@ html {
     position: absolute;
     top: 0px;
 }
-.login-status-message{
-    background-color: #c75353;
+
+.success-message{
+    background-color: #7AD58E;
     height: auto;
     width: 100%;
     border-top-left-radius: 0px;
@@ -76,6 +89,7 @@ html {
     font-size: 30px;
     position: absolute;
     top: 0px;
+
 }
 
 input[type=text], input[type=password] {
