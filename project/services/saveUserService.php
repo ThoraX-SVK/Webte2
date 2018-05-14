@@ -3,9 +3,7 @@
 include_once "../utils/EmailValidator.php";
 include_once "../database/userUtils.php";
 include_once "../constants/registerConstants.php";
-
-define("FAILED" , -1);
-define("SUCCESS" , 0);
+include_once "../constants/globallyUsedConstants.php";
 
 
 function saveUserSuccess__FAKE($email, $name, $surname, $password, $passwordConfirm) {
@@ -64,6 +62,16 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
         "status" => SUCCESS,
         "userID" => $newUserID
     );
+}
+
+
+function saveUserWithAdditionalData($email, $name, $surname, $password, $school, $schoolAddress, $address, $PSC, $city) {
+    // saveUserAdditionalDataToDB( -- params -- );
+    return null;
+}
+
+function saveUserWithAdditionalData__SUCCESS__FAKE($email, $name, $surname, $password, $school, $schoolAddress, $address, $PSC, $city) {
+    return SUCCESS;
 }
 
 function isPasswordMatched($password, $passwordConfirm) {

@@ -4,6 +4,7 @@ include_once "../services/saveUserService.php";
 include_once "../utils/constructVerificationEmailContent.php";
 include_once "../services/sendEmailService.php";
 include_once "../constants/registerConstants.php";
+include_once "../constants/globallyUsedConstants.php";
 
 
 //Receive data from POST and validate
