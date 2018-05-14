@@ -47,7 +47,7 @@ function enableEmailSplit($email){
 function getPageContents() {
     $email = getEmail();
     $email = enableEmailSplit($email);
-    return "Please check your email <br> <em>$email </em><br> to complete an activation of your account";
+    return "Please check your email <br> <em>$email </em><br> to complete the activation process of your account";
 }
 
 ?>
