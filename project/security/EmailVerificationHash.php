@@ -1,14 +1,17 @@
 <?php
 
-function computeEmailVerificationHash__FAKE($salt, $password) {
+function computeEmailVerificationHash__FAKE() {
 
     return 'emailHash';
 }
 
-function computeEmailVerificationHash($salt, $password) {
-
-    //TODO: SHA-256, some iterations...
-
+/**
+ * Creates hash that will be included in email
+ *
+ * @return string
+ */
+function computeEmailVerificationHash() {
+    return hash("sha256", createRandomPassword(40));
 }
 
 
