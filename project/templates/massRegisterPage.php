@@ -35,17 +35,28 @@ if (!isUserAdmin_YES__FAKE()) {
 </div>
 
 
+
 <header>
     <h1>Admin :: Mass Registration</h1>
 </header>
 
 <div class="content">
+    <?php
+    // ERROR SHOWING
+    include_once "../constants/registerConstants.php";
 
-<form action="../controller/massRegistrationController.php" method="post" enctype="multipart/form-data" class="middle-relative">
+    $errorMessage = getErrorMessage();
+    if ($errorMessage != null) {
+        echo "<div class='register-status-message error-message'>";
+        echo $errorMessage;
+        echo "</div>";
+    }
+    ?>
+<!--    <div class='error-message'>Only administrators can mass register users</div>--> <!--for testing purposes-->
+<form action="../controller/massRegistrationController.php" method="post" enctype="multipart/form-data" class="middle-relative no-padding">
 
     <!--  keep  -->
     <input type="file" name="file" id="file"/>
-    <br>
     <br>
     <!--  keep  -->
     <input type="submit" name="submit"/>
@@ -54,7 +65,24 @@ if (!isUserAdmin_YES__FAKE()) {
 
 </div>
 
+<?php
 
+function getErrorMessage()
+{
+    if (isset($_GET["status"])) {
+
+        $status = $_GET["status"];
+
+        switch ($status) {
+            case ERROR_USER_NOT_ADMIN:
+                return "Only administrators can mass register users";
+        }
+    }
+
+    return null;
+}
+
+?>
 
 </body>
 </html>

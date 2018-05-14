@@ -21,6 +21,7 @@
         }
     }
     ?>
+    <!--<div class='login-status-message error-message'> Incorrect Email or Password </div>--> <!--for testing purposes-->
     <form action="../controller/loginController.php" method="post" class="login">
         <span> Email </span>
         <br><input type="text" placeholder="Email" name="email" required
