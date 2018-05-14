@@ -16,11 +16,16 @@ function processCsvFileAndSaveUsers__FAKE($csv) {
             "surname" => "PRIEZV",
             "name" =>"MENO",
             "email" => "EMAIL",
-            "school" => "SKOLA",
-            "schoolAddress" => "SKOLAAD",
-            "address" => "ADRESA",
-            "PSC" => "PSC",
-            "city" => "MESTO"
+            "password" => "HESLO",
+            "schoolName" => "SKOLA",
+            "schoolStreet" => "SKOLAAD",
+            "schoolStreetNo" => "SKOLA2",
+            "schoolPSC" => "SKOLAPSC",
+            "schoolCity" => "MESTO",
+            "userStreet" => "ULICA",
+            "userStreetNo" => "12",
+            "userCity" => "MESTO",
+            "userPSC" => "54556",
         )
     );
 
@@ -45,17 +50,7 @@ function processCsvFileAndSaveUsers($csv) {
 //        $user["password"] = createRandomPassword__FAKE(null);
         $user["password"] = "passWORD";
 
-        $isSaveSuccessful = saveUserWithAdditionalData__SUCCESS__FAKE(
-            $user["email"],
-            $user["name"],
-            $user["surname"],
-            $user["password"],
-            $user["school"],
-            $user["schoolAddress"],
-            $user["address"],
-            $user["PSC"],
-            $user["city"]
-        );
+        $isSaveSuccessful = saveUserWithAdditionalData__SUCCESS__FAKE($user);
 
         if ($isSaveSuccessful == FAILED) {
             array_push($failedUsers, $user);
@@ -104,22 +99,66 @@ function labelUserLoadedCSVMatrix($matrix) {
     $labeledArray = array();
 
     for ($i = 0; $i < sizeof($matrix); $i++) {
+        $userAddress = parseStreet($matrix[$i][6]);
+        $schoolAddress = parseSchoolAddress($matrix[$i][5]);
+
         $userDataToPush = array(
             "surname" => $matrix[$i][1],
             "name" => $matrix[$i][2],
             "email" => $matrix[$i][3],
-            "school" => $matrix[$i][4],
-            "schoolAddress" => $matrix[$i][5],
-            "address" => $matrix[$i][6],
-            "PSC" => $matrix[$i][7],
-            "city" => $matrix[$i][8],
+            "schoolName" => $matrix[$i][4],
+            "schoolStreet" => $schoolAddress["schoolStreet"],
+            "schoolStreetNo" => $schoolAddress["schoolStreetNo"],
+            "schoolCity" => $schoolAddress["schoolCity"],
+            "schoolPSC" => $schoolAddress["schoolPSC"],
+            "userStreet" => $userAddress["streetname"],
+            "userStreetNo" => $userAddress["streetnumber"],
+            "userPSC" => $matrix[$i][7],
+            "userCity" => $matrix[$i][8]
         );
 
         array_push($labeledArray, $userDataToPush);
     }
 
+    printData_DEBUG($labeledArray);
     return $labeledArray;
 
+}
+
+function parseStreet($string) {
+    if ( preg_match('/([^\d]+)\s?(.+)/i', $string, $result) ) {
+
+        $result[1] = trim($result[1]);
+        $result[2] = trim($result[2]);
+
+        return array (
+            "streetname" => $result[1],
+            "streetnumber" => $result[2]
+        );
+    } else {
+
+        return array (
+            "streetname" => $string,
+            "streetnumber" => ""
+        );
+    }
+}
+
+function parseSchoolAddress($string) {
+    $schoolAddress = explode(",", $string);
+    foreach ($schoolAddress as &$val) {
+        $val = trim($val);
+    }
+    $schoolStreet = parseStreet($schoolAddress[1]);
+
+    $toReturn = array (
+        "schoolStreet" => $schoolStreet["streetname"],
+        "schoolStreetNo" => $schoolStreet["streetnumber"],
+        "schoolCity" => $schoolAddress[0],
+        "schoolPSC" => $schoolAddress[2]
+    );
+
+    return $toReturn;
 }
 
 

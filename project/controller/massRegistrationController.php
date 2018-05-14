@@ -19,7 +19,7 @@ $csv = getFileFromPOST();
 // file successfully gotten
 if ($csv != null) {
     $results = processCsvFileAndSaveUsers($csv);
-    var_dump($results);
+    //var_dump($results);
 
 // file NOT uploaded
 } else {

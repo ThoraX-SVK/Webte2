@@ -65,12 +65,12 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
 }
 
 
-function saveUserWithAdditionalData($email, $name, $surname, $password, $school, $schoolAddress, $address, $PSC, $city) {
+function saveUserWithAdditionalData($userData) {
     // saveUserAdditionalDataToDB( -- params -- );
     return null;
 }
 
-function saveUserWithAdditionalData__SUCCESS__FAKE($email, $name, $surname, $password, $school, $schoolAddress, $address, $PSC, $city) {
+function saveUserWithAdditionalData__SUCCESS__FAKE($userData) {
     return SUCCESS;
 }
 
