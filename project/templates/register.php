@@ -14,7 +14,7 @@
 
     $errorMessage = getErrorMessage();
     if ($errorMessage != null) {
-        echo "<div class='register-status-message'>";
+        echo "<div class='register-status-message error-message'>";
         echo $errorMessage;
         echo "</div>";
     }
