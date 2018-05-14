@@ -1,8 +1,10 @@
 <?php
 
 include_once "../utils/sessionUtils.php";
+include_once "../utils/EmailValidator.php";
 include_once "../services/csvRegistrationService.php";
 include_once "../services/sendEmailService.php";
+include_once "../utils/constructVerificationEmailContent.php";
 include_once "../constants/registerConstants.php";
 
 
@@ -19,7 +21,7 @@ $csv = getFileFromPOST();
 // file successfully gotten
 if ($csv !== null) {
     $results = processCsvFileAndSaveUsers($csv);
-    //var_dump($results);
+    sendMassEmailsToSuccessfulUsers($results["successful"]);
 
 // file NOT uploaded
 } else {
@@ -27,23 +29,22 @@ if ($csv !== null) {
     echo "RIP";
 }
 
-//For each user from result...
-
-//get this from array
-$userPassword = null;
-$userEmail = null;
-
-if ($userPassword != null) {
-    //send him email with his set password
-
-    //TODO: Maybe move this email body construct functionality to utils?
-    $emailBody = 'Your pass: ' . $userPassword . '   Please login with it bla bla bla.';
-    sendEmail__FAKE($userEmail, $emailBody);
-}
-
-
 //Create table from $saveResult somehow and get it on result site
 
+
+// methods
+function sendMassEmailsToSuccessfulUsers($arrayOfUserData) {
+    foreach ($arrayOfUserData as $userData) {
+        $email = $userData["email"];
+        $password = $userData["password"];
+
+        if ($email != null and isEmailValid($email) and $password != null) {
+            $emailAttrs = constructActivationEmail($email, getUserIdFromEmail($email), $password);
+            sendEmail($email, $emailAttrs["subject"], $emailAttrs["body"], $emailAttrs["from"]);
+        }
+
+    }
+}
 
 function getFileFromPOST() {
 

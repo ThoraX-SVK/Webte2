@@ -11,7 +11,6 @@ function constructActivationEmailBody__FAKE($email, $userID) {
     return 'Testing purposes, this should be activation text and link';
 }
 
-var_dump(constructActivationEmailBody("xxxxxx", "hash"));
 
 /**
  *  Internally creates hash for user, saves it to DB. If save to DB
@@ -21,13 +20,13 @@ var_dump(constructActivationEmailBody("xxxxxx", "hash"));
  * @param $userID
  * @return null|string
  */
-function constructActivationEmailBody($email, $userID) {
+function constructActivationEmailBody($email, $userID, $password) {
 
     $verificationHash = computeEmailVerificationHash__FAKE();
 
     if(saveVerificationHash__FAKE($verificationHash, $userID)) {
 
-        $emailBody = "Pre aktiváciu účtu registrovaného na email " . $email . "kliknite prosím na nasludujúci odkaz: " .
+        $emailBody = "Pre aktiváciu účtu registrovaného na email " . $email . " s heslom " . $password . " kliknite prosím na nasludujúci odkaz: " .
             '<a href="http://147.175.98.166/project/controller/emailVerificationController.php?id=' . $userID . '&hash=' . $verificationHash . '">LINK</a>';
 
         return $emailBody;
@@ -36,8 +35,8 @@ function constructActivationEmailBody($email, $userID) {
     return null;
 }
 
-function constructActivationEmail($email, $userID) {
-    $emailBody = constructActivationEmailBody($email, $userID);
+function constructActivationEmail($email, $userID, $password) {
+    $emailBody = constructActivationEmailBody($email, $userID, $password);
     $from = DEFAULT_FROM;
     $subject = "Aktivácia účtu";
 
