@@ -6,7 +6,11 @@
     <title>Login</title>
 </head>
 <body>
-<div class="view">
+
+
+
+<body>
+<div class="main">
     <?php
 
     if (isset($_GET["status"])) {
