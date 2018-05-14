@@ -69,7 +69,7 @@ function processCsvFileAndSaveUsers($csv) {
 //        $user["password"] = createRandomPassword__FAKE(null);
         $user["password"] = "passWORD";
 
-        $result = saveUserWithAdditionalData__SUCCESS__FAKE($user);
+        $result = saveUserSuccess__FAKE("", "", "", "", "");
 
         if ($result["status"] == FAILED) {
             $user["FAILURE_REASON"] = $result["reason"];

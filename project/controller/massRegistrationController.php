@@ -36,6 +36,7 @@ if ($csv !== null) {
 
 
 // methods
+//TODO  replace with table utility in later commit
 function createMassRegisterResultsTable($arrayOfUserData) {
     $table = "<table>";
 
@@ -75,6 +76,9 @@ function getVerboseError($error) {
 
         case ERROR_EMAIL_TAKEN:
             return "Email is already taken";
+            
+        default:
+            return "Unknown error";
     }
 }
 

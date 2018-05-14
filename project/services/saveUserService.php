@@ -65,42 +65,6 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
 }
 
 
-function saveUserWithAdditionalData($userData) {
-
-    $email = $userData["email"];
-
-    if (!isEmailValid($email)) {
-        //Email not valid
-        return array(
-            "status" => FAILED,
-            "reason" => ERROR_EMAIL_INVALID
-        );
-    }
-
-    if (isEmailAlreadyInDatabase($email)) {
-        //Email is in DB
-        return array(
-            "status" => FAILED,
-            "reason" => ERROR_EMAIL_TAKEN
-        );
-    }
-
-    $userID = saveUserAdditionalDataToDB__FAKE($userData);
-
-    return array(
-        "status" => SUCCESS,
-        "userID" => $userID
-    );
-}
-
-function saveUserWithAdditionalData__SUCCESS__FAKE($userData) {
-
-    return array(
-        "status" => SUCCESS,
-        "userID" => 1
-    );
-}
-
 function isPasswordMatched($password, $passwordConfirm) {
     return $password == $passwordConfirm;
 }
