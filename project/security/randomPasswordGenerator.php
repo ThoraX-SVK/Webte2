@@ -1,16 +1,25 @@
 <?php
 
-function createRandomPassword__FAKE($params) {
+function createRandomPassword__FAKE($passwordLength = null) {
 
     return 'password';
 }
 
-function createRandomPassword($params) {
+/**
+ * Creates random string. If parameter $passwordLength is not defined
+ * default value of 8 is used.
+ *
+ * @param null $passwordLength
+ * @return bool|string
+ *
+ */
+function createRandomPassword($passwordLength = null) {
 
-    //TODO: This function will take some parameters defining user, and return some random password for him
-    //TODO: We might also completely ignore params and this will just return some pseudo random string.
+    if($passwordLength === null) {
+        $passwordLength = 8;
+    }
 
-    //placeholder
-    return null;
+    $hash = base64_encode(openssl_random_pseudo_bytes(32));
+    return substr($hash,0,$passwordLength);
 }
 

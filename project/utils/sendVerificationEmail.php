@@ -11,7 +11,7 @@ function sendActivationEmail($email, $userID) {
 
     $verificationHash = computeEmailVerificationHash__FAKE($email, $userID);
 
-    if(saveVerificationHash__FAKE($verificationHash, $userID)) {
+    if(saveVerificationHash($verificationHash, $userID)) {
         /**
          * Send email
          */

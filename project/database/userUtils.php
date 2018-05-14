@@ -157,9 +157,44 @@ function findUsersActiveRoute($userID) {
     return $result['route_fk'];
 }
 
+/**
+ * Activate account with givenID
+ *
+ * @param $userId
+ */
+function activateUserAccount($userId) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("UPDATE w2final.User SET isActivated = TRUE WHERE id = ?");
+    $stmn->bind_param("i",$userId);
+    $stmn->execute();
+
+    $stmn->close();
+    $conn->close();
+}
 
 
+/**
+ * Check whether user account is activated.
+ *
+ * @param $userId
+ * @return bool
+ */
+function isUserActivated($userId) {
 
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT isActivated FROM w2final.User WHERE id = ? AND isActivated = TRUE");
+    $stmn->bind_param("i",$userId);
+    $stmn->execute();
 
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+    if(mysqli_num_rows($result) === 0) {
+        return false;
+    }
+
+    return true;
+}
 
 

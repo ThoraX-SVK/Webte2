@@ -5,5 +5,5 @@ function generateNewSalt__FAKE() {
 }
 
 function generateSalt() {
-    
+    return sha1(openssl_random_pseudo_bytes(64));
 }
