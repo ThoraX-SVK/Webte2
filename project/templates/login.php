@@ -12,21 +12,20 @@
 <body>
 <div class="main">
     <?php
-
-    if (isset($_GET["status"])) {
-
-        $status = $_GET["status"];
-        if ($status == "INVALID") {
-            echo "<div class='login-status-message error-message'> Incorrect Email or Password</div>";
-        }
+    $errorMessage = getErrorMessage();
+    if ($errorMessage != null) {
+        echo "<div class='login-status-message error-message'>";
+        echo $errorMessage;
+        echo "</div>";
     }
     ?>
     <form action="../controller/loginController.php" method="post" class="login">
         <span> Email </span>
         <br><input type="text" placeholder="Email" name="email" required
             <?php
-            if (isset($_GET["email"])) {
-                echo 'value="' . $_GET["email"] . '"';
+            $email = getEmail();
+            if ($email != null) {
+                echo $email;
             }
             ?>
         >
@@ -44,13 +43,41 @@
         <button type="submit" class="bottom-right-button">Need help<span style="color:white; font-size: 40px;">?</span></button>
     </form>
 
-
-
 </div>
 
 </body>
 </html>
 
+<?php
+
+function getErrorMessage() {
+    include_once '../constants/loginConstants.php';
+
+    if (isset($_GET["status"])) {
+
+        $status = $_GET["status"];
+
+        switch ($status) {
+            case INVALID_LOGIN:
+                return "Incorrect Email or Password";
+            case ACCOUNT_INVACTIVE:
+                return "Account has not yet been activated";
+        }
+
+    }
+
+    return null;
+}
+
+function getEmail() {
+    if (isset($_GET["email"])) {
+        return 'value="' . $_GET["email"] . '"';
+    } else {
+        return null;
+    }
+}
+
+?>
 
 
 
