@@ -47,9 +47,6 @@ echo getMenu();
 ?>
 
 
-<?php
-showMessage();
-?>
 
 <header>
     <h1>Home Page</h1>
