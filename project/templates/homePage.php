@@ -1,18 +1,3 @@
-<?php
-include_once "../utils/sessionUtils.php";
-include_once "../database/userUtils.php";
-if(getActiveUserID__FAKE()==null){
-    header("Location: login.php");
-}
-else {
-    $userID=getActiveUserID__FAKE();
-}
-if(findUsersActiveRoute__FAKE_NULL($userID)==null)
-    {
-        header("Location: homePageNoRoute.php");
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +7,7 @@ if(findUsersActiveRoute__FAKE_NULL($userID)==null)
 <body>
 
 <?php
-showMessage();
+    showMessage();
 ?>
 
 <form action="../controller/newRunController.php" method="POST">
