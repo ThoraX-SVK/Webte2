@@ -23,7 +23,16 @@ $passwordConfirm = $_POST["password-confirm"];
 /**
  * Call UserSaveService with all params from post
  */
-$saveResult = saveUser($email, $name, $surname, $password, $passwordConfirm);
+
+$userData = createEmptyUser();
+
+$userData['email'] = $email;
+$userData['name'] = $email;
+$userData['surname'] = $email;
+$userData['password'] = $email;
+$userData['passwordConfirm'] = $email;
+
+$saveResult = saveUser($userData);
 
 // user saving failed
 if ($saveResult["status"] === FAILED) {

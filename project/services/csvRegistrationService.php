@@ -72,7 +72,12 @@ function processCsvFileAndSaveUsers($csv) {
     foreach ($userLabeledData as $user) {
         $user["password"] = createRandomPassword();
 
-        $result = saveUserSuccess__FAKE("", "", "", "", "");
+        $userData = createEmptyUser();
+
+        //TODO: Please fill data to user
+
+
+        $result = saveUserSuccess__FAKE($userData);
 
         if ($result["status"] == FAILED) {
             $user["FAILURE_REASON"] = $result["reason"];
