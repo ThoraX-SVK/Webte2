@@ -1,15 +1,13 @@
 <?php
 include_once "../utils/sessionUtils.php";
 
-if (!isUserAdmin_YES__FAKE()) {
-    header("Location: login.php");
-    return;
-}
+loginRequired();
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <meta charset="UTF-8">
     <title>Mass Registration</title>
@@ -19,11 +17,8 @@ if (!isUserAdmin_YES__FAKE()) {
 
 <?php
 include_once "../template_utils/menuGenerator.php";
-
 echo getMenu();
-
 ?>
-
 
 
 <header>
@@ -42,29 +37,27 @@ echo getMenu();
         echo "</div>";
     }
     ?>
-<!--    <div class='error-message'>Only administrators can mass register users</div>--> <!--for testing purposes-->
-    <script>
-    if((document.getElementsByClassName("error-message")[0])||(document.getElementsByClassName("success-message")[0]))
-    {
-        document.getElementsByClassName("content")[0].style.padding = "0px";
-    }
-    </script>
-<form action="../controller/massRegistrationController.php" method="post" enctype="multipart/form-data" class="middle-relative no-padding">
 
-    <!--  keep  -->
-    <input type="file" name="file" id="file"/>
-    <br>
-    <!--  keep  -->
-    <input type="submit" name="submit"/>
+    <!--    <div class='error-message'>Only administrators can mass register users</div>--> <!--for testing purposes-->
+    <form action="../controller/massRegistrationController.php" method="post" enctype="multipart/form-data"
+          class="middle-relative no-padding">
 
-</form>
+        <!--  keep  -->
+        <input type="file" name="file" id="file"/>
+        <br>
+        <!--  keep  -->
+        <input type="submit" name="submit">
+
+    </form>
+
+    <!--  response from AJAX is a table to be stored in this div  -->
+    <div id="results-table"></div>
 
 </div>
 
 <?php
 
-function getErrorMessage()
-{
+function getErrorMessage() {
     if (isset($_GET["status"])) {
 
         $status = $_GET["status"];
@@ -79,6 +72,13 @@ function getErrorMessage()
 }
 
 ?>
+
+<script>
+    if ((document.getElementsByClassName("error-message")[0]) || (document.getElementsByClassName("success-message")[0])) {
+        document.getElementsByClassName("content")[0].style.padding = "0px";
+    }
+</script>
+<script src="../static/ajaxCsvFileUpload.js"></script>
 
 </body>
 </html>
