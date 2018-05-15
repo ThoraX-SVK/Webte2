@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <meta charset="UTF-8">
     <title>Home</title>
@@ -75,9 +76,9 @@ showMessage();
         //print_r($array);
         echo $array["name"];
         echo "<br>";
+
         echo $array["totalDistance"] . "km";
     }
-
 
     function showMessage() {
         $message = getInfoMessage();
@@ -121,4 +122,3 @@ showMessage();
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2jMLmDdsCOUkT3krqIC83DVKp14kPRJ4&callback=myMap&libraries=places"></script>
 </body>
 </html>
-
