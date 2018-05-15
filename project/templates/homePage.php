@@ -82,7 +82,7 @@ echo getMenu();
 </div>
 
 <?php
-
+  
 include_once '../constants/messageConstants.php';
 
 
@@ -129,4 +129,3 @@ function getInfoMessage() {
 </div>
 </body>
 </html>
-
