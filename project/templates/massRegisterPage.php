@@ -43,6 +43,12 @@ echo getMenu();
     }
     ?>
 <!--    <div class='error-message'>Only administrators can mass register users</div>--> <!--for testing purposes-->
+    <script>
+    if((document.getElementsByClassName("error-message")[0])||(document.getElementsByClassName("success-message")[0]))
+    {
+        document.getElementsByClassName("content")[0].style.padding = "0px";
+    }
+    </script>
 <form action="../controller/massRegistrationController.php" method="post" enctype="multipart/form-data" class="middle-relative no-padding">
 
     <!--  keep  -->

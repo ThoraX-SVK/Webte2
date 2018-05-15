@@ -14,9 +14,9 @@ function getMenu() {
 
     // only show when user is admin
     if (isUserAdmin_YES__FAKE()) {
-        echo '<div class="topnav-right">';
-        echo '<a href="massRegisterPage.php">Mass register from CSV file</a>' . "\n";
-        echo '</div>';
+        $menu .= '<div class="topnav-right">';
+        $menu .= '<a href="massRegisterPage.php">Mass register from CSV file</a>' . "\n";
+        $menu .= '</div>';
     }
 
     $menu .= '</div>';
