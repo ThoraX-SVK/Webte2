@@ -2,6 +2,7 @@
 
 include_once '../database/createConnection.php';
 
+
 function getRouteInfoForMapAPI__FAKE($routeID) {
 
     //TODO: Might be totally different
