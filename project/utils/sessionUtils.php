@@ -85,6 +85,6 @@ function loginRequired() {
 
     if (!isUserLoggedIn()) {
         header('location: ../templates/login.php?status=' . LOGIN_REQUIRED);
-        return;
+        exit;
     }
 }
