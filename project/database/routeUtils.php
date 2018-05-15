@@ -229,4 +229,34 @@ function get_N_topContributorsToRouteID($routeID, $N = 5) {
     return $res_arr->getArrayCopy();
 }
 
+function getAllRoutesWithMode__FAKE($mode, $userID = null) {
+
+    return array(
+        array(
+            'distanceData' => array(
+                'totalDistance' => 300,
+                'done' => 120,
+                'remaining' => 180),
+            'name' => 'route1',
+            'isActiveForUser' => true
+        ),
+        array(
+            'distanceData' => array(
+                'totalDistance' => 1000,
+                'done' => 0,
+                'remaining' => 1000),
+            'name' => 'route2',
+            'isActiveForUser' => false
+        ),
+        array(
+            'distanceData' => array(
+                'totalDistance' => 100,
+                'done' => 23,
+                'remaining' => 77),
+            'name' => 'route3',
+            'isActiveForUser' => false
+        )
+    );
+}
+
 
