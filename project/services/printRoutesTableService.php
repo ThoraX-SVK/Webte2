@@ -7,9 +7,6 @@ include_once "../template_utils/tableGenerator.php";
 
 loginRequired();
 
-function getRoutesWithMode($mode) {
-    return array();
-}
 
 function getRouteTables() {
 
