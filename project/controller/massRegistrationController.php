@@ -21,9 +21,10 @@ $csv = getFileFromPOST();
 
 // file successfully gotten
 if ($csv !== null) {
-    $results = processCsvFileAndSaveUsers__FAKE($csv);
+    $results = processCsvFileAndSaveUsers($csv);
     $table = createMassRegisterResultsTable($results);
     sendMassEmailsToSuccessfulUsers($results["successful"]);
+
 
     echo $table;
 

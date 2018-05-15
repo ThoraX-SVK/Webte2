@@ -16,23 +16,13 @@ if (!isUserAdmin_YES__FAKE()) {
 </head>
 
 <body>
-<!--TODO: add new function to template-utils that prints whole menu bar -->
-<div class="topnav">
-    <a href="about.php">About</a>
-    <a href="login.php">Login</a>
-    <a href="homePage.php">Home</a>
-    <a href="routesPage.php">Routes</a>
 
-        <?php
-        //TODO: only echo these options if user is admin
-        if (isUserAdmin_YES__FAKE()) {
-            echo '<div class="topnav-right">';
-            echo '<a class="active" href="massRegisterPage.php">Registrations</a>';
-            echo '</div>';
-        }
-        ?>
+<?php
+include_once "../template_utils/menuGenerator.php";
 
-</div>
+echo getMenu();
+
+?>
 
 
 

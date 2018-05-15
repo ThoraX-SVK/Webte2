@@ -63,6 +63,8 @@ function getErrorMessage() {
                 return "Incorrect Email or Password";
             case ACCOUNT_INVACTIVE:
                 return "Account has not yet been activated";
+            case LOGIN_REQUIRED:
+                return "Please log in before proceeding";
         }
 
     }

@@ -14,6 +14,18 @@ function saveRun__FAKE($userID, $userActiveRouteID,
     return true;
 }
 
+function saveRun_FALSE__FAKE($userID, $userActiveRouteID,
+                       $distanceTraveled,
+                       $dateOfRun,
+                       $startAtTime,$finishAtTime,
+                       $startLatitude,$startLongitude,
+                       $endLatitude,$endLongitude,
+                       $rating,
+                       $note) {
+
+    return false;
+}
+
 function saveRun($userID, $userActiveRouteID,
                  $distanceTraveled,
                  $dateOfRun,

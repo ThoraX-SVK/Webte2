@@ -1,6 +1,9 @@
 <?php
 
 define('ADMIN_ROLE', 'ADMIN');
+define('USER_ROLE', 'USER');
+define('GUEST_ROLE', 'GUEST');
+
 
 function isUserAdmin_YES__FAKE() {
     return true;
@@ -12,8 +15,11 @@ function isUserAdmin_FALSE__FAKE() {
 
 function isUserAdmin() {
 
-    return getActiveUserRole() == ADMIN_ROLE;
+    return getActiveUserRole() === ADMIN_ROLE;
+}
 
+function isUserLoggedIn() {
+    return getActiveUserRole() !== GUEST_ROLE;
 }
 
 function getActiveUserID__FAKE() {
@@ -44,10 +50,18 @@ function getActiveUserRole__FAKE() {
 
 function getActiveUserRole() {
 
-    if (!isset($_SESSION["userRole"])) {
-        return null;
+    // not logged in
+    if (!isset($_SESSION["userID"]) or !isset($_SESSION["userEmail"]) or !isset($_SESSION["userRole"])) {
+        return GUEST_ROLE;
     }
-    return $_SESSION["userRole"];
+
+    // logged in
+    if ($_SESSION["userRole"] === ADMIN_ROLE) {
+        return ADMIN_ROLE;
+    } else {
+        return USER_ROLE;
+    }
+
 }
 
 /**
@@ -62,4 +76,15 @@ function createUserSession($userID, $email, $userRole) {
     $_SESSION["userEmail"] = $email;
     $_SESSION["userRole"] = $userRole;
 
+}
+
+/**
+ * redirects user to login page if they have not logged in yet
+ */
+function loginRequired() {
+
+    if (!isUserLoggedIn()) {
+        header('location: ../templates/login.php?status=' . LOGIN_REQUIRED);
+        exit;
+    }
 }
