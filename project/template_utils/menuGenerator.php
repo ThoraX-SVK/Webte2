@@ -7,10 +7,10 @@ function getMenu() {
 
     $menu = "";
     $menu .= '<div class="topnav">' . "\n";
-    $menu .= '<a href="about.php">About</a>' . "\n";
+    $menu .= '<a href="titlePage.php">About</a>' . "\n";
     $menu .= '<a href="login.php">Login</a>' . "\n";
     $menu .= '<a href="homePage.php">Home</a>' . "\n";
-    $menu .= '<a href="routesPage.php">Routes</a>' . "\n";
+    $menu .= '<a href="allRoutes.php">Routes</a>' . "\n";
 
     // only show when user is admin
     if (isUserAdmin_YES__FAKE()) {
