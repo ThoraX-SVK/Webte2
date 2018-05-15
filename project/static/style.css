@@ -372,5 +372,30 @@ input:-webkit-autofill {
 .progress-bar{
     height: 100%;
     background-color: #7AD58E;
-
+}
+#publicRoutes{
+    height: auto;
+    width: 100%;
+    display: none;
+    border: solid 1px black;
+}
+#privateRoutes{
+    height: auto;
+    width: 100%;
+    display: none;
+    border: solid 1px black;
+}
+#teamRoutes{
+    height: auto;
+    width: 100%;
+    display: none;
+    border: solid 1px black;
+}
+#routeButtonsHolder{
+    width: 100%;
+    display: inline;
+    height: auto;
+}
+#routeButtonsHolder input[type=button]{
+    width: 30%;
 }
