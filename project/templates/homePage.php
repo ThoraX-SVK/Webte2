@@ -7,7 +7,7 @@ if(getActiveUserID__FAKE()==null){
 else {
     $userID=getActiveUserID__FAKE();
 }
-if(findUsersActiveRoute__FAKE_NULL($userID)==1)
+if(findUsersActiveRoute__FAKE_NULL($userID)==null)
     {
         header("Location: homePageNoRoute.php");
     }
