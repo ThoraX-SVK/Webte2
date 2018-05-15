@@ -13,9 +13,7 @@ THIS IS HOMEPAGE
 */
 
 <?php
-
 ?>
 
 </body>
 </html>
-
