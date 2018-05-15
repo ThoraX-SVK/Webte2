@@ -64,10 +64,13 @@ function processCsvFileAndSaveUsers($csv) {
     $failedUsers = array();
     $successfulUsers = array();
 
+
+    //TODO remove later
+    printData_DEBUG($userLabeledData);
+
     //for every user
     foreach ($userLabeledData as $user) {
-//        $user["password"] = createRandomPassword__FAKE(null);
-        $user["password"] = "passWORD";
+        $user["password"] = createRandomPassword();
 
         $result = saveUserSuccess__FAKE("", "", "", "", "");
 
@@ -140,7 +143,6 @@ function labelUserLoadedCSVMatrix($matrix) {
         array_push($labeledArray, $userDataToPush);
     }
 
-    printData_DEBUG($labeledArray);
     return $labeledArray;
 
 }
