@@ -1,7 +1,7 @@
 <?php
 include_once "../utils/sessionUtils.php";
 
-loginRequired();
+loginRequired(ADMIN_ROLE);
 
 ?>
 <!DOCTYPE html>

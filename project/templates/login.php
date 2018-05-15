@@ -65,6 +65,8 @@ function getErrorMessage() {
                 return "Account has not yet been activated";
             case LOGIN_REQUIRED:
                 return "Please log in before proceeding";
+            case ADMIN_REQUIRED:
+                return "Please log in as ADMIN before proceeding";
         }
 
     }
