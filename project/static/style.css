@@ -295,3 +295,82 @@ input:-webkit-autofill {
     font-size: 40px;
     z-index: 2;
 }
+#map{
+    height:600px;
+    width: 600px;
+}
+#runFormHolder{
+    width: 350px;
+    font-family: Arial, Times, serif;
+    font-size: 20px;
+}
+
+#runFormHolder span{
+    float: left;
+
+}
+#runFormHolder input[type=text], #runFormHolder input[type=password], #runFormHolder input[type=time], #runFormHolder input[type=number], #runFormHolder input[type=date] {
+    width:200px;
+    padding: 5px 5px;
+    margin: 0px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    float: right;
+
+}
+
+#runFormHolder input[type=text]:focus, #runFormHolder input[type=password]:focus, #runFormHolder input[type=time]:focus, #runFormHolder input[type=number]:focus, #runFormHolder input[type=date]:focus {
+    border: 1px solid #555;
+}
+
+
+
+#runFormHolder input[type=button], #runFormHolder input[type=submit], #runFormHolder input[type=reset] {
+    background-color: #555;
+    border: none;
+    color: white;
+    margin: 0px;
+    padding: 10px 13px;
+    text-decoration: none;
+    cursor: pointer;
+    float: right;
+}
+#rightHolder{
+    float: right;
+    display: block;
+}
+#homeStats{
+    width: 350px;
+    height: auto;
+    font-family: Arial, Times, serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+.content-home{
+    margin: auto;
+    width: 1000px;
+    padding: 30px;
+    background-color:#ffffff;
+    border: 3px solid #3CA180;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    text-align:center;
+    height: 700px;
+}
+
+.progress-bar-wrapper{
+    width: 100%;
+    height: 30px;
+    border: 1px solid gray;
+    margin-top: 50px;
+}
+
+.progress-bar{
+    height: 100%;
+    background-color: #7AD58E;
+
+}
