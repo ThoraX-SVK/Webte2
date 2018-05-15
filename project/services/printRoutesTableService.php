@@ -1,51 +1,57 @@
 <?php
 
 include_once "../database/routeUtils.php";
+include_once "../utils/sessionUtils.php";
 include_once "../constants/routeConstants.php";
 include_once "../template_utils/tableGenerator.php";
 
-
+loginRequired();
 
 function getRoutesWithMode($mode) {
     return array();
 }
 
 function getRouteTables() {
-    $routes = array();
 
-    array_push($routes, array(PRIVATE_MODE => getRoutesWithMode(PRIVATE_MODE)));
-    array_push($routes, array(PUBLIC_MODE => getRoutesWithMode(PUBLIC_MODE)));
-    array_push($routes, array(TEAM_MODE => getRoutesWithMode(TEAM_MODE)));
+    if (!isUserAdmin_YES__FAKE()) {
+        $userID = getActiveUserID();
+    } else {
+        $userID = null;
+    }
 
-    $header = array();
-    $tables[PRIVATE_MODE] = assembleTable($header, $routes[PRIVATE_MODE]);
-    $tables[PUBLIC_MODE] = assembleTable($header, $routes[PUBLIC_MODE]);
-    $tables[TEAM_MODE] = assembleTable($header, $routes[TEAM_MODE]);
+    $tables = array();
+    $privateRoutes = transformRouteArrayTo2D(getAllRoutesWithMode__FAKE(PRIVATE_MODE, $userID));
+    $publicRoutes = transformRouteArrayTo2D(getAllRoutesWithMode__FAKE(PUBLIC_MODE, $userID));
+    $teamRoutes = transformRouteArrayTo2D(getAllRoutesWithMode__FAKE(TEAM_MODE, $userID));
 
-    $test = array(
-      array(
-        "a" => "AAA",
-        "b" => "BBB",
-        "c" => "CCC",
-        "d" => "DDD"
-      ),
-
-      array(
-        "a" => "AAA",
-        "b" => "BBB",
-        "c" => "CCC",
-        "d" => "DDD"
-      ),
-
-      array(
-        "a" => "AAA",
-        "b" => "BBB",
-        "c" => "CCC",
-        "d" => "DDD"
-      ),
-    );
-
+    $header = array("Name of route", "Total Distance", "Distance ran", "Distance remaining", "Activity");
     $htmlAttrs = array ("class" => "table-routes", "id" => "table-routes");
-    return assembleTable(array(), $test, $htmlAttrs);
+
+    $tables[PRIVATE_MODE] = assembleTable($header, $privateRoutes, $htmlAttrs);
+    $tables[PUBLIC_MODE] = assembleTable($header, $publicRoutes, $htmlAttrs);
+    $tables[TEAM_MODE] = assembleTable($header, $teamRoutes, $htmlAttrs);
+
+    return $tables;
 }
+
+
+function transformRouteArrayTo2D($routes) {
+
+    $result = array();
+
+    foreach ($routes as $route) {
+
+        array_push($result,
+            array(
+            $route["name"],
+            $route["distanceData"]["totalDistance"],
+            $route["distanceData"]["done"],
+            $route["distanceData"]["remaining"],
+            $route["isActiveForUser"] ? "Active" : "Inactive",
+            ));
+        }
+
+    return $result;
+}
+
 

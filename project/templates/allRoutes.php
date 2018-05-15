@@ -43,7 +43,9 @@
 <body>
 <?php
 include_once "../template_utils/menuGenerator.php";
+include_once "../utils/sessionUtils.php";
 
+loginRequired();
 echo getMenu();
 
 ?>
@@ -59,17 +61,32 @@ echo getMenu();
         <input type="button" onclick="showPrivateRoutes()" value="Show private routes" id="privateRoutesButton">
         <input type="button" onclick="showTeamRoutes()" value="Show team routes" id="teamRoutesButton">
     </div>
-    <div id="publicRoutes"><!--TODO: echo here table of public routes--></div>
-    <div id="privateRoutes"><!--TODO: echo here table of private routes--></div>
-    <div id="teamRoutes"><!--TODO: echo here table of team routes--></div>
-
 
     <?php
     include_once "../services/printRoutesTableService.php";
+    include_once "../constants/routeConstants.php";
 
-    echo getRouteTables();
+    $tables = getRouteTables();
 
     ?>
+    <div id="publicRoutes">
+        <?php
+            echo "Public routes";
+            echo $tables[PUBLIC_MODE];
+        ?>
+    </div>
+    <div id="privateRoutes">
+        <?php
+            echo "Private routes";
+            echo $tables[PRIVATE_MODE];
+        ?>
+    </div>
+    <div id="teamRoutes">
+        <?php
+            echo "Team routes";
+            echo $tables[TEAM_MODE];
+        ?>
+    </div>
 
 </div>
 
