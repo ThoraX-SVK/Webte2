@@ -25,17 +25,18 @@ if ($csv !== null) {
     $table = createMassRegisterResultsTable($results);
     sendMassEmailsToSuccessfulUsers($results["successful"]);
 
-    // echo to response (from AJAX call)
-    // do not remove
-    echo $table;
+
+   $resultsToPrintInTemplate = array ( "table" => $table );
 
 // file NOT uploaded
 } else {
 
-    echo "File not uploaded correctly!";
+    $resultsToPrintInTemplate = array ( "error" => "File not uploaded correctly!" );
 }
 
-//Create table from $saveResult somehow and get it on result site
+// echo to response (from AJAX call)
+// do not remove
+echo json_encode($resultsToPrintInTemplate);
 
 
 // methods
