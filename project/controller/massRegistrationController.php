@@ -6,6 +6,7 @@ include_once "../services/csvRegistrationService.php";
 include_once "../services/sendEmailService.php";
 include_once "../utils/constructVerificationEmailContent.php";
 include_once "../constants/registerConstants.php";
+include_once "../template_utils/tableGenerator.php";
 
 
 //check if in session there is admin logged in
@@ -36,37 +37,32 @@ if ($csv !== null) {
 
 
 // methods
-//TODO  replace with table utility in later commit
 function createMassRegisterResultsTable($arrayOfUserData) {
-    $table = "<table>";
 
-    foreach ($arrayOfUserData["failed"] as $user) {
-        $table .= assembleTableRow($user["email"], getVerboseError($user["FAILURE_REASON"]));
-    }
+    $header = array("User email", "Save status");
+    $content = getUserMassRegisterTableContent(array_merge($arrayOfUserData["successful"], $arrayOfUserData["failed"]));
 
-    foreach ($arrayOfUserData["successful"] as $user) {
-        $table .= assembleTableRow($user["email"], "Successfully created");
-    }
-
-    $table .= "</table>";
+    $table = assembleTable($header, $content);
 
     return $table;
 }
 
-function assembleTableRow($userEmail, $userStatus) {
-    $row = "";
-    $row .= "<tr>";
 
-    $row .= "<td>";
-    $row .= $userEmail;
-    $row .= "</td>";
+function getUserMassRegisterTableContent($arrayOfUserData) {
+    $content = array();
 
-    $row .= "<td>";
-    $row .= $userStatus;
-    $row .= "</td>";
+    foreach ($arrayOfUserData as $userData) {
 
-    $row .= "</tr> \n";
-    return $row;
+        if (array_key_exists("FAILURE_REASON", $userData)) {
+            $status = getVerboseError($userData["FAILURE_REASON"]);
+        } else {
+            $status = "Successfully created";
+        }
+
+        array_push($content, array($userData["email"], $status));
+    }
+
+    return $content;
 }
 
 function getVerboseError($error) {
@@ -76,7 +72,7 @@ function getVerboseError($error) {
 
         case ERROR_EMAIL_TAKEN:
             return "Email is already taken";
-            
+
         default:
             return "Unknown error";
     }
