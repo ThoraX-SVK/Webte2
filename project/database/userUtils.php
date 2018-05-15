@@ -129,6 +129,7 @@ function saveUserToDB($email, $name, $surname, $password) {
     }
 }
 
+
 function findUsersActiveRoute__FAKE($userID) {
     return 1;
 }

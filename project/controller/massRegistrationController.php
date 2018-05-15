@@ -6,6 +6,7 @@ include_once "../services/csvRegistrationService.php";
 include_once "../services/sendEmailService.php";
 include_once "../utils/constructVerificationEmailContent.php";
 include_once "../constants/registerConstants.php";
+include_once "../template_utils/tableGenerator.php";
 
 
 //check if in session there is admin logged in
@@ -20,8 +21,11 @@ $csv = getFileFromPOST();
 
 // file successfully gotten
 if ($csv !== null) {
-    $results = processCsvFileAndSaveUsers($csv);
+    $results = processCsvFileAndSaveUsers__FAKE($csv);
+    $table = createMassRegisterResultsTable($results);
     sendMassEmailsToSuccessfulUsers($results["successful"]);
+
+    echo $table;
 
 // file NOT uploaded
 } else {
@@ -33,6 +37,47 @@ if ($csv !== null) {
 
 
 // methods
+function createMassRegisterResultsTable($arrayOfUserData) {
+
+    $header = array("User email", "Save status");
+    $content = getUserMassRegisterTableContent(array_merge($arrayOfUserData["successful"], $arrayOfUserData["failed"]));
+
+    $table = assembleTable($header, $content);
+
+    return $table;
+}
+
+
+function getUserMassRegisterTableContent($arrayOfUserData) {
+    $content = array();
+
+    foreach ($arrayOfUserData as $userData) {
+
+        if (array_key_exists("FAILURE_REASON", $userData)) {
+            $status = getVerboseError($userData["FAILURE_REASON"]);
+        } else {
+            $status = "Successfully created";
+        }
+
+        array_push($content, array($userData["email"], $status));
+    }
+
+    return $content;
+}
+
+function getVerboseError($error) {
+    switch ($error) {
+        case ERROR_EMAIL_INVALID:
+            return "Invalid email given";
+
+        case ERROR_EMAIL_TAKEN:
+            return "Email is already taken";
+
+        default:
+            return "Unknown error";
+    }
+}
+
 function sendMassEmailsToSuccessfulUsers($arrayOfUserData) {
     foreach ($arrayOfUserData as $userData) {
         $email = $userData["email"];

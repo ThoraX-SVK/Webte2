@@ -65,15 +65,6 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
 }
 
 
-function saveUserWithAdditionalData($userData) {
-    // saveUserAdditionalDataToDB( -- params -- );
-    return null;
-}
-
-function saveUserWithAdditionalData__SUCCESS__FAKE($userData) {
-    return SUCCESS;
-}
-
 function isPasswordMatched($password, $passwordConfirm) {
     return $password == $passwordConfirm;
 }
