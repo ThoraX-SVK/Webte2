@@ -68,39 +68,6 @@ showMessage();
 </div>
 
 
-    <?php
-
-    include_once '../constants/messageConstants.php';
-
-
-    function showMessage() {
-        $message = getInfoMessage();
-        if ($message != null) {
-            echo "<div>";
-            echo $message;
-            echo "</div>";
-        }
-    }
-
-    function getInfoMessage() {
-
-        if (isset($_GET["status"])) {
-
-            $status = $_GET["status"];
-
-            switch ($status) {
-                case RUN_SUCCESSFULLY_SAVED:
-                    return "Your run has been successfully saved";
-                case RUN_SAVING_FAILED:
-                    return "There has been an error and your run has NOT been saved";
-            }
-
-        }
-
-        return null;
-    }
-
-    ?>
 
 </div>
 </body>
