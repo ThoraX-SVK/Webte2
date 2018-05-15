@@ -6,7 +6,7 @@ include_once "../constants/registerConstants.php";
 include_once "../constants/globallyUsedConstants.php";
 
 
-function saveUserSuccess__FAKE($email, $name, $surname, $password, $passwordConfirm) {
+function saveUserSuccess__FAKE($userData) {
 
     return array(
         "status" => SUCCESS,
@@ -14,7 +14,7 @@ function saveUserSuccess__FAKE($email, $name, $surname, $password, $passwordConf
     );
 }
 
-function saveUserFail__FAKE($email, $name, $surname, $password, $passwordConfirm) {
+function saveUserFail__FAKE($userData) {
 
     return array(
         "status" => FAILED,
@@ -22,9 +22,9 @@ function saveUserFail__FAKE($email, $name, $surname, $password, $passwordConfirm
     );
 }
 
-function saveUser($email, $name, $surname, $password, $passwordConfirm) {
+function saveUser($userData) {
 
-    if (!isPasswordMatched($password, $passwordConfirm)) {
+    if (!isPasswordMatched($userData['password'], $userData['passwordConfirm'])) {
         // password and confirm password are different
         return array(
             "status" => FAILED,
@@ -32,7 +32,7 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
         );
     }
 
-    if (!isEmailValid($email)) {
+    if (!isEmailValid($userData['email'])) {
         //Email not valid
         return array(
             "status" => FAILED,
@@ -40,7 +40,7 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
         );
     }
 
-    if (isEmailAlreadyInDatabase($email)) {
+    if (isEmailAlreadyInDatabase($userData['email'])) {
         //Email is in DB
         return array(
             "status" => FAILED,
@@ -48,7 +48,7 @@ function saveUser($email, $name, $surname, $password, $passwordConfirm) {
         );
     }
 
-    $newUserID = saveUserToDB($email, $name, $surname, $password);
+    $newUserID = saveUserToDB($userData);
 
     if ($newUserID === null) {
         //Something went wrong?

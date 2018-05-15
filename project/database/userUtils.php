@@ -7,6 +7,29 @@
 include_once '../database/createConnection.php';
 include_once '../security/saltGenerator.php';
 include_once '../security/passwordHashGenerator.php';
+include_once '../database/addressUtils.php';
+include_once '../database/schoolUtil.php';
+
+function createEmptyUser() {
+    return array (
+        "surname" => null,
+        "name" => null,
+        "email" => null,
+        "password" => null,
+        "passwordConfirm" => null,
+        "schoolName" => null,
+        "schoolCity" => null,
+        "schoolStreet" => null,
+        "schoolStreetNo" => null,
+        "schoolPSC" => null,
+        "schoolState" => null,
+        "userStreet" => null,
+        "userStreetNo" => null,
+        "userPSC" => null,
+        "userCity" => null,
+        "userState" => null
+    );
+}
 
 function getUserIdFromEmail__FAKE($email) {
     return 1;
@@ -93,37 +116,38 @@ function getUserRoleFromUserId__FAKE($userID) {
     );
 }
 
-function saveUserToDB_SUCCESS__FAKE($email, $name, $surname, $password) {
+function saveUserToDB_SUCCESS__FAKE($userData) {
     return 1;
 }
 
 
 /**
- *
  *  Function saves user to DB returning his new userID or null if
  *  user was no saved successfully.
  *
- * @param $email
- * @param $name
- * @param $surname
- * @param $password
+ * @param $userData
  * @return int|null
  */
-function saveUserToDB($email, $name, $surname, $password) {
+function saveUserToDB($userData) {
 
-    $userSalt = generateNewSalt__FAKE();
-    $hashedPassword = computePasswordHash__FAKE($userSalt,$password);
+    $userSalt = generateSalt();
+    $hashedPassword = computePasswordHash($userSalt,$userData['password']);
+
+    $homeAddressId = getAddressIDSaveIfNeeded($userData['userStreet'],$userData['userStreetNo'],$userData['userCity'],$userData['userState'],$userData['userPSC']);
+    $schoolAddressID = getAddressIDSaveIfNeeded($userData['schoolStreet'],$userData['schoolStreetNo'],$userData['schoolCity'],$userData['schoolState'],$userData['schoolPSC']);
+
+    $schoolID = getSchoolIDSaveIfNecessary($userData['schoolName'], $schoolAddressID);
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("INSERT w2final.User VALUES (DEFAULT, ?, ?, true, ?, ?, ?,null, 1)");
-    $stmn->bind_param("sssss",$userSalt,$hashedPassword, $email, $name, $surname);
+    $stmn = $conn->prepare("INSERT w2final.User VALUES (DEFAULT, ?, ?, FALSE, ?, ? , ?, ?, 1, null, ?)");
+    $stmn->bind_param("sssssii",$userSalt,$hashedPassword, $userData['email'], $userData['name'], $userData['surname'], $homeAddressId, $schoolID);
     $isSaved = $stmn->execute();
 
     $stmn->close();
     $conn->close();
 
     if($isSaved) {
-        return getUserIdFromEmail($email);
+        return getUserIdFromEmail($userData['email']);
     } else {
         return null;
     }
@@ -149,7 +173,7 @@ function findUsersActiveRoute__FAKE_NULL($userID) {
 function findUsersActiveRoute($userID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT route_fk FROM w2final.UserActiveRoute WHERE user_fk = ?");
+    $stmn = $conn->prepare("SELECT activeRoute_fk FROM w2final.User WHERE activeRoute_fk = ?");
     $stmn->bind_param("i", $userID);
     $stmn->execute();
 
@@ -159,7 +183,7 @@ function findUsersActiveRoute($userID) {
         return null;
     }
 
-    return $result['route_fk'];
+    return $result['activeRoute_fk'];
 }
 
 /**

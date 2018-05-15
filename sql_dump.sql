@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Ned 13. kvě 2018, 23:51
+-- Vytvořeno: Úte 15. kvě 2018, 21:47
 -- Verze serveru: 5.7.21-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.28-0ubuntu0.16.04.1
 
@@ -101,7 +101,7 @@ CREATE TABLE `RouteMode` (
 CREATE TABLE `Run` (
   `id` int(11) NOT NULL,
   `distance` int(11) DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
+  `date` date DEFAULT NULL,
   `startAtTime` time DEFAULT NULL,
   `endAtTime` time DEFAULT NULL,
   `startLatitude` double DEFAULT NULL,
@@ -163,19 +163,9 @@ CREATE TABLE `User` (
   `name` varchar(64) COLLATE utf8_bin DEFAULT NULL,
   `surname` varchar(64) COLLATE utf8_bin DEFAULT NULL,
   `address_fk` int(11) DEFAULT NULL,
-  `role_fk` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
--- Struktura tabulky `UserActiveRoute`
---
-
-CREATE TABLE `UserActiveRoute` (
-  `id` int(11) NOT NULL,
-  `user_fk` int(11) DEFAULT NULL,
-  `route_fk` int(11) DEFAULT NULL
+  `role_fk` int(11) DEFAULT NULL,
+  `activeRoute_fk` int(11) DEFAULT NULL,
+  `school_fk` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -296,16 +286,9 @@ ALTER TABLE `User`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `User_id_uindex` (`id`),
   ADD KEY `Adress_fk` (`address_fk`),
-  ADD KEY `Role_fk` (`role_fk`);
-
---
--- Klíče pro tabulku `UserActiveRoute`
---
-ALTER TABLE `UserActiveRoute`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UserActiveRoute_id_uindex` (`id`),
-  ADD KEY `UserActiveRoute_fk` (`user_fk`),
-  ADD KEY `ActiveRoute_fk` (`route_fk`);
+  ADD KEY `Role_fk` (`role_fk`),
+  ADD KEY `UserSchool_fk` (`school_fk`),
+  ADD KEY `ActiveRouteUser_k` (`activeRoute_fk`);
 
 --
 -- Klíče pro tabulku `UserRole`
@@ -382,11 +365,6 @@ ALTER TABLE `Street`
 ALTER TABLE `User`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pro tabulku `UserActiveRoute`
---
-ALTER TABLE `UserActiveRoute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT pro tabulku `UserRole`
 --
 ALTER TABLE `UserRole`
@@ -439,15 +417,10 @@ ALTER TABLE `School`
 -- Omezení pro tabulku `User`
 --
 ALTER TABLE `User`
+  ADD CONSTRAINT `ActiveRouteUser_k` FOREIGN KEY (`activeRoute_fk`) REFERENCES `Route` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `Adress_fk` FOREIGN KEY (`address_fk`) REFERENCES `Address` (`id`),
-  ADD CONSTRAINT `Role_fk` FOREIGN KEY (`role_fk`) REFERENCES `UserRole` (`id`);
-
---
--- Omezení pro tabulku `UserActiveRoute`
---
-ALTER TABLE `UserActiveRoute`
-  ADD CONSTRAINT `ActiveRoute_fk` FOREIGN KEY (`route_fk`) REFERENCES `Route` (`id`),
-  ADD CONSTRAINT `UserActiveRoute_fk` FOREIGN KEY (`user_fk`) REFERENCES `User` (`id`);
+  ADD CONSTRAINT `Role_fk` FOREIGN KEY (`role_fk`) REFERENCES `UserRole` (`id`),
+  ADD CONSTRAINT `UserSchool_fk` FOREIGN KEY (`school_fk`) REFERENCES `School` (`id`);
 
 --
 -- Omezení pro tabulku `VerificatonHash`
