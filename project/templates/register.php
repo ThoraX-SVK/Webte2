@@ -30,7 +30,7 @@
         <br><input type="password" placeholder="Password" name="password" required>
         <br><span> Confirm Password</span>
         <br><input type="password" placeholder="Password" name="password-confirm" required>
-        <br><input type="submit" value="Register">
+        <br><br><input type="submit" value="Register">
     </form>
 </div>
 

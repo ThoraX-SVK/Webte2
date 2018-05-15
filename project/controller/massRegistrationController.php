@@ -26,15 +26,17 @@ if ($csv !== null) {
     sendMassEmailsToSuccessfulUsers($results["successful"]);
 
 
-    echo $table;
+   $resultsToPrintInTemplate = array ( "table" => $table );
 
 // file NOT uploaded
 } else {
 
-    echo "RIP";
+    $resultsToPrintInTemplate = array ( "error" => "File not uploaded correctly!" );
 }
 
-//Create table from $saveResult somehow and get it on result site
+// echo to response (from AJAX call)
+// do not remove
+echo json_encode($resultsToPrintInTemplate);
 
 
 // methods
@@ -85,16 +87,14 @@ function sendMassEmailsToSuccessfulUsers($arrayOfUserData) {
         $password = $userData["password"];
 
         if ($email != null and isEmailValid($email) and $password != null) {
-            $emailAttrs = constructActivationEmail($email, getUserIdFromEmail($email), $password);
-            sendEmail($email, $emailAttrs["subject"], $emailAttrs["body"], $emailAttrs["from"]);
+            $emailAttrs = constructActivationEmail($email, getUserIdFromEmail__FAKE($email), $password);
+            sendEmail__FAKE($email, $emailAttrs["subject"], $emailAttrs["body"], $emailAttrs["from"]);
         }
 
     }
 }
 
 function getFileFromPOST() {
-
-    $fileError = null;
 
     if (isset($_FILES["file"]) and $_FILES["file"]["error"] <= 0) {
 

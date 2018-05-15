@@ -158,6 +158,10 @@ function findUsersActiveRoute__FAKE($userID) {
     return 1;
 }
 
+function findUsersActiveRoute__FAKE_NULL($userID) {
+    return null;
+}
+
 /**
  *  Based on given userID, function will find his active routeID to which
  *  he is currently contributing. If he is not contributing to any route

@@ -22,6 +22,10 @@ function isUserLoggedIn() {
     return getActiveUserRole() !== GUEST_ROLE;
 }
 
+function isUserLoggedIn__TRUE__FAKE() {
+    return true;
+}
+
 function getActiveUserID__FAKE() {
     return 42;
 }
@@ -80,11 +84,22 @@ function createUserSession($userID, $email, $userRole) {
 
 /**
  * redirects user to login page if they have not logged in yet
+ * @param null $role - if ADMIN_ROLE then a check is made
  */
-function loginRequired() {
+function loginRequired($role = null) {
 
-    if (!isUserLoggedIn()) {
+    if ($role === ADMIN_ROLE) {
+        if (!isUserLoggedIn__TRUE__FAKE() or !isUserAdmin_YES__FAKE()) {
+            header('location: ../templates/login.php?status=' . ADMIN_REQUIRED);
+            exit;
+        }
+    }
+
+    if (!isUserLoggedIn__TRUE__FAKE()) {
         header('location: ../templates/login.php?status=' . LOGIN_REQUIRED);
         exit;
     }
 }
+
+
+
