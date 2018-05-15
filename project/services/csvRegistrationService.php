@@ -66,7 +66,7 @@ function processCsvFileAndSaveUsers($csv) {
 
 
     //TODO remove later
-    printData_DEBUG($userLabeledData);
+    // printData_DEBUG($userLabeledData);
 
     //for every user
     foreach ($userLabeledData as $user) {
