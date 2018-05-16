@@ -336,8 +336,7 @@ function getAllRoutesWithModeVisibleForUserID($mode, $userID) {
             $result = selectPublicRoutes($userID);
             break;
         case TEAM_MODE:
-            //TODO: Later when teams are implemented
-            //$result = selectTeamRoutes($userID);
+            $result = selectTeamRoutes($userID);
             break;
         default:
     }
@@ -417,9 +416,46 @@ function selectPublicRoutes($userID) {
     return $res_arr->getArrayCopy();
 }
 
-function selectTeamRoutes() {
+function selectTeamRoutes($userID) {
 
-    return null;
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT canParticipateTo AS 'canChoose', Route.id AS 'routeID', activeRoute_fk AS 'isActiveRoute' , Route.name FROM (
+                                        SELECT Route.id AS 'canParticipateTo' FROM w2final.Route
+                                          JOIN w2final.TeamRoutes ON Route.id = TeamRoutes.route_fk
+                                          JOIN w2final.Team ON TeamRoutes.team_fk = Team.id
+                                          JOIN (SELECT team_fk AS 'userInTeam' FROM w2final.TeamMembers
+                                        WHERE user_fk = $userID
+                                        ) AS USER_IN_TEAMS
+                                    WHERE userInTeam = Team.id
+                                  ) AS CAN_PARTICIPATE_IN
+                                    RIGHT JOIN w2final.Route ON canParticipateTo = Route.id
+                                    LEFT JOIN w2final.User ON Route.id = User.activeRoute_fk");
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    $res_arr = new ArrayObject();
+    foreach ($result as $row) {
+
+        $routeID = $row['routeID'];
+        $canUserParticipate = $row['canChoose'] !== null;
+        $isActiveForUser = $row['isActiveRoute'] !== null;
+        $routeName = $row['name'];
+        $routeInfo = calculateRouteRemainingAndDoneDistance($routeID);
+
+        $res = array(
+            'distanceData' => $routeInfo,
+            'name' => $routeName,
+            'isActiveForUser' => $isActiveForUser,
+            'isUserInTeam' => $canUserParticipate
+        );
+
+        $res_arr->append($res);
+    }
+
+    return $res_arr->getArrayCopy();
 }
 
 

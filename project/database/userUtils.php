@@ -86,21 +86,31 @@ function isEmailAlreadyInDatabase($email) {
 
 function getUserFromUserId__FAKE($userID) {
 
-    //TODO: Add more stuff to represent user, might be class in future
+//    //TODO: Add more stuff to represent user, might be class in future
+//    return array(
+//        'userID' => 1,
+//        'passwordHash' => 'hash',
+//        'salt' => 'salt',
+//        'name' => 'Jozko',
+//        'surname' => 'Mrkvicka',
+//        'City' => 'Bratislava'
+//    );
     return array(
-        'userID' => 1,
-        'passwordHash' => 'hash',
         'salt' => 'salt',
-        'name' => 'Jozko',
-        'surname' => 'Mrkvicka',
-        'City' => 'Bratislava'
+        'passwordHash' => 'hash',
+        'userID' => 1,
+        'email' => "jebek@jebko.sk",
+        'name' => "Jozin",
+        'surname' => "Koko",
+        'isActivated' => true
     );
 }
 
 function getUserFromUserId($userID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT id AS 'userID', email AS 'email', name AS 'name', surname AS 'surname', isActivated AS 'isActivated'
+    $stmn = $conn->prepare("SELECT id AS 'userID', email AS 'email', name AS 'name', surname AS 'surname', isActivated AS 'isActivated',
+                                    passwordSalt AS 'salt', passwordHash AS 'passwordHash'
                                     FROM w2final.User 
                                     WHERE id = ?");
     $stmn->bind_param("i", $userID);
@@ -117,6 +127,8 @@ function getUserFromUserId($userID) {
     $row = $result->fetch_assoc();
 
     return array(
+        'salt' => $row['salt'],
+        'passwordHash' => $row['passwordHash'],
         'userID' => $row['userID'],
         'email' => $row['email'],
         'name' => $row['name'],
@@ -126,13 +138,27 @@ function getUserFromUserId($userID) {
 }
 
 function getUserRoleFromUserId($userID) {
-    //TODO: Call DB, get real user data
-    return null;
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT role_fk AS 'roleID' FROM w2final.User WHERE id = ?");
+    $stmn->bind_param("i", $userID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    if(mysqli_num_rows($result) === 0) {
+        return null;
+    }
+
+    $row = $result->fetch_assoc();
+    return $row['roleID'];
 }
 
 function getUserRoleFromUserId__FAKE($userID) {
     return array(
-        'roleID' => 1,
+        'roleID' => 2,
         'role' => ADMIN_ROLE,
     );
 }
@@ -275,6 +301,16 @@ function getAllUsers() {
     }
 
     return $res_arr->getArrayCopy();
+}
+
+function getAllUsers__FAKE() {
+    $users = array();
+
+    for ($i = 0; $i < 5; $i++) {
+        array_push($users, getUserFromUserId__FAKE(1));
+    }
+
+    return $users;
 }
 
 

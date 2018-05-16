@@ -1,9 +1,10 @@
 <?php
 
-define('ADMIN_ROLE', 'ADMIN');
-define('USER_ROLE', 'USER');
-define('GUEST_ROLE', 'GUEST');
+define('ADMIN_ROLE', 2);
+define('USER_ROLE', 1);
+define('GUEST_ROLE', 3);
 
+session_start();
 
 function isUserAdmin_YES__FAKE() {
     return true;
@@ -14,7 +15,6 @@ function isUserAdmin_FALSE__FAKE() {
 }
 
 function isUserAdmin() {
-
     return getActiveUserRole() === ADMIN_ROLE;
 }
 
@@ -89,13 +89,13 @@ function createUserSession($userID, $email, $userRole) {
 function loginRequired($role = null) {
 
     if ($role === ADMIN_ROLE) {
-        if (!isUserLoggedIn__TRUE__FAKE() or !isUserAdmin_YES__FAKE()) {
+        if (!isUserLoggedIn() or !isUserAdmin()) {
             header('location: ../templates/login.php?status=' . ADMIN_REQUIRED);
             exit;
         }
     }
 
-    if (!isUserLoggedIn__TRUE__FAKE()) {
+    if (!isUserLoggedIn()) {
         header('location: ../templates/login.php?status=' . LOGIN_REQUIRED);
         exit;
     }
