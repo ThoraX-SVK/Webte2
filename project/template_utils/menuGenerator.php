@@ -21,7 +21,7 @@ function getMenu() {
         $menu .= '<a href="addNewsPage.php">Add News</a>' . "\n";
 
     }
-    $menu .= '<a href="signOutController.php">Sign out</a>' . "\n";
+    $menu .= '<a href="../controller/signOutController.php">Sign out</a>' . "\n";
     $menu .= '</div>';
     $menu .= '</div>';
 
