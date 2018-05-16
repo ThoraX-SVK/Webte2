@@ -247,7 +247,7 @@ CREATE TABLE `VerificatonHash` (
 --
 
 --
--- Klíče pro tabulku `Address`
+-- Klíče pro tabulku `Address`
 --
 ALTER TABLE `Address`
   ADD PRIMARY KEY (`id`),
@@ -258,7 +258,7 @@ ALTER TABLE `Address`
   ADD KEY `Psc_fk` (`psc_fk`);
 
 --
--- Klíče pro tabulku `City`
+-- Klíče pro tabulku `City`
 --
 ALTER TABLE `City`
   ADD PRIMARY KEY (`id`),
@@ -266,14 +266,14 @@ ALTER TABLE `City`
   ADD UNIQUE KEY `City_cityName_uindex` (`cityName`);
 
 --
--- Klíče pro tabulku `News`
+-- Klíče pro tabulku `News`
 --
 ALTER TABLE `News`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `News_id_uindex` (`id`);
 
 --
--- Klíče pro tabulku `NewsleterSubscribers`
+-- Klíče pro tabulku `NewsleterSubscribers`
 --
 ALTER TABLE `NewsleterSubscribers`
   ADD PRIMARY KEY (`id`),
@@ -281,7 +281,7 @@ ALTER TABLE `NewsleterSubscribers`
   ADD KEY `NewsUser_fk` (`user_fk`);
 
 --
--- Klíče pro tabulku `PSC`
+-- Klíče pro tabulku `PSC`
 --
 ALTER TABLE `PSC`
   ADD PRIMARY KEY (`id`),
@@ -289,7 +289,7 @@ ALTER TABLE `PSC`
   ADD UNIQUE KEY `PSC_pscNumber_uindex` (`pscNumber`);
 
 --
--- Klíče pro tabulku `Route`
+-- Klíče pro tabulku `Route`
 --
 ALTER TABLE `Route`
   ADD PRIMARY KEY (`id`),
@@ -298,14 +298,14 @@ ALTER TABLE `Route`
   ADD KEY `UserRoute_fk` (`user_fk`);
 
 --
--- Klíče pro tabulku `RouteMode`
+-- Klíče pro tabulku `RouteMode`
 --
 ALTER TABLE `RouteMode`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `RouteMode_id_uindex` (`id`);
 
 --
--- Klíče pro tabulku `Run`
+-- Klíče pro tabulku `Run`
 --
 ALTER TABLE `Run`
   ADD PRIMARY KEY (`id`),
@@ -314,7 +314,7 @@ ALTER TABLE `Run`
   ADD KEY `UserRun_fk` (`user_fk`);
 
 --
--- Klíče pro tabulku `School`
+-- Klíče pro tabulku `School`
 --
 ALTER TABLE `School`
   ADD PRIMARY KEY (`id`),
@@ -322,7 +322,7 @@ ALTER TABLE `School`
   ADD KEY `Address_fk` (`address_fk`);
 
 --
--- Klíče pro tabulku `State`
+-- Klíče pro tabulku `State`
 --
 ALTER TABLE `State`
   ADD PRIMARY KEY (`id`),
@@ -330,7 +330,7 @@ ALTER TABLE `State`
   ADD UNIQUE KEY `State_stateName_uindex` (`stateName`);
 
 --
--- Klíče pro tabulku `Street`
+-- Klíče pro tabulku `Street`
 --
 ALTER TABLE `Street`
   ADD PRIMARY KEY (`id`),
@@ -338,28 +338,28 @@ ALTER TABLE `Street`
   ADD UNIQUE KEY `Street_streetName_uindex` (`streetName`);
 
 --
--- Klíče pro tabulku `Team`
+-- Klíče pro tabulku `Team`
 --
 ALTER TABLE `Team`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `Team_id_uindex` (`id`);
 
 --
--- Klíče pro tabulku `TeamMembers`
+-- Klíče pro tabulku `TeamMembers`
 --
 ALTER TABLE `TeamMembers`
   ADD KEY `Team_fk` (`team_fk`),
   ADD KEY `UserTeam_fk` (`user_fk`);
 
 --
--- Klíče pro tabulku `TeamRoutes`
+-- Klíče pro tabulku `TeamRoutes`
 --
 ALTER TABLE `TeamRoutes`
   ADD KEY `TeamRoutes_Route_id_fk` (`route_fk`),
   ADD KEY `TeamTeam___fk` (`team_fk`);
 
 --
--- Klíče pro tabulku `User`
+-- Klíče pro tabulku `User`
 --
 ALTER TABLE `User`
   ADD PRIMARY KEY (`id`),
@@ -370,14 +370,14 @@ ALTER TABLE `User`
   ADD KEY `ActiveRouteUser_k` (`activeRoute_fk`);
 
 --
--- Klíče pro tabulku `UserRole`
+-- Klíče pro tabulku `UserRole`
 --
 ALTER TABLE `UserRole`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `UserRole_id_uindex` (`id`);
 
 --
--- Klíče pro tabulku `VerificatonHash`
+-- Klíče pro tabulku `VerificatonHash`
 --
 ALTER TABLE `VerificatonHash`
   ADD PRIMARY KEY (`id`),

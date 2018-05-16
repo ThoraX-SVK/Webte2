@@ -43,7 +43,7 @@ showMessage();
                 <br><br><span> Distance </span>
                 <input type="text" name="distanceTraveled" required>
                 <br><br><span> Time of start </span>
-                <input type="date" name="startDate">
+                <input type="date" name="dateOfRun">
                 <br><br><span> Time of start </span>
                 <input type="time" name="startAtTime">
                 <br><br><span> Time of end </span>
@@ -69,6 +69,7 @@ showMessage();
     <?php
 
     include_once '../constants/messageConstants.php';
+    include_once '../constants/routeConstants.php';
 
     function showRouteStats() {
         include_once "../database/routeUtils.php";
@@ -100,6 +101,8 @@ showMessage();
                     return "Your run has been successfully saved";
                 case RUN_SAVING_FAILED:
                     return "There has been an error and your run has NOT been saved";
+                case ROUTE_SUCCESSFULLY_SAVED:
+                    return "Your new route has been saved";
             }
         }
 

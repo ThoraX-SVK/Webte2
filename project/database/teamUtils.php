@@ -73,7 +73,7 @@ function getTeamInfo($teamID) {
 
     $stmn = $conn->prepare("SELECT name AS 'teamName', user_fk AS 'userID'
                                    FROM w2final.Team
-                                      JOIN w2final.TeamMembers ON Team.id = TeamMembers.team_fk
+                                      LEFT JOIN w2final.TeamMembers ON Team.id = TeamMembers.team_fk
                                    WHERE id = ?");
     $stmn->bind_param("i",$teamID);
     $stmn->execute();
@@ -88,6 +88,11 @@ function getTeamInfo($teamID) {
     $teamMembersArr = new ArrayObject();
     foreach ($result as $member) {
         $teamName = $member['teamName'];
+
+        if($member['userID'] === null) {
+            continue;
+        }
+
         $memberArr = array(
             'userID' => $member['userID']
         );
@@ -118,39 +123,52 @@ function getTeamIdFFromRouteID($routeID) {
     return $row['teamID'];
 }
 
-function getAllTeams__FAKE() {
+function getAllTeams__FAKE()
+{
 
     return array(
-        array (
+        array(
             "teamID" => 1,
             "teamName" => "team 1",
-            "teamMembers" => array (
-                array ( "userID" => 1),
-                array ( "userID" => 2),)
+            "teamMembers" => array(
+                array("userID" => 1),
+                array("userID" => 2),)
         ),
-        array (
+        array(
             "teamID" => 1,
             "teamName" => "team 2",
-            "teamMembers" => array (
-                array ( "userID" => 1),
-                array ( "userID" => 5),
-                array ( "userID" => 8),
-                array ( "userID" => 11),)
+            "teamMembers" => array(
+                array("userID" => 1),
+                array("userID" => 5),
+                array("userID" => 8),
+                array("userID" => 11),)
         ),
-        array (
+        array(
             "teamID" => 1,
             "teamName" => "team 3",
-            "teamMembers" => array (
-                array ( "userID" => 3),
-                array ( "userID" => 4),
-                array ( "userID" => 5),)
+            "teamMembers" => array(
+                array("userID" => 3),
+                array("userID" => 4),
+                array("userID" => 5),)
         )
     );
 }
 
 function getAllTeams() {
 
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT id FROM w2final.Team");
+    $stmn->execute();
 
+    $result = $stmn->get_result();
+
+    $res_arr = new ArrayObject();
+    foreach ($result as $row) {
+        $res = getTeamInfo($row['id']);
+        $res_arr->append($res);
+    }
+
+    return $res_arr->getArrayCopy();
 }
 
 
