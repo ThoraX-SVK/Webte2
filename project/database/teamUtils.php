@@ -178,6 +178,13 @@ function getAllTeams() {
     return $res_arr->getArrayCopy();
 }
 
+function deleteUserFromTeam($teamID, $userID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("DELETE FROM w2final.TeamMembers WHERE user_fk = ? AND team_fk = ? ");
+    $stmn->bind_param("ii", $userID, $teamID);
+    $stmn->execute();
+}
 
 
 
