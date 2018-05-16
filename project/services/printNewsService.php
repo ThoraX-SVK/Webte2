@@ -11,6 +11,10 @@ function printNewsByPage($page, $newsPerPage = null) {
     }
 
     $allNews = getAllNews__FAKE();
+    if ($allNews === null) {
+        return array();
+    }
+
     $newsForGivenPage = getNewsForGivenPage($allNews, $page, $newsPerPage);
     $formattedNews = array();
 
