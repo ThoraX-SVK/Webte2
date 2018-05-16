@@ -11,11 +11,13 @@ function getMenu() {
     $menu .= '<a href="login.php">Login</a>' . "\n";
     $menu .= '<a href="homePage.php">Home</a>' . "\n";
     $menu .= '<a href="allRoutes.php">Routes</a>' . "\n";
+    $menu .= '<a href="newsPage.php">News</a>' . "\n";
 
     // only show when user is admin
     if (isUserAdmin_YES__FAKE()) {
         $menu .= '<div class="topnav-right">';
         $menu .= '<a href="massRegisterPage.php">Mass register from CSV file</a>' . "\n";
+        $menu .= '<a href="addNewsPage.php">Add News</a>' . "\n";
         $menu .= '</div>';
     }
 
