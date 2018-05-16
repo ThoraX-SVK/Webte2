@@ -29,8 +29,8 @@ if(checkIfLoginCorrect($email, $password)) {
      * Create session here, probably from email?
      * Also resolve if ADMIN or USER
      */
-    $userID = getUserIdFromEmail__FAKE($email);
-    $userRole = getUserRoleFromUserId__FAKE($userID);
+    $userID = getUserIdFromEmail($email);
+    $userRole = getUserRoleFromUserId($userID);
 
     if (isUserActivated($userID)) {
         createUserSession($userID, $email, $userRole["role"]);

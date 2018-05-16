@@ -37,7 +37,7 @@ function checkIfLoginCorrect($email, $password) {
     /**
      * Given email, check if user is in DB
      */
-    $userID = getUserIdFromEmail__FAKE($email);
+    $userID = getUserIdFromEmail($email);
 
     if($userID == null) {
         /**
@@ -46,10 +46,10 @@ function checkIfLoginCorrect($email, $password) {
         return false;
     }
 
-    $user = getUserFromUserId__FAKE($userID);
+    $user = getUserFromUserId($userID);
 
     $userPasswordHash = $user['passwordHash'];
-    $computedLoginHash = computePasswordHash__FAKE($user['salt'], $password);
+    $computedLoginHash = computePasswordHash($user['salt'], $password);
 
     if($userPasswordHash === $computedLoginHash) {
         return true;
