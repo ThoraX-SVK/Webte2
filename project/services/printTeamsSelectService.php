@@ -22,6 +22,6 @@ function getTeamsSelect() {
         array_push($options, $opt);
     }
 
-    return assembleSelect($options, $attrs);
 
+    return assembleSelect($options, $attrs);
 }

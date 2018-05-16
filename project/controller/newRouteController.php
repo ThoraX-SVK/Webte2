@@ -18,26 +18,35 @@ $endLongitude = getDataFromPOST('endLongitude');
 
 $userId = getActiveUserID();
 
-if (!nullCheck(array($distance, $name, $mode, $team, $startLatitude, $startLongitude, $endLatitude, $endLongitude))) {
+if (!nullCheck(array($distance, $name, $mode, $startLatitude, $startLongitude, $endLatitude, $endLongitude))) {
     redirectToHomePageWithMessage(NOT_ENOUGH_DATA);
     return;
 }
 
-//TODO assign selected Team to Route
 switch ($mode) {
     case PRIVATE_MODE:
         saveRoute_FAKE($userId, $name, $distance, $mode,
             $startLatitude, $startLongitude, $endLatitude, $endLongitude);
         break;
 
-    case PUBLIC_MODE:
     case TEAM_MODE:
-        if (isUserAdmin()) {
-            saveRoute_FAKE($userId, $name ,$distance, $mode,
-                $startLatitude, $startLongitude, $endLatitude, $endLongitude);
-        } else {
-            loginRequired(ADMIN_ROLE);
+        if ($team === null) {
+            redirectToNewRoutePageWithMessage(TEAM_REQUIRED);
+            return;
         }
+
+        loginRequired(ADMIN_ROLE);
+        saveRoute_FAKE($userId, $name ,$distance, $mode,
+            $startLatitude, $startLongitude, $endLatitude, $endLongitude);
+
+        //TODO assign Team to Route and check if team exists
+
+        break;
+
+    case PUBLIC_MODE:
+        loginRequired(ADMIN_ROLE);
+        saveRoute_FAKE($userId, $name ,$distance, $mode,
+                $startLatitude, $startLongitude, $endLatitude, $endLongitude);
         break;
 
     default:
@@ -58,6 +67,11 @@ function getDataFromPOST($key) {
 function redirectToHomePageWithMessage($status) {
     // TODO prevent input data loss -> send back in get if saving failed
     header('location: ../templates/homePage.php?status=' . $status);
+}
+
+function redirectToNewRoutePageWithMessage($status) {
+    // TODO prevent input data loss -> send back in get if saving failed
+    header('location: ../templates/newRoutePage.php?status=' . $status);
 }
 
 function nullCheck($array) {
