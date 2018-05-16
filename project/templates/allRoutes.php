@@ -73,21 +73,21 @@ echo getMenu();
     <br>
     <div id="publicRoutes">
         <?php
-            echo "Public routes";
+            echo '<h2 class="tableHeader">Public routes</h2>';
             echo $tables[PUBLIC_MODE];
         ?>
     </div>
     <br>
     <div id="privateRoutes">
         <?php
-            echo "Private routes";
+            echo '<h2 class="tableHeader">Private routes</h2>';
             echo $tables[PRIVATE_MODE];
         ?>
     </div>
     <br>
     <div id="teamRoutes">
         <?php
-            echo "Team routes";
+            echo '<h2 class="tableHeader">Team routes</h2>';
             echo $tables[TEAM_MODE];
         ?>
     </div>
