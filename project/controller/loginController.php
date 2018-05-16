@@ -33,7 +33,7 @@ if(checkIfLoginCorrect($email, $password)) {
     $userRole = getUserRoleFromUserId($userID);
 
     if (isUserActivated($userID)) {
-        createUserSession($userID, $email, $userRole["role"]);
+        createUserSession($userID, $email, $userRole);
 
         // Redirect to home page
         header('location: ../templates/homePage.php');
