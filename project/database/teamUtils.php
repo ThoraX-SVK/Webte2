@@ -13,7 +13,7 @@ function saveTeamToDB($teamData) {
     $teamID = getTeamIdFromTeamName($teamData['teamName']);
 
     if($teamID === null) {
-        return;
+        return null;
     }
 
     foreach ($teamData['teamMembers'] as $member) {
@@ -24,6 +24,8 @@ function saveTeamToDB($teamData) {
     }
 
     $conn->close();
+
+    return $teamID;
 }
 
 function getTeamIdFromTeamName__FAKE($teamName) {

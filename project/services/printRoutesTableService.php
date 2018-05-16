@@ -5,9 +5,6 @@ include_once "../utils/sessionUtils.php";
 include_once "../constants/routeConstants.php";
 include_once "../template_utils/tableGenerator.php";
 
-loginRequired();
-
-//var_dump(getRouteTables());
 
 function getRouteTables() {
 
