@@ -18,8 +18,6 @@ $endLongitude = getDataFromPOST('endLongitude');
 
 $userId = getActiveUserID();
 
-loginRequired();
-
 switch ($mode) {
     case PRIVATE_MODE:
         saveRoute_FAKE($userId, $name, $distance, $mode,
