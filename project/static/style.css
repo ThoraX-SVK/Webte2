@@ -408,20 +408,22 @@ input:-webkit-autofill {
 #publicRoutes{
     height: auto;
     width: 100%;
-    display: none;
-    border: solid 1px black;
+    display: block;
+    margin: 25px 0px;
 }
 #privateRoutes{
     height: auto;
     width: 100%;
-    display: none;
-    border: solid 1px black;
+    display: block;
+    margin: 25px 0px;
+
 }
 #teamRoutes{
     height: auto;
     width: 100%;
-    display: none;
-    border: solid 1px black;
+    display: block;
+    margin: 25px 0px;
+
 }
 #routeButtonsHolder{
     width: 100%;

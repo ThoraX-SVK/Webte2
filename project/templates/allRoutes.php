@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/allRoutesTableStyle.css">
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>All Routes</title>
     <script>
         function showPublicRoutes() {
             if (document.getElementById("publicRoutes").style.display == "block") {
@@ -57,9 +58,9 @@ echo getMenu();
 
 <div class="content">
     <div id="routeButtonsHolder">
-        <input type="button" onclick="showPublicRoutes()" value="Show public routes" id="publicRoutesButton">
-        <input type="button" onclick="showPrivateRoutes()" value="Show private routes" id="privateRoutesButton">
-        <input type="button" onclick="showTeamRoutes()" value="Show team routes" id="teamRoutesButton">
+        <input type="button" onclick="showPublicRoutes()" value="Hide public routes" id="publicRoutesButton">
+        <input type="button" onclick="showPrivateRoutes()" value="Hide private routes" id="privateRoutesButton">
+        <input type="button" onclick="showTeamRoutes()" value="Hide team routes" id="teamRoutesButton">
     </div>
 
     <?php
@@ -69,26 +70,32 @@ echo getMenu();
     $tables = getRouteTables();
 
     ?>
+    <br>
     <div id="publicRoutes">
         <?php
-            echo "Public routes";
+            echo '<h2 class="tableHeader">Public routes</h2>';
             echo $tables[PUBLIC_MODE];
         ?>
     </div>
+    <br>
     <div id="privateRoutes">
         <?php
-            echo "Private routes";
+            echo '<h2 class="tableHeader">Private routes</h2>';
             echo $tables[PRIVATE_MODE];
         ?>
     </div>
+    <br>
     <div id="teamRoutes">
         <?php
-            echo "Team routes";
+            echo '<h2 class="tableHeader">Team routes</h2>';
             echo $tables[TEAM_MODE];
         ?>
     </div>
+    <br>
+
 
     <a href="../templates/newRoutePage.php">Add new route</a>
+
 
 </div>
 
