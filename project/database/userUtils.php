@@ -100,7 +100,7 @@ function getUserFromUserId__FAKE($userID) {
 function getUserFromUserId($userID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT id AS 'userID', email AS 'email', name AS 'name', surname AS 'surname'
+    $stmn = $conn->prepare("SELECT id AS 'userID', email AS 'email', name AS 'name', surname AS 'surname', isActivated AS 'isActivated'
                                     FROM w2final.User 
                                     WHERE id = ?");
     $stmn->bind_param("i", $userID);
@@ -120,7 +120,8 @@ function getUserFromUserId($userID) {
         'userID' => $row['userID'],
         'email' => $row['email'],
         'name' => $row['name'],
-        'surname' => $row['surname']
+        'surname' => $row['surname'],
+        'isActivated' => $row['isActivated']
     );
 }
 
