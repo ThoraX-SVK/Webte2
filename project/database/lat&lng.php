@@ -5,7 +5,7 @@ function latlong()
 
     $conn = createConnectionFromConfigFileCredentials();
 
-    $sql = "SELECT street_fk,streetNumber,city_fk,state_fk FROM w2final.Address";
+    $sql = "SELECT id,street_fk,streetNumber,city_fk,state_fk FROM w2final.Address";
     $result = $conn->query($sql);
 
     $i = 0;
@@ -34,9 +34,28 @@ function latlong()
             $latlng[$i][0] = $output->results[0]->geometry->location->lat;
             $latlng[$i][1] = $output->results[0]->geometry->location->lng;
         }
+        $sql4 = "SELECT * FROM w2final.User WHERE address_fk =".$rows['id'];
+        $result4 = $conn->query($sql4);
+        $k = 0;
+        while ($row = $result4->fetch_assoc()) {
+            $k++;
+        }
+        if($k > 0){
+            $latlng[$i][2] = "1";
+        }else{ $latlng[$i][2] = "0";}
+        $sql5 = "SELECT * FROM w2final.User WHERE school_fk =".$rows['id'];
+        $result5 = $conn->query($sql5);
+        $k = 0;
+        while ($row = $result5->fetch_assoc()) {
+            $k++;
+        }
+        if($k > 0){
+            $latlng[$i][3] = "1";
+        }else{ $latlng[$i][3] = "0";}
         $i++;
     }
     $conn->close();
     return $latlng;
 }
+latlong();
 ?>
