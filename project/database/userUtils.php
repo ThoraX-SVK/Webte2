@@ -86,14 +86,21 @@ function isEmailAlreadyInDatabase($email) {
 
 function getUserFromUserId__FAKE($userID) {
 
-    //TODO: Add more stuff to represent user, might be class in future
+//    //TODO: Add more stuff to represent user, might be class in future
+//    return array(
+//        'userID' => 1,
+//        'passwordHash' => 'hash',
+//        'salt' => 'salt',
+//        'name' => 'Jozko',
+//        'surname' => 'Mrkvicka',
+//        'City' => 'Bratislava'
+//    );
     return array(
         'userID' => 1,
-        'passwordHash' => 'hash',
-        'salt' => 'salt',
-        'name' => 'Jozko',
-        'surname' => 'Mrkvicka',
-        'City' => 'Bratislava'
+        'email' => "jebek@jebko.sk",
+        'name' => "Jozin",
+        'surname' => "Koko",
+        'isActivated' => true
     );
 }
 
@@ -275,6 +282,16 @@ function getAllUsers() {
     }
 
     return $res_arr->getArrayCopy();
+}
+
+function getAllUsers__FAKE() {
+    $users = array();
+
+    for ($i = 0; $i < 5; $i++) {
+        array_push($users, getUserFromUserId__FAKE(1));
+    }
+
+    return $users;
 }
 
 

@@ -4,6 +4,7 @@ define('ADMIN_ROLE', 'ADMIN');
 define('USER_ROLE', 'USER');
 define('GUEST_ROLE', 'GUEST');
 
+session_start();
 
 function isUserAdmin_YES__FAKE() {
     return true;
