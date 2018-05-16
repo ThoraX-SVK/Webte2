@@ -1,5 +1,7 @@
 <?php
 
+include_once '../database/createConnection.php';
+
 
 function getAllNews() {
 
