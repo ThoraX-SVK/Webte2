@@ -52,7 +52,7 @@ if ($isSaved) {
 
 
 function getDataFromPOST($key) {
-    if (isset($_POST[$key])) {
+    if (isset($_POST[$key]) and $_POST[$key] !== "") {
         return $_POST[$key];
     } else {
         return null;

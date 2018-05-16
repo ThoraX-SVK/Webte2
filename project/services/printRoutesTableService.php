@@ -12,10 +12,10 @@ loginRequired();
 function getRouteTables() {
 
     //TODO: Slight change, userID CAN NOT be null.
-    if (!isUserAdmin_YES__FAKE()) {
-        $userID = getActiveUserID();
-    } else {
-        $userID = null;
+    $userID = getActiveUserID();
+    if ($userID === null) {
+        // $userID is null somehow (loginRequired implies that it is not)
+        return "FAILED: USER ID NOT GIVEN, USER IS NOT LOGGED IN.";
     }
 
     $tables = array();
