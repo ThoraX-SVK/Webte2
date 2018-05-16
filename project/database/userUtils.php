@@ -99,9 +99,30 @@ function getUserFromUserId__FAKE($userID) {
 
 function getUserFromUserId($userID) {
 
-    //TODO: Call DB, get real user data
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT id AS 'userID', email AS 'email', name AS 'name', surname AS 'surname', isActivated AS 'isActivated'
+                                    FROM w2final.User 
+                                    WHERE id = ?");
+    $stmn->bind_param("i", $userID);
+    $stmn->execute();
 
-    return null;
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    if(mysqli_num_rows($result) === 0) {
+        return null;
+    }
+
+    $row = $result->fetch_assoc();
+
+    return array(
+        'userID' => $row['userID'],
+        'email' => $row['email'],
+        'name' => $row['name'],
+        'surname' => $row['surname'],
+        'isActivated' => $row['isActivated']
+    );
 }
 
 function getUserRoleFromUserId($userID) {
@@ -178,12 +199,14 @@ function findUsersActiveRoute($userID) {
     $stmn->execute();
 
     $result = $stmn->get_result();
+    $stmn->close();
 
     if(mysqli_num_rows($result) === 0) {
         return null;
     }
 
-    return $result['activeRoute_fk'];
+    $row = $result->fetch_assoc();
+    return $row['activeRoute_fk'];
 }
 
 /**
@@ -225,5 +248,35 @@ function isUserActivated($userId) {
 
     return true;
 }
+
+function addRouteToTeam($teamID, $routeID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("INSERT w2final.TeamRoutes VALUES (?, ?)");
+    $stmn->bind_param("ii", $teamID, $routeID);
+    $stmn->execute();
+    $stmn->close();
+}
+
+function getAllUsers() {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT id FROM w2final.User");
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    $res_arr = new ArrayObject();
+    foreach ($result as $row) {
+        $res = getUserFromUserId($row['id']);
+        $res_arr->append($res);
+    }
+
+    return $res_arr->getArrayCopy();
+}
+
+
 
 

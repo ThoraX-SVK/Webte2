@@ -82,6 +82,12 @@ function saveRoute($createdByUserID, $name, $totalDistance, $mode,
     $conn->close();
 }
 
+function saveRoute_FAKE($userId, $name ,$distance, $mode,
+                        $startLatitude, $startLongitude, $endLatitude, $endLongitude)
+{
+
+}
+
 function calculateRouteRemainingAndDoneDistance__FAKE($routeID) {
     return array(
         'totalDistance' => 300,

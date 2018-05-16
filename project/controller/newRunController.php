@@ -21,8 +21,8 @@ $rating = getDataFromPOST('rating');
 $note = getDataFromPOST('note');
 
 // no null checking - already present in loginRequired()
-$userID = getActiveUserID();
-$userActiveRouteID = findUsersActiveRoute__FAKE($userID);
+$userID = getActiveUserID__FAKE();
+$userActiveRouteID = findUsersActiveRoute($userID);
 
 if ($userActiveRouteID === null) {
     //TODO redirect to active route setting
@@ -31,7 +31,7 @@ if ($userActiveRouteID === null) {
 //TODO: Check if this is needed + if time is in right format!!! (HH:mm:ss)
 $dateOfRun = date("Y-m-d");
 
-$isSaved = saveRun_FALSE__FAKE($userID, $userActiveRouteID,
+$isSaved = saveRun($userID, $userActiveRouteID,
     $distanceTraveled,
     $dateOfRun,
     $startAtTime, $finishAtTime,
@@ -48,11 +48,11 @@ if ($isSaved) {
 }
 
 // redirect to HOME PAGE with status message
-redirectToHomePageWithMessage($status);
+//redirectToHomePageWithMessage($status);
 
 
 function getDataFromPOST($key) {
-    if (isset($_POST[$key])) {
+    if (isset($_POST[$key]) and $_POST[$key] !== "") {
         return $_POST[$key];
     } else {
         return null;

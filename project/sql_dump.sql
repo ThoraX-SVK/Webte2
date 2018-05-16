@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Stř 16. kvě 2018, 11:13
+-- Vytvořeno: Stř 16. kvě 2018, 14:47
 -- Verze serveru: 5.7.21-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.28-0ubuntu0.16.04.1
 
@@ -44,6 +44,19 @@ CREATE TABLE `Address` (
 CREATE TABLE `City` (
   `id` int(11) NOT NULL,
   `cityName` varchar(64) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `News`
+--
+
+CREATE TABLE `News` (
+  `id` int(11) NOT NULL,
+  `header` varchar(128) COLLATE utf8_bin DEFAULT NULL,
+  `content` varchar(4096) COLLATE utf8_bin DEFAULT NULL,
+  `added` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -156,6 +169,39 @@ CREATE TABLE `Street` (
 -- --------------------------------------------------------
 
 --
+-- Struktura tabulky `Team`
+--
+
+CREATE TABLE `Team` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `TeamMembers`
+--
+
+CREATE TABLE `TeamMembers` (
+  `team_fk` int(11) DEFAULT NULL,
+  `user_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `TeamRoutes`
+--
+
+CREATE TABLE `TeamRoutes` (
+  `team_fk` int(11) DEFAULT NULL,
+  `route_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabulky `User`
 --
 
@@ -218,6 +264,13 @@ ALTER TABLE `City`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `City_id_uindex` (`id`),
   ADD UNIQUE KEY `City_cityName_uindex` (`cityName`);
+
+--
+-- Klíče pro tabulku `News`
+--
+ALTER TABLE `News`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `News_id_uindex` (`id`);
 
 --
 -- Klíče pro tabulku `NewsleterSubscribers`
@@ -285,6 +338,27 @@ ALTER TABLE `Street`
   ADD UNIQUE KEY `Street_streetName_uindex` (`streetName`);
 
 --
+-- Klíče pro tabulku `Team`
+--
+ALTER TABLE `Team`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `Team_id_uindex` (`id`);
+
+--
+-- Klíče pro tabulku `TeamMembers`
+--
+ALTER TABLE `TeamMembers`
+  ADD KEY `Team_fk` (`team_fk`),
+  ADD KEY `UserTeam_fk` (`user_fk`);
+
+--
+-- Klíče pro tabulku `TeamRoutes`
+--
+ALTER TABLE `TeamRoutes`
+  ADD KEY `TeamRoutes_Route_id_fk` (`route_fk`),
+  ADD KEY `TeamTeam___fk` (`team_fk`);
+
+--
 -- Klíče pro tabulku `User`
 --
 ALTER TABLE `User`
@@ -325,6 +399,11 @@ ALTER TABLE `Address`
 ALTER TABLE `City`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pro tabulku `News`
+--
+ALTER TABLE `News`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pro tabulku `NewsleterSubscribers`
 --
 ALTER TABLE `NewsleterSubscribers`
@@ -363,6 +442,11 @@ ALTER TABLE `State`
 -- AUTO_INCREMENT pro tabulku `Street`
 --
 ALTER TABLE `Street`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pro tabulku `Team`
+--
+ALTER TABLE `Team`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pro tabulku `User`
@@ -417,6 +501,20 @@ ALTER TABLE `Run`
 --
 ALTER TABLE `School`
   ADD CONSTRAINT `Address_fk` FOREIGN KEY (`address_fk`) REFERENCES `Address` (`id`);
+
+--
+-- Omezení pro tabulku `TeamMembers`
+--
+ALTER TABLE `TeamMembers`
+  ADD CONSTRAINT `Team_fk` FOREIGN KEY (`team_fk`) REFERENCES `Team` (`id`),
+  ADD CONSTRAINT `UserTeam_fk` FOREIGN KEY (`user_fk`) REFERENCES `User` (`id`);
+
+--
+-- Omezení pro tabulku `TeamRoutes`
+--
+ALTER TABLE `TeamRoutes`
+  ADD CONSTRAINT `TeamRoutes_Route_id_fk` FOREIGN KEY (`route_fk`) REFERENCES `Route` (`id`),
+  ADD CONSTRAINT `TeamTeam___fk` FOREIGN KEY (`team_fk`) REFERENCES `Team` (`id`);
 
 --
 -- Omezení pro tabulku `User`
