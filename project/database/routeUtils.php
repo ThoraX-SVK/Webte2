@@ -1,7 +1,12 @@
 <?php
 
 include_once '../database/createConnection.php';
+include_once '../constants/routeConstants.php';
 
+//DEBUGGING
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 function getRouteInfoForMapAPI__FAKE($routeID) {
 
@@ -61,12 +66,16 @@ function getRouteContributors($routeId) {
 
 }
 
-function saveRoute($creatingUserID, $totalDistance, $mode) {
+function saveRoute($createdByUserID, $name, $totalDistance, $mode,
+                   $startLatiude, $startLongitude,
+                   $endLatitude, $endLongitude) {
 
     $conn = createConnectionFromConfigFileCredentials();
 
-    $stmn = $conn->prepare("INSERT w2final.Route VALUES (DEFAULT, ?, ?, ?)");
-    $stmn->bind_param('iii',$creatingUserID,$totalDistance, $mode);
+    $stmn = $conn->prepare("INSERT w2final.Route VALUES (DEFAULT, ?, ? ,? , ?, ?, ?, ?, ?)");
+    $stmn->bind_param('isiiiiii',$createdByUserID, $name, $totalDistance, $mode,
+        $startLatiude, $startLongitude,
+        $endLatitude, $endLongitude);
     $stmn->execute();
 
     $stmn->close();
@@ -91,15 +100,15 @@ function calculateRouteRemainingAndDoneDistance__FAKE($routeID) {
 function calculateRouteRemainingAndDoneDistance($routeID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-
     //COALESCE --> When resul of SUM is NULL, replace it with 0
-    $stmn = $conn->prepare("SELECT COALESCE(SUM(Run.distance),0) AS 'done', Run.distance AS 'total'
-                                    FROM w2final.Run
-                                      RIGHT JOIN w2final.Route ON Run.route_fk = Route.id
-                                      GROUP BY Route.id
-                                      HAVING Route.id = ?");
-
-    $stmn->bind_param("i",$routeID);
+    $stmn = $conn->prepare("SELECT X.done AS 'done', Route.distance AS 'total' FROM
+                                        (SELECT COALESCE(SUM(Run.distance),0) AS 'done', Route.id AS  'id'
+                                         FROM w2final.Run
+                                            RIGHT JOIN w2final.Route ON Run.route_fk = Route.id
+                                         WHERE Run.route_fk = $routeID
+                                          ) AS X
+                                            JOIN w2final.Route ON X.id = Route.id
+                                      ");
     $stmn->execute();
 
     $result = $stmn->get_result();
@@ -230,7 +239,185 @@ function get_N_topContributorsToRouteID($routeID, $N = 5) {
     return $res_arr->getArrayCopy();
 }
 
-function getAllRoutesWithMode__FAKE($mode, $userID = null) {
+function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
+
+    switch ($mode) {
+        case PRIVATE_MODE:
+        case PUBLIC_MODE:
+        return array(
+            array(
+                'distanceData' => array(
+                    'totalDistance' => 300,
+                    'done' => 120,
+                    'remaining' => 180),
+                'name' => 'route1',
+                'isActiveForUser' => true
+            ),
+            array(
+                'distanceData' => array(
+                    'totalDistance' => 1000,
+                    'done' => 0,
+                    'remaining' => 1000),
+                'name' => 'route2',
+                'isActiveForUser' => false
+            ),
+            array(
+                'distanceData' => array(
+                    'totalDistance' => 100,
+                    'done' => 23,
+                    'remaining' => 77),
+                'name' => 'route3',
+                'isActiveForUser' => false
+            )
+        );
+            break;
+        case TEAM_MODE:
+            array(
+                array(
+                    'distanceData' => array(
+                        'totalDistance' => 1500,
+                        'done' => 500,
+                        'remaining' => 1000),
+                    'name' => 'route1',
+                    'isActiveForUser' => true,
+                    'isUserInTeam' => true
+                ),
+                array(
+                    'distanceData' => array(
+                        'totalDistance' => 1000,
+                        'done' => 250,
+                        'remaining' => 750),
+                    'name' => 'route2',
+                    'isActiveForUser' => false,
+                    'isUserInTeam' => false
+                ),
+                array(
+                    'distanceData' => array(
+                        'totalDistance' => 200,
+                        'done' => 120,
+                        'remaining' => 80),
+                    'name' => 'route3',
+                    'isActiveForUser' => false,
+                    'isUserInTeam' => true
+                )
+            );
+        default:
+    }
+
+    return null;
+}
+
+/**
+ *  Gets all routes based on common USER visibility rules:
+ *      PRIVATE - only for user that created them
+ *      PUBLIC  - get every route
+ *      TEAM - not yet implemented
+ *
+ *  This function is not supposed to get data for admin!
+ *
+ * @param $mode
+ * @param $userID
+ * @return array|null
+ */
+function getAllRoutesWithModeVisibleForUserID($mode, $userID) {
+
+    $result = null;
+    switch ($mode) {
+        case PRIVATE_MODE:
+            $result = selectPrivateRoutes($userID);
+            break;
+        case PUBLIC_MODE:
+            $result = selectPublicRoutes($userID);
+            break;
+        case TEAM_MODE:
+            //TODO: Later when teams are implemented
+            //$result = selectTeamRoutes($userID);
+            break;
+        default:
+    }
+
+    return $result;
+}
+
+function selectPrivateRoutes($userID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT Route.id AS 'routeID', activeRoute_fk AS 'usersActiveRouteID', Route.name AS 'routeName'
+                                   FROM w2final.Route
+                                      JOIN w2final.User ON Route.user_fk = User.id
+                                   WHERE user_fk = ? AND mode_fk = 1");
+    $stmn->bind_param("i", $userID);
+    $stmn->execute();
+
+
+    $result = $stmn->get_result();
+
+    $stmn->close();
+    $conn->close();
+
+    $res_arr = new ArrayObject();
+
+    foreach ($result as $row) {
+
+        $routeID = $row['routeID'];
+        $isActiveRoute = $routeID === $row['usersActiveRouteID'];
+        $routeInfo = calculateRouteRemainingAndDoneDistance($routeID);
+
+        $res = array(
+            'distanceData' => $routeInfo,
+            'name' => $row['routeName'],
+            'isActiveForUser' => $isActiveRoute
+        );
+
+        $res_arr->append($res);
+    }
+
+    return $res_arr->getArrayCopy();
+}
+
+function selectPublicRoutes($userID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT Route.id AS 'routeID', Route.name AS 'routeName', X.activeRoute_fk AS 'usersActiveRouteID' FROM
+                                      (SELECT id , activeRoute_fk
+                                       FROM w2final.User
+                                       WHERE id = $userID
+                                       ) AS X
+                                   JOIN w2final.Route
+                                   WHERE mode_fk = 2;");
+    $stmn->execute();
+    $result = $stmn->get_result();
+
+    $stmn->close();
+    $conn->close();
+
+    $res_arr = new ArrayObject();
+
+    foreach ($result as $row) {
+
+        $routeID = $row['routeID'];
+        $isActiveRoute = $routeID === $row['usersActiveRouteID'];
+        $routeInfo = calculateRouteRemainingAndDoneDistance($routeID);
+
+        $res = array(
+            'distanceData' => $routeInfo,
+            'name' => $row['routeName'],
+            'isActiveForUser' => $isActiveRoute
+        );
+
+        $res_arr->append($res);
+    }
+
+    return $res_arr->getArrayCopy();
+}
+
+function selectTeamRoutes() {
+
+    return null;
+}
+
+
+function getAllRoutesWithMode__FAKE($mode) {
 
     return array(
         array(
@@ -239,15 +426,15 @@ function getAllRoutesWithMode__FAKE($mode, $userID = null) {
                 'done' => 120,
                 'remaining' => 180),
             'name' => 'route1',
-            'isActiveForUser' => true
-        ),
+            'createdByUserID' => 3
+               ),
         array(
             'distanceData' => array(
                 'totalDistance' => 1000,
                 'done' => 0,
                 'remaining' => 1000),
             'name' => 'route2',
-            'isActiveForUser' => false
+            'createdByUserID' => 5
         ),
         array(
             'distanceData' => array(
@@ -255,9 +442,54 @@ function getAllRoutesWithMode__FAKE($mode, $userID = null) {
                 'done' => 23,
                 'remaining' => 77),
             'name' => 'route3',
-            'isActiveForUser' => false
+            'createdByUserID' => 9
         )
     );
+
 }
+
+
+/**
+ *  This function DOES NOT take visibility into account, and should only be called
+ *  if we are sure user is admin. It returns array with info + who created that route.
+ *
+ * @param $mode
+ * @return array
+ */
+function getAllRoutesWithMode($mode) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT id AS 'routeID', Route.name AS 'routeName' , user_fk AS 'createdByUserID'
+                                    FROM w2final.Route
+                                    WHERE mode_fk = ?;");
+    $stmn->bind_param("i", $mode);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+
+    $stmn->close();
+    $conn->close();
+
+    $res_arr = new ArrayObject();
+
+    foreach ($result as $row) {
+        $routeID = $row['routeID'];
+        $createdByUserID = $row['createdByUserID'];
+        $routeInfo = calculateRouteRemainingAndDoneDistance($routeID);
+
+        $res = array(
+            'distanceData' => $routeInfo,
+            'name' => $row['routeName'],
+            'createdByUserID' => $createdByUserID
+        );
+
+        $res_arr->append($res);
+    }
+
+    return $res_arr->getArrayCopy();
+}
+
+
+
 
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Úte 15. kvě 2018, 21:47
+-- Vytvořeno: Stř 16. kvě 2018, 11:13
 -- Verze serveru: 5.7.21-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.28-0ubuntu0.16.04.1
 
@@ -77,8 +77,13 @@ CREATE TABLE `PSC` (
 CREATE TABLE `Route` (
   `id` int(11) NOT NULL,
   `user_fk` int(11) DEFAULT NULL,
+  `name` varchar(128) COLLATE utf8_bin DEFAULT NULL,
   `distance` int(11) DEFAULT NULL,
-  `mode_fk` int(11) DEFAULT NULL
+  `mode_fk` int(11) DEFAULT NULL,
+  `startLatitude` double DEFAULT NULL,
+  `startLongitude` double DEFAULT NULL,
+  `endLatitude` double DEFAULT NULL,
+  `endLongitude` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
