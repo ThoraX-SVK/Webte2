@@ -103,6 +103,8 @@ showMessage();
                     return "There has been an error and your run has NOT been saved";
                 case ROUTE_SUCCESSFULLY_SAVED:
                     return "Your new route has been saved";
+                case NOT_ENOUGH_DATA:
+                    return "Not enough POST data to save route";
             }
         }
 

@@ -10,7 +10,7 @@ loginRequired();
 $distance= getDataFromPOST('distance');
 $name = getDataFromPOST('routeName');
 $mode = getDataFromPOST('mode');
-$team = getDataFromPOST('teamID');
+$team = getDataFromPOST('team');
 $startLatitude = getDataFromPOST('startLatitude');
 $startLongitude = getDataFromPOST('startLongitude');
 $endLatitude = getDataFromPOST('endLatitude');
@@ -18,6 +18,12 @@ $endLongitude = getDataFromPOST('endLongitude');
 
 $userId = getActiveUserID();
 
+if (!nullCheck(array($distance, $name, $mode, $team, $startLatitude, $startLongitude, $endLatitude, $endLongitude))) {
+    redirectToHomePageWithMessage(NOT_ENOUGH_DATA);
+    return;
+}
+
+//TODO assign selected Team to Route
 switch ($mode) {
     case PRIVATE_MODE:
         saveRoute_FAKE($userId, $name, $distance, $mode,
@@ -54,6 +60,14 @@ function redirectToHomePageWithMessage($status) {
     header('location: ../templates/homePage.php?status=' . $status);
 }
 
+function nullCheck($array) {
+    foreach ($array as $item) {
+        if ($item === null) {
+            return false;
+        }
+    }
+    return true;
+}
 
 
 
