@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
+
 <body>
 <?php
 include_once "../template_utils/menuGenerator.php";
@@ -15,11 +16,14 @@ echo getMenu();
 showMessage();
 ?>
 
+
 <header>
     <h1>Home Page</h1>
 </header>
 
+
 <div class="content-home">
+
     <?php
     include_once "../utils/sessionUtils.php";
     include_once "../database/userUtils.php";
@@ -84,7 +88,6 @@ showMessage();
     function showMessage() {
         $message = getInfoMessage();
         if ($message != null) {
-            echo "<div>";
             echo $message;
             echo "</div>";
         }
@@ -98,11 +101,11 @@ showMessage();
 
             switch ($status) {
                 case RUN_SUCCESSFULLY_SAVED:
-                    return "Your run has been successfully saved";
+                    return '<div class="success-message-wide">Your run has been successfully saved';
                 case RUN_SAVING_FAILED:
-                    return "There has been an error and your run has NOT been saved";
+                    return '<div class="error-message-wide">There has been an error and your run has NOT been saved';
                 case ROUTE_SUCCESSFULLY_SAVED:
-                    return "Your new route has been saved";
+                    return '<div class="success-message-wide">Your new route has been saved';
             }
         }
 

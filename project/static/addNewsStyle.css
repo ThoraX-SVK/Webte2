@@ -50,7 +50,6 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 
 input[type=submit]:hover{
-    background-color: black;
 }
 .content{
     height: auto;

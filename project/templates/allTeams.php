@@ -2,13 +2,24 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/allTeamStyle.css">
     <meta charset="UTF-8">
     <title>Teams</title>
 </head>
 <body>
+<?php
+include_once "../template_utils/menuGenerator.php";
+include_once "../utils/sessionUtils.php";
 
+echo getMenu();
 
-<div class="main">
+?>
+
+<header>
+    <h1>All Teams</h1>
+</header>
+
+<div class="content">
     <?php
     include_once "../services/printTeamsTableService.php";
     include_once "../utils/sessionUtils.php";
@@ -24,6 +35,8 @@
 
     ?>
 
+
+
     <a href="../templates/newTeamPage.php">Add new team</a>
 
 </div>
@@ -38,11 +51,11 @@ function showTables() {
     $tables = getTeamTables();
 
     foreach ($tables as $key => $table) {
-        echo "<h2>" . $key . "</h2> \n";
+        echo "<h2>" . $key . "</h2>\n";
         echo $table;
 
         echo "\n";
-        echo "<br/>";
+        echo "<br><hr>";
     }
 }
 
