@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/allRoutesTableStyle.css">
     <meta charset="UTF-8">
     <title>Home</title>
     <script>
@@ -57,9 +58,9 @@ echo getMenu();
 
 <div class="content">
     <div id="routeButtonsHolder">
-        <input type="button" onclick="showPublicRoutes()" value="Show public routes" id="publicRoutesButton">
-        <input type="button" onclick="showPrivateRoutes()" value="Show private routes" id="privateRoutesButton">
-        <input type="button" onclick="showTeamRoutes()" value="Show team routes" id="teamRoutesButton">
+        <input type="button" onclick="showPublicRoutes()" value="Hide public routes" id="publicRoutesButton">
+        <input type="button" onclick="showPrivateRoutes()" value="Hide private routes" id="privateRoutesButton">
+        <input type="button" onclick="showTeamRoutes()" value="Hide team routes" id="teamRoutesButton">
     </div>
 
     <?php
@@ -69,24 +70,28 @@ echo getMenu();
     $tables = getRouteTables();
 
     ?>
+    <br>
     <div id="publicRoutes">
         <?php
             echo "Public routes";
             echo $tables[PUBLIC_MODE];
         ?>
     </div>
+    <br>
     <div id="privateRoutes">
         <?php
             echo "Private routes";
             echo $tables[PRIVATE_MODE];
         ?>
     </div>
+    <br>
     <div id="teamRoutes">
         <?php
             echo "Team routes";
             echo $tables[TEAM_MODE];
         ?>
     </div>
+    <br>
 
 </div>
 
