@@ -52,10 +52,11 @@ function latlong()
         if($k > 0){
             $latlng[$i][3] = "1";
         }else{ $latlng[$i][3] = "0";}
+        echo $latlng[$i][0];
         $i++;
     }
     $conn->close();
     return $latlng;
 }
-latlong();
+
 ?>

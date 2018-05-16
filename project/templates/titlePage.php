@@ -94,7 +94,7 @@
         ];
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 7,
-            center: uluru[0],
+            center: {lat: 48.18, lng: 18.18},
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         for(i = 0;i < uluru.length;i++){
@@ -118,7 +118,7 @@
         ];
         var map1 = new google.maps.Map(document.getElementById('map1'), {
             zoom: 7,
-            center: uluru1[0],
+            center: {lat: 48.18, lng: 18.18},
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         for(i = 0;i < uluru1.length;i++){
