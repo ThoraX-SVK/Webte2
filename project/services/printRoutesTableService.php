@@ -21,14 +21,14 @@ function getRouteTables() {
 
     //TODO: Return value changed a bit, please see function. Now returns, whether user is in team to allow/bock him from
     //TODO: assigning that route
-    $teamRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID__FAKE(TEAM_MODE, $userID));
+    $teamRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(TEAM_MODE, $userID));
 
     $header = array("Name of route", "Total Distance", "Distance ran", "Distance remaining", "Activity");
     $htmlAttrs = array ("class" => "table-routes", "id" => "table-routes");
 
     $tables[PRIVATE_MODE] = assembleTable($header, $privateRoutes, $htmlAttrs);
     $tables[PUBLIC_MODE] = assembleTable($header, $publicRoutes, $htmlAttrs);
-    //$tables[TEAM_MODE] = assembleTable($header, $teamRoutes, $htmlAttrs);
+    $tables[TEAM_MODE] = assembleTable($header, $teamRoutes, $htmlAttrs);
 
     return $tables;
 }

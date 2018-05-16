@@ -185,10 +185,3 @@ function deleteUserFromTeam($teamID, $userID) {
     $stmn->bind_param("ii", $userID, $teamID);
     $stmn->execute();
 }
-
-
-
-
-
-
-
