@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <link rel="stylesheet" type="text/css" href="../static/allRoutesTableStyle.css">
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>All Routes</title>
     <script>
         function showPublicRoutes() {
             if (document.getElementById("publicRoutes").style.display == "block") {
@@ -92,6 +92,8 @@ echo getMenu();
         ?>
     </div>
     <br>
+
+    <a href="newRoutePage.php">Add New Route</a>
 
 </div>
 
