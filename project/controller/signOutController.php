@@ -3,6 +3,7 @@
 include_once "../utils/sessionUtils.php";
 
 if (isUserLoggedIn()) {
+    destroyUserSession();
     session_destroy();
 }
 
