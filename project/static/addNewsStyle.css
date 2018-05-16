@@ -1,0 +1,58 @@
+textarea{
+    width: 100%;
+    resize: vertical;
+    margin: 0px 0;
+    resize: none;
+    overflow: hidden;
+    min-height: 50px;
+}
+textarea:focus{
+    width: 100%;
+    -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+    -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+    -o-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+    transition:width 300ms ease-in-out, height 300ms ease-in-out;
+}
+span{
+    float: left;
+
+}
+input[type=text], input[type=password], input[type=time], input[type=number], input[type=date] {
+    width:100%;
+    padding: 5px 5px;
+    margin: 0px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    float: left;
+    font-weight: bold;
+
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=time]:focus, input[type=number]:focus, input[type=date]:focus {
+    border: 1px solid #555;
+}
+
+
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #555;
+    border: none;
+    color: white;
+    margin: 0px;
+    padding: 10px 13px;
+    text-decoration: none;
+    cursor: pointer;
+    float: left;
+
+}
+
+input[type=submit]:hover{
+    background-color: black;
+}
+.content{
+    height: auto;
+    padding-bottom: 50px;
+}
