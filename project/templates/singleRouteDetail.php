@@ -70,7 +70,7 @@ echo getMenu();
     ?>
     </div>
 
-    <div class="progress-bar">
+    <div class="progress-bar-route">
     <?php
         echo createProgressBar__FAKE($routeID);
     ?>
