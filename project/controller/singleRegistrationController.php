@@ -27,10 +27,10 @@ $passwordConfirm = $_POST["password-confirm"];
 $userData = createEmptyUser();
 
 $userData['email'] = $email;
-$userData['name'] = $email;
-$userData['surname'] = $email;
-$userData['password'] = $email;
-$userData['passwordConfirm'] = $email;
+$userData['name'] = $name;
+$userData['surname'] = $surname;
+$userData['password'] = $password;
+$userData['passwordConfirm'] = $passwordConfirm;
 
 $saveResult = saveUser($userData);
 

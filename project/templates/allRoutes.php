@@ -93,12 +93,13 @@ echo getMenu();
     </div>
     <br>
 
-    <a href="newRoutePage.php">Add New Route</a>
+
+    <a href="../templates/newRoutePage.php">Add new route</a>
+
 
 </div>
 
 
-</div>
 </body>
 </html>
 
