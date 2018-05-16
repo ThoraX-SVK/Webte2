@@ -3,21 +3,30 @@
 include_once "../database/routeUtils.php";
 
 function createProgressBar__FAKE($routeID) {
+    return createHTMLProgressBarString(42 , 42, 100);
+}
+
+function createHTMLProgressBarString($filledToPercent, $done, $total) {
+
     $progressBar = "";
     $progressBar .= '<div class="progress-bar-wrapper">' . "\n";
-    $progressBar .= '<div class="progress-bar" style="width: 50%"></div> ' . "\n";
+    $progressBar .= '<div class="progress-bar" style="width:' .  $filledToPercent . '%">'. $done . '/'. $total .'</div> ' . "\n";
     $progressBar .= '</div>' . "\n";
 
-
     return $progressBar;
-
-    //return fake representation of progress bar
 }
 
 function createProgressBar($routeID) {
 
-    $contributors = getRouteContributors__FAKE($routeID);
+    $calculations = calculateRouteRemainingAndDoneDistance($routeID);
 
-    //TODO: Construct progress bar
+    $percentToFill = floor(($calculations['done'] / $calculations['totalDistance'])*100);
+
+    echo $percentToFill;
+
+    if($percentToFill > 100) {
+        $percentToFill = 100;
+    }
+
+    return createHTMLProgressBarString($percentToFill, $calculations['done'], $calculations['totalDistance']);
 }
-

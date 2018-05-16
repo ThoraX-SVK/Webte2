@@ -77,6 +77,9 @@ showMessage();
 
     function showRouteStats() {
         include_once "../database/routeUtils.php";
+
+
+
         $array = getRouteShortDescription__FAKE(null);
         //print_r($array);
         echo $array["name"];
@@ -119,7 +122,7 @@ showMessage();
 
     <?php
     include_once '../services/progressBarService.php';
-    echo createProgressBar__FAKE(null);
+    echo createProgressBar($userID);
     ?>
 
 </div>
