@@ -2,3 +2,5 @@
 define("PRIVATE_MODE" , 1);
 define("PUBLIC_MODE", 2);
 define("TEAM_MODE", 3);
+
+define("ROUTE_SUCCESSFULLY_SAVED", "ROUTE_SUCCESSFULLY_SAVED");
