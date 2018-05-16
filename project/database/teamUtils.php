@@ -17,15 +17,20 @@ function saveTeamToDB($teamData) {
     }
 
     foreach ($teamData['teamMembers'] as $member) {
-        $stmn2 = $conn->prepare("INSERT w2final.TeamMembers VALUES (?, ?)");
-        $stmn2->bind_param("ii", $teamID, $member['userID']);
-        $stmn2->execute();
-        $stmn2->close();
+        addUserToTeam($conn, $teamID, $member['userID']);
     }
 
     $conn->close();
 
     return $teamID;
+}
+
+function addUserToTeam(mysqli $conn, $teamId, $userID) {
+
+    $stmn = $conn->prepare("INSERT w2final.TeamMembers VALUES (?, ?)");
+    $stmn->bind_param("ii", $teamID, $userID);
+    $stmn->execute();
+    $stmn->close();
 }
 
 function getTeamIdFromTeamName__FAKE($teamName) {
