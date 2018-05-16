@@ -82,6 +82,14 @@ function createUserSession($userID, $email, $userRole) {
 
 }
 
+function destroyUserSession() {
+
+    $_SESSION["userID"] = null;
+    $_SESSION["userEmail"] = null;
+    $_SESSION["userRole"] = null;
+
+}
+
 /**
  * redirects user to login page if they have not logged in yet
  * @param null $role - if ADMIN_ROLE then a check is made
