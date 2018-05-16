@@ -79,7 +79,17 @@
 <!-- JS nakonci setri load time -->
 <script>
     function initMap() {
-        var uluru = [{lat:13.13,lng:22.22}];
+        var uluru = [
+            <?php
+            require_once("../database/lat&lng.php");
+            $lonlat = latlong();
+            for ($i = 0;$i<count($lonlat);$i++){
+                echo "{lat: ".$lonlat[$i][0].", lng: ".$lonlat[$i][1]."}";
+                if($i != count($lonlat)-1)
+                    echo ",";
+            }
+            ?>
+        ];
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 7,
             center: uluru[0],
