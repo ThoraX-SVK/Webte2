@@ -57,8 +57,18 @@
                     <li><a href="#section3">Map by schools</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="./register.php">Regiter</a></li>
-                    <li><a href="./login.php">Login</a></li>
+                    <li><a href="./register.php">Register</a></li>
+
+                    <?php
+
+                    include_once "../utils/sessionUtils.php";
+                        if (!isUserLoggedIn()) {
+                            echo '<li><a href="./login.php">Login</a></li>';
+                        } else {
+                            echo '<li><a href="./homePage.php">logged in</a></li>';
+                        }
+                    ?>
+
                 </ul>
             </div>
         </div>

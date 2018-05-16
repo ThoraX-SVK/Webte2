@@ -8,26 +8,18 @@
 <body>
 
 
-
-<body>
 <div class="main">
     <?php
-    $errorMessage = getErrorMessage();
-    if ($errorMessage != null) {
-        echo "<div class='login-status-message error-message'>";
-        echo $errorMessage;
-        echo "</div>";
-    }
+        include_once "../utils/sessionUtils.php";
+        redirectIfLoggedIn();
+        showErrorMessage();
     ?>
     <!--<div class='login-status-message error-message'> Incorrect Email or Password </div>--> <!--for testing purposes-->
     <form action="../controller/loginController.php" method="post" class="login">
         <span> Email </span>
         <br><input type="text" placeholder="Email" name="email" required
             <?php
-            $email = getEmail();
-            if ($email != null) {
-                echo $email;
-            }
+                echo getEmail();
             ?>
         >
         <br><br><span> Password </span>
@@ -50,6 +42,23 @@
 </html>
 
 <?php
+
+function redirectIfLoggedIn() {
+
+    if (isUserLoggedIn()) {
+        header('location: ../templates/homePage.php');
+        exit;
+    }
+}
+
+function showErrorMessage() {
+    $errorMessage = getErrorMessage();
+    if ($errorMessage != null) {
+        echo "<div class='login-status-message error-message'>";
+        echo $errorMessage;
+        echo "</div>";
+    }
+}
 
 function getErrorMessage() {
     include_once '../constants/loginConstants.php';
@@ -78,7 +87,7 @@ function getEmail() {
     if (isset($_GET["email"])) {
         return 'value="' . $_GET["email"] . '"';
     } else {
-        return null;
+        return "";
     }
 }
 
