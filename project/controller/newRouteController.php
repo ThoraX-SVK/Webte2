@@ -5,21 +5,14 @@ include_once "../constants/routeConstants.php";
 include_once '../utils/sessionUtils.php';
 include_once '../database/routeUtils.php';
 
-$distance= null;
-$mode = null;
-$team = null;
-
-if(isset($_POST['distance'])) {
-    $distance = $_POST['distance'];
-}
-
-if(isset($_POST['mode'])) {
-    $mode = $_POST['mode'];
-}
-
-if(isset($_POST['teamID']) && $mode === TEAM_MODE) {
-    $team = $_POST['teamID'];
-}
+$distance= getDataFromPOST('distance');
+$name = getDataFromPOST('routeName');
+$mode = getDataFromPOST('mode');
+$team = getDataFromPOST('teamID');
+$startLatitude = getDataFromPOST('startLatitude');
+$startLongitude = getDataFromPOST('startLongitude');
+$endLatitude = getDataFromPOST('endLatitude');
+$endLongitude = getDataFromPOST('endLongitude');
 
 $userId = getActiveUserID();
 
@@ -33,13 +26,15 @@ if($mode === null) {
 
 switch ($mode) {
     case PRIVATE_MODE:
-        saveRoute($userId, $distance, $mode);
+        saveRoute($userId, $name, $distance, $mode,
+            $startLatitude, $startLongitude, $endLatitude, $endLongitude);
         break;
 
     case PUBLIC_MODE:
     case TEAM_MODE:
         if (isUserAdmin()) {
-            saveRoute($userId, $distance, $mode);
+            saveRoute($userId, $name ,$distance, $mode,
+                $startLatitude, $startLongitude, $endLatitude, $endLongitude);
         } else {
             //TODO: Give error message back?
         }
@@ -47,6 +42,14 @@ switch ($mode) {
 
     default:
         break;
+}
+
+function getDataFromPOST($key) {
+    if (isset($_POST[$key])) {
+        return $_POST[$key];
+    } else {
+        return null;
+    }
 }
 
 
