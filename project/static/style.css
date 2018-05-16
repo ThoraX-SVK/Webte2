@@ -409,19 +409,21 @@ input:-webkit-autofill {
     height: auto;
     width: 100%;
     display: block;
-    border: solid 1px black;
+    margin: 25px 0px;
 }
 #privateRoutes{
     height: auto;
     width: 100%;
     display: block;
-    border: solid 1px black;
+    margin: 25px 0px;
+
 }
 #teamRoutes{
     height: auto;
     width: 100%;
     display: block;
-    border: solid 1px black;
+    margin: 25px 0px;
+
 }
 #routeButtonsHolder{
     width: 100%;
