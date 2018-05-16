@@ -43,7 +43,7 @@ showMessage();
                 <br><br><span> Distance </span>
                 <input type="text" name="distanceTraveled" required>
                 <br><br><span> Time of start </span>
-                <input type="date" name="startDate">
+                <input type="date" name="dateOfRun">
                 <br><br><span> Time of start </span>
                 <input type="time" name="startAtTime">
                 <br><br><span> Time of end </span>
