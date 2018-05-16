@@ -16,20 +16,22 @@ if (!nullCheck(array($teamName)) or sizeof($teamMembersIDs) == 0) {
     return;
 }
 
+$teamMembersIDs = array_unique($teamMembersIDs, SORT_NUMERIC );
+$teamMembers = array();
+foreach ($teamMembersIDs as $memberID) {
+    array_push($teamMembers, array("userID" => $memberID));
+}
+
 // prepare teamData and save to DB
 $teamData = array(
-    "teamName" => $teamName
+    "teamName" => $teamName,
+    "teamMembers" => $teamMembers
 );
 
 $teamID = saveTeamToDB($teamData);
 if ($teamID === null) {
     redirectToNewTeamPageWithMessage(TEAM_SAVING_FAILED);
     return;
-}
-
-foreach ($teamMembersIDs as $userID) {
-    //TODO assign users to team
-    // assignUserToTeam($userID, $teamID);
 }
 
 
