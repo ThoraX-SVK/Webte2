@@ -13,6 +13,8 @@ function createHTMLProgressBarString($filledToPercent, $done, $total) {
     $progressBar .= '<div class="progress-bar" style="width:' .  $filledToPercent . '%">'. $done . '/'. $total .'</div> ' . "\n";
     $progressBar .= '</div>' . "\n";
 
+//    print_r($progressBar);
+
     return $progressBar;
 }
 
