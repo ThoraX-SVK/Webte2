@@ -14,9 +14,8 @@
 <?php
 include_once "../template_utils/menuGenerator.php";
 include_once "../utils/sessionUtils.php";
-include_once "../services/printRouteLastRunsTableService.php";
-include_once "../constants/routeConstants.php";
-include_once "../database/routeUtils.php";
+include_once "../services/progressBarService.php";
+include_once "../services/singleRouteServices.php";
 
 loginRequired();
 
@@ -48,22 +47,35 @@ $userID = getActiveUserID();
 
 <body>
 <?php
-
 echo getMenu();
-
 ?>
 
 <header>
-    <h1>All routes</h1>
+    <h1>Route</h1>
 </header>
 
 <div class="content">
 
+    <div class="route-last-runs">
+        <h2>Last runs NIGGA</h2>
     <?php
-
-    echo getLastRunsTable($routeID);
-    printRouteDescription($routeID);
+        echo getLastRunsTable($routeID);
     ?>
+    </div>
+
+    <div class="route-description">
+        <h2>Description NIGGA</h2>
+    <?php
+        printRouteDescription($routeID);
+    ?>
+    </div>
+
+    <div class="progress-bar">
+    <?php
+        echo createProgressBar__FAKE($routeID);
+    ?>
+    </div>
+
 
 </div>
 
@@ -73,16 +85,14 @@ echo getMenu();
 <?php
 
 function printRouteDescription($routeID) {
-    $desc = getRouteFullDescription__FAKE($routeID);
+    $desc = getFullRouteDescription($routeID);
 
-    echo $desc["name"];
-    echo $desc["totalDistance"];
-    echo $desc["mode"];
-    echo $desc["startLatitude"];
-    echo $desc["startLongitude"];
-    echo $desc["endLatitude"];
-    echo $desc["endLongitude"];
+    echo $desc["name"] . "<br/> \n";
+    echo $desc["totalDistance"] . "<br/> \n";
+    echo $desc["activeContributorsCount"] . "<br/> \n";
+    echo $desc["routeMode"] . "<br/> \n";
 }
 
 ?>
+
 

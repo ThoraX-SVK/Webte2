@@ -34,3 +34,27 @@ function getLastRunsTable($routeID) {
 }
 
 
+function getFullRouteDescription($routeID) {
+
+    $desc = getRouteFullDescription__FAKE($routeID);
+
+    switch ($desc["routeMode"]) {
+        case PRIVATE_MODE:
+            $desc["routeMode"] = "Private mode";
+            break;
+        case PUBLIC_MODE:
+            $desc["routeMode"] = "Public mode";
+            break;
+        case TEAM_MODE:
+            $desc["routeMode"] = "Team mode";
+            break;
+        default:
+            $desc["routeMode"] = "Unknown mode - this is not supposed to happen";
+            break;
+    }
+
+    return $desc;
+
+}
+
+
