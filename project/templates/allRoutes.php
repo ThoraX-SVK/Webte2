@@ -88,10 +88,11 @@ echo getMenu();
         ?>
     </div>
 
+    <a href="../templates/newRoutePage.php">Add new route</a>
+
 </div>
 
 
-</div>
 </body>
 </html>
 
