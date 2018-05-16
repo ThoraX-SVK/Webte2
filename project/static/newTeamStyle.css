@@ -1,0 +1,50 @@
+select {
+    margin: 50px;
+    width: auto;
+    padding: 5px 35px 5px 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    height: 34px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #e5e5e5;
+}
+
+select::-ms-expand {
+    display: none; /* remove default arrow in IE 10 and 11 */
+}
+
+/* target Internet Explorer 9 to undo the custom arrow */
+@media screen and (min-width:0\0) {
+    select {
+        background:none\9;
+        padding: 5px\9;
+    }
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 5px 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    float: right;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+input[type=button]{
+    background-color: #e5e5e5;
+    color: black;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: auto;
+}
+
+input[type=text]:focus{
+    border: 1px solid #555;
+}
