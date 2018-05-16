@@ -120,7 +120,7 @@ function getTeamIdFFromRouteID($routeID) {
 
 function getAllTeams__FAKE() {
 
-    array(
+    return array(
         array (
             "teamID" => 1,
             "teamName" => "team 1",
