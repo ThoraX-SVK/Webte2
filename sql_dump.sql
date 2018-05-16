@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Stř 16. kvě 2018, 13:24
+-- Vytvořeno: Stř 16. kvě 2018, 14:47
 -- Verze serveru: 5.7.21-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.28-0ubuntu0.16.04.1
 
@@ -44,6 +44,19 @@ CREATE TABLE `Address` (
 CREATE TABLE `City` (
   `id` int(11) NOT NULL,
   `cityName` varchar(64) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `News`
+--
+
+CREATE TABLE `News` (
+  `id` int(11) NOT NULL,
+  `header` varchar(128) COLLATE utf8_bin DEFAULT NULL,
+  `content` varchar(4096) COLLATE utf8_bin DEFAULT NULL,
+  `added` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -253,6 +266,13 @@ ALTER TABLE `City`
   ADD UNIQUE KEY `City_cityName_uindex` (`cityName`);
 
 --
+-- Klíče pro tabulku `News`
+--
+ALTER TABLE `News`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `News_id_uindex` (`id`);
+
+--
 -- Klíče pro tabulku `NewsleterSubscribers`
 --
 ALTER TABLE `NewsleterSubscribers`
@@ -377,6 +397,11 @@ ALTER TABLE `Address`
 -- AUTO_INCREMENT pro tabulku `City`
 --
 ALTER TABLE `City`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pro tabulku `News`
+--
+ALTER TABLE `News`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pro tabulku `NewsleterSubscribers`
