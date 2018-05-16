@@ -183,7 +183,8 @@ function findUsersActiveRoute($userID) {
         return null;
     }
 
-    return $result['activeRoute_fk'];
+    $row = $result->fetch_assoc();
+    return $row['activeRoute_fk'];
 }
 
 /**

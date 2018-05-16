@@ -27,7 +27,7 @@ function isUserLoggedIn__TRUE__FAKE() {
 }
 
 function getActiveUserID__FAKE() {
-    return 42;
+    return 1;
 }
 
 /**
