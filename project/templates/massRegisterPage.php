@@ -25,18 +25,21 @@ echo getMenu();
     <h1>Admin :: Mass Registration</h1>
 </header>
 
-<div class="content">
-    <?php
-    // ERROR SHOWING
-    include_once "../constants/registerConstants.php";
+<?php
+// ERROR SHOWING
+include_once "../constants/registerConstants.php";
 
-    $errorMessage = getErrorMessage();
-    if ($errorMessage != null) {
-        echo "<div class='register-status-message error-message'>";
-        echo $errorMessage;
-        echo "</div>";
-    }
-    ?>
+$errorMessage = getErrorMessage();
+if ($errorMessage != null) {
+    echo "<div class='register-status-message error-message-wide'>";
+    echo $errorMessage;
+    echo "</div>";
+}
+?>
+
+<div class="content">
+
+
 
     <!--    <div class='error-message'>Only administrators can mass register users</div>--> <!--for testing purposes-->
     <form action="../controller/massRegistrationController.php" method="post" enctype="multipart/form-data"

@@ -168,7 +168,39 @@ a {text-decoration: none;
     font-size: 30px;
     position: absolute;
     top: 0px;
+}
 
+.error-message-wide{
+    position: fixed;
+    bottom:0%;
+    width:100%;
+    background-color: #393838;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-family: Arial, Times, serif;
+    font-size: 30px;
+    padding-top: 3px;
+    border-top: 3px solid #a12020;
+    color: black;
+    height: 40px;
+    text-align: center;
+    z-index: 2;
+}
+.success-message-wide{
+    position: fixed;
+    bottom:0%;
+    width:100%;
+    background-color: #393838;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-family: Arial, Times, serif;
+    font-size: 30px;
+    padding-top: 3px;
+    border-top: 3px solid #3CA180;
+    color: black;
+    height: 40px;
+    text-align: center;
+    z-index: 2;
 }
 
 input[type=text], input[type=password] {
