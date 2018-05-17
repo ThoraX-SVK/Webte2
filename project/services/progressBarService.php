@@ -22,9 +22,16 @@ function createProgressBar($routeID) {
 
     $calculations = calculateRouteRemainingAndDoneDistance($routeID);
 
-    $percentToFill = floor(($calculations['done'] / $calculations['totalDistance'])*100);
+    if($calculations['totalDistance'] === null) {
+        //No track found
+        return null;
+    }
 
-    echo $percentToFill;
+    if($calculations['done'] !== null) {
+        $percentToFill = floor(($calculations['done'] / $calculations['totalDistance'])*100);
+    } else {
+        $percentToFill = 0;
+    }
 
     if($percentToFill > 100) {
         $percentToFill = 100;

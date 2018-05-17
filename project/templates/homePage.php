@@ -28,9 +28,9 @@ showMessage();
     include_once "../utils/sessionUtils.php";
     include_once "../database/userUtils.php";
 
-    $userID = getActiveUserID__FAKE();
-    if (findUsersActiveRoute__FAKE($userID) == null) {
-        echo 'You have no active route yet. You can either select one of <a href="routes.php"><em><strong> available routes</strong></em></a> or <a href="createRoute.php"><em><strong> create a new one</strong></em></a>.';
+    $userID = getActiveUserID();
+    if (findUsersActiveRoute($userID) == null) {
+        echo 'You have no active route yet. You can either select one of <a href="allRoutes.php"><em><strong> available routes</strong></em></a> or <a href="newRoutePage.php"><em><strong> create a new one</strong></em></a>.';
         exit(1);
     }
     ?>
@@ -78,9 +78,9 @@ showMessage();
     function showRouteStats() {
         include_once "../database/routeUtils.php";
 
-
-
-        $array = getRouteShortDescription__FAKE(null);
+        $userID = getActiveUserID();
+        $routeID = findUsersActiveRoute($userID);
+        $array = getRouteShortDescription__FAKE($routeID);
         //print_r($array);
         echo $array["name"];
         echo "<br>";

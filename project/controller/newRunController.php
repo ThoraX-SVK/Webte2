@@ -48,7 +48,7 @@ if ($isSaved) {
 }
 
 // redirect to HOME PAGE with status message
-//redirectToHomePageWithMessage($status);
+redirectToHomePageWithMessage($status);
 
 
 function getDataFromPOST($key) {

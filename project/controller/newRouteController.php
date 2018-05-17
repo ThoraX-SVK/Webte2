@@ -25,7 +25,7 @@ if (!nullCheck(array($distance, $name, $mode, $startLatitude, $startLongitude, $
 
 switch ($mode) {
     case PRIVATE_MODE:
-        saveRoute_FAKE($userId, $name, $distance, $mode,
+        saveRoute($userId, $name, $distance, $mode,
             $startLatitude, $startLongitude, $endLatitude, $endLongitude);
         break;
 
@@ -36,7 +36,7 @@ switch ($mode) {
         }
 
         loginRequired(ADMIN_ROLE);
-        saveRoute_FAKE($userId, $name ,$distance, $mode,
+        saveRoute($userId, $name ,$distance, $mode,
             $startLatitude, $startLongitude, $endLatitude, $endLongitude);
 
         //TODO assign Team to Route and check if team exists
@@ -45,7 +45,7 @@ switch ($mode) {
 
     case PUBLIC_MODE:
         loginRequired(ADMIN_ROLE);
-        saveRoute_FAKE($userId, $name ,$distance, $mode,
+        saveRoute($userId, $name ,$distance, $mode,
                 $startLatitude, $startLongitude, $endLatitude, $endLongitude);
         break;
 
