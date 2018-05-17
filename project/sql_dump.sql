@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Stř 16. kvě 2018, 14:47
+-- Vytvořeno: Čtv 17. kvě 2018, 19:31
 -- Verze serveru: 5.7.21-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.28-0ubuntu0.16.04.1
 
@@ -109,6 +109,15 @@ CREATE TABLE `RouteMode` (
   `id` int(11) NOT NULL,
   `mode` varchar(16) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Vypisuji data pro tabulku `RouteMode`
+--
+
+INSERT INTO `RouteMode` (`id`, `mode`) VALUES
+(1, 'PRIVATE'),
+(2, 'PUBLIC'),
+(3, 'TEAM');
 
 -- --------------------------------------------------------
 
@@ -229,6 +238,14 @@ CREATE TABLE `UserRole` (
   `id` int(11) NOT NULL,
   `Role` varchar(16) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Vypisuji data pro tabulku `UserRole`
+--
+
+INSERT INTO `UserRole` (`id`, `Role`) VALUES
+(1, 'USER'),
+(2, 'ADMIN');
 
 -- --------------------------------------------------------
 
