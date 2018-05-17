@@ -313,7 +313,7 @@ function getAllUsers__FAKE() {
     return $users;
 }
 
-function getUserStatistics__FAKE($userID) {
+function getAllUsersRuns__FAKE($userID) {
 
     return array(
                 array (
@@ -346,18 +346,39 @@ function getUserStatistics__FAKE($userID) {
             );
 }
 
-function getUserStatistics($userID) {
-
-}
-
-function getAllUsersRunIDs($userID) {
+function getAllUsersRuns($userID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT id AS 'runID' FROM w2final.Run WHERE user_fk = ?");
+    $stmn = $conn->prepare("SELECT Run.distance AS 'runDistance', date, startAtTime, endAtTime, rating, Route.id AS 'routeID', name
+                                   FROM w2final.Run
+                                      JOIN w2final.Route ON Run.route_fk = Route.id
+                                   WHERE Run.user_fk = ?");
+    $stmn->bind_param("i", $userID);
+    $stmn->execute();
 
+    $result = $stmn->get_result();
 
+    if(mysqli_num_rows($result) === 0) {
+        return null;
+    }
 
+    $res_arr = new ArrayObject();
+    foreach ($result as $row) {
 
+        $res = array (
+            'distance' => $row['runDistance'],
+            'date' => $row['date'],
+            'startAtTime' => $row['startAtTime'],
+            'endAtTime' => $row['endAtTime'],
+            'rating' => $row['rating'],
+            'routeID' => $row['routeID'],
+            'routeName' => $row['name']
+        );
+
+        $res_arr->append($res);
+    }
+
+    return $res_arr->getArrayCopy();
 }
 
 
