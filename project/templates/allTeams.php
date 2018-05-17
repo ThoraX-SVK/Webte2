@@ -70,9 +70,7 @@ function showTables() {
 function showMessage() {
     $message = getInfoMessage();
     if ($message != null) {
-        echo "<div>";
         echo $message;
-        echo "</div>";
     }
 }
 
@@ -84,13 +82,13 @@ function getInfoMessage() {
 
         switch ($status) {
             case NOT_ENOUGH_DATA:
-                return "Not enough POST data to save route";
+                return '<div class="error-message-wide">Not enough POST data to save route</div>';
             case TEAM_SUCCESSFULLY_SAVED:
-                return "Team has been successfully saved";
+                return '<div class="success-message-wide">Team has been successfully saved</div>';
             case TEAM_SUCCESSFULLY_DELETED:
-                return "Team has been successfully deleted";
+                return '<div class="success-message-wide">Team has been successfully deleted</div>';
             case TEAM_MEMBER_REMOVED:
-                return "Team member has been successfully removed";
+                return '<div class="success-message-wide">Team member has been successfully removed</div>';
 
         }
     }
