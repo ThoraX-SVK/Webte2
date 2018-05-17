@@ -30,6 +30,7 @@ if ($routeID === null) {
     return;
 }
 
+
 $userID = getActiveUserID();
 
 //TODO check user route visibility !!!
