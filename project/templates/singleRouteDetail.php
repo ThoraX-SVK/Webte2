@@ -25,10 +25,10 @@ if (isset($_GET["routeID"])) {
     $routeID = null;
 }
 
-/*if ($routeID === null) {
+if ($routeID === null) {
     header("location: ../templates/allRoutes.php");
     return;
-}*/
+}
 
 $userID = getActiveUserID();
 
