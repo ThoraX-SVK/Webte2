@@ -10,7 +10,7 @@ function printNewsByPage($page, $newsPerPage = null) {
         $newsPerPage = NEWS_PER_PAGE;
     }
 
-    $allNews = getAllNews__FAKE();
+    $allNews = getAllNews();
     if ($allNews === null) {
         return array();
     }

@@ -2,6 +2,13 @@
 
 include_once '../database/createConnection.php';
 
+function saveNews($header, $content) {
+
+//    current time
+    $added = getdate();
+    return true;
+}
+
 
 function getAllNews() {
 
