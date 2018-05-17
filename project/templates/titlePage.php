@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap Example</title>
+    <title>Welcome!</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -89,10 +89,22 @@
 <!-- JS nakonci setri load time -->
 <script>
     function initMap() {
-        var uluru = [{lat:13.13,lng:22.22}];
+        var uluru = [
+            <?php
+            require_once("../database/lat&lng.php");
+            $lonlat = latlong();
+            for ($i = 0;$i<count($lonlat);$i++){
+                if($lonlat[$i][2] == 1){
+                    echo "{lat: ".$lonlat[$i][0].", lng: ".$lonlat[$i][1]."}";
+                }
+                if($i != count($lonlat)-1 && $lonlat[$i][2] == 1)
+                    echo ",";
+            }
+            ?>
+        ];
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 7,
-            center: uluru[0],
+            center: {lat: 48.18, lng: 18.18},
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         for(i = 0;i < uluru.length;i++){
@@ -101,10 +113,22 @@
                 map: map
             });
         }
-        var uluru1 = [{lat:43.13,lng:22.22}];
+        var uluru1 = [
+            <?php
+            require_once("../database/lat&lng.php");
+            $lonlat = latlong();
+            for ($i = 0;$i<count($lonlat);$i++){
+                if($lonlat[$i][3] == 1){
+                    echo "{lat: ".$lonlat[$i][0].", lng: ".$lonlat[$i][1]."}";
+                }
+                if($i != count($lonlat)-1 && $lonlat[$i][3] == 1)
+                    echo ",";
+            }
+            ?>
+        ];
         var map1 = new google.maps.Map(document.getElementById('map1'), {
             zoom: 7,
-            center: uluru1[0],
+            center: {lat: 48.18, lng: 18.18},
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         for(i = 0;i < uluru1.length;i++){
