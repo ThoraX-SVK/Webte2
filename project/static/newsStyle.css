@@ -1,8 +1,12 @@
 .newsHeader{
+    word-break:break-all;
     text-align: left;
 }
 .newsText{
     text-align: left;
+    overflow:auto;
+    white-space: normal;
+    word-break:break-all;
 
 }
 .newsDate{

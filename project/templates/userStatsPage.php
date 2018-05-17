@@ -35,14 +35,15 @@ if (!checkIfUserExists($userID)) {
 <div class="content">
 
 
-<?php
+    <?php
 
-echo getUserStatsTable($userID);
+    echo getUserStatsTable($userID);
 
-?>
+    ?>
 
 </div>
-
+<script src="../static/sortTables.js"></script>
+<script src="../static/addTableParameters.js"></script>
 </body>
 </html>
 
@@ -57,10 +58,10 @@ function getUserID() {
     }
 }
 
-function redirectToAllUsersPage() {
+/*function redirectToAllUsersPage() {
     header("location: ../templates/allUsersStatsPage.php");
     exit;
-}
+}*/
 
 
 ?>
