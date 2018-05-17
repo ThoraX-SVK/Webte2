@@ -27,6 +27,7 @@ echo getMenu();
     include_once "../services/printTeamsSelectService.php";
     include_once "../utils/sessionUtils.php";
     include_once  "../constants/routeConstants.php";
+    include_once  "../constants/globallyUsedConstants.php";
 
     loginRequired();
 

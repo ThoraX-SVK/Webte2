@@ -6,6 +6,7 @@ include_once "../services/csvRegistrationService.php";
 include_once "../services/sendEmailService.php";
 include_once "../utils/constructVerificationEmailContent.php";
 include_once "../constants/registerConstants.php";
+include_once "../constants/globallyUsedConstants.php";
 include_once "../template_utils/tableGenerator.php";
 
 

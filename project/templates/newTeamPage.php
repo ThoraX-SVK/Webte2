@@ -66,8 +66,6 @@ function getInfoMessage() {
         $status = $_GET["status"];
 
         switch ($status) {
-            case TEAM_SUCCESSFULLY_SAVED:
-                return "<div class='success-message-wide'>Team was successfully saved";
             case TEAM_SAVING_FAILED:
                 return "<div class='error-message-wide'>Team was NOT saved because of an unknown error";
         }

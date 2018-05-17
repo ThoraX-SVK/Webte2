@@ -28,6 +28,7 @@ echo getMenu();
 <?php
 // ERROR SHOWING
 include_once "../constants/registerConstants.php";
+include_once "../constants/globallyUsedConstants.php";
 
 $errorMessage = getErrorMessage();
 if ($errorMessage != null) {
