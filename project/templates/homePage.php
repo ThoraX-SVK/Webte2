@@ -28,9 +28,9 @@ showMessage();
     include_once "../utils/sessionUtils.php";
     include_once "../database/userUtils.php";
 
-    $userID = getActiveUserID();
-    if (findUsersActiveRoute($userID) == null) {
-        echo 'You have no active route yet. You can either select one of <a href="allRoutes.php"><em><strong> available routes</strong></em></a> or <a href="newRoutePage.php"><em><strong> create a new one</strong></em></a>.';
+    $userID = getActiveUserID__FAKE();
+    if (findUsersActiveRoute__FAKE($userID) == null) {
+        echo 'You have no active route yet. You can either select one of <a href="routes.php"><em><strong> available routes</strong></em></a> or <a href="createRoute.php"><em><strong> create a new one</strong></em></a>.';
         exit(1);
     }
     ?>
@@ -38,7 +38,7 @@ showMessage();
     <div id="rightHolder">
         <div id="homeStats">
             <?php
-                showRouteStats();
+            showRouteStats();
             ?>
 
         </div>
@@ -52,6 +52,7 @@ showMessage();
                 <input type="time" name="startAtTime">
                 <br><br><span> Time of end </span>
                 <input type="time" name="finishAtTime">
+
 
                 <br><br><span> Start latitude </span>
                 <input type="number" step="0.00001" name="startLatitude">
@@ -67,6 +68,7 @@ showMessage();
                 <input id="origin"  type="text">
                 <br><br><span> End location</span>
                 <input id="destination" type="text">
+
 
                 <br><br><span> Rating </span>
                 <input type="number" step="1" min="0" max="5" name="rating">
@@ -131,7 +133,7 @@ showMessage();
 
     <?php
     include_once '../services/progressBarService.php';
-    echo createProgressBar($userID);
+    echo createProgressBar__FAKE(null);
     ?>
 
 </div>
