@@ -4,11 +4,11 @@ include_once '../database/createConnection.php';
 
 function saveNews($header, $content) {
 
-//    current time
-    $added = getdate();
-    return true;
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("INSERT w2final.News VALUES (DEFAULT, ? , ?, CURRENT_DATE)");
+    $stmn->bind_param("ss", $header, $content);
+    return $stmn->execute();
 }
-
 
 function getAllNews() {
 
