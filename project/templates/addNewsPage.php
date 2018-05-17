@@ -10,7 +10,7 @@ loginRequired(ADMIN_ROLE);
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <link rel="stylesheet" type="text/css" href="../static/addNewsStyle.css">
     <meta charset="UTF-8">
-    <title>News Letter</title>
+    <title>Add news letter</title>
 </head>
 <body>
 <?php
@@ -24,7 +24,7 @@ echo getMenu();
 
 
 <header>
-    <h1>News Letter</h1>
+    <h1>Add News Letter</h1>
 </header>
 
 <div class="content">
