@@ -53,10 +53,22 @@ showMessage();
                 <br><br><span> Time of end </span>
                 <input type="time" name="finishAtTime">
 
+
+                <br><br><span> Start latitude </span>
+                <input type="number" step="0.00001" name="startLatitude">
+                <br><br><span> Start longitude </span>
+                <input type="number" step="0.00001" name="startLongitude">
+
+                <br><br><span> End latitude </span>
+                <input type="number" step="0.00001" name="endLatitude">
+                <br><br><span> End longitude </span>
+                <input type="number" step="0.00001" name="endLongitude">
+
                 <br><br><span> Start location</span>
-                <input id="origin-input"  type="text">
+                <input id="origin"  type="text">
                 <br><br><span> End location</span>
-                <input id="destination-input" type="text">
+                <input id="destination" type="text">
+
 
                 <br><br><span> Rating </span>
                 <input type="number" step="1" min="0" max="5" name="rating">
@@ -76,9 +88,11 @@ showMessage();
     function showRouteStats() {
         include_once "../database/routeUtils.php";
 
+
         $userID = getActiveUserID();
         $routeID = findUsersActiveRoute($userID);
         $array = getRouteShortDescription__FAKE($routeID);
+
         //print_r($array);
         echo $array["name"];
         echo "<br>";
@@ -114,7 +128,6 @@ showMessage();
     }
 
     ?>
-
     <div id="map"></div>
 
 

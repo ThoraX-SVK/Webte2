@@ -330,6 +330,7 @@ input:-webkit-autofill {
 #map{
     height:600px;
     width: 600px;
+    border: solid 1px black;
 }
 #runFormHolder{
     width: 350px;

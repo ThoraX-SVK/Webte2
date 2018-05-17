@@ -12,6 +12,7 @@ function getMenu() {
     $menu .= '<a href="homePage.php">Home</a>' . "\n";
     $menu .= '<a href="allRoutes.php">Routes</a>' . "\n";
     $menu .= '<a href="newsPage.php">News</a>' . "\n";
+    $menu .= '<a href="userStatsPage.php">My Stats</a>' . "\n";
     $menu .= '<div class="topnav-right">';
 
     // only show when user is admin
@@ -19,6 +20,8 @@ function getMenu() {
 
         $menu .= '<a href="massRegisterPage.php">Mass register from CSV file</a>' . "\n";
         $menu .= '<a href="addNewsPage.php">Add News</a>' . "\n";
+        $menu .= '<a href="allUsersStatsPage.php">All Users Stats</a>' . "\n";
+        $menu .= '<a href="newTeamPage.php">Add new team</a>' . "\n";
 
     }
     $menu .= '<a href="../controller/signOutController.php">Sign out</a>' . "\n";

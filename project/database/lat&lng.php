@@ -65,7 +65,9 @@ function latlong()
             } else {
                 $latlng[$i][3] = "0";
             }
+
             echo $latlng[$i][0]." ".$latlng[$i][1]." ".$latlng[$i][2]." ".$latlng[$i][3]."<br>";
+
             $i++;
         }
     }
