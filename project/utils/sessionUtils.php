@@ -15,10 +15,12 @@ function isUserAdmin_FALSE__FAKE() {
 }
 
 function isUserAdmin() {
+
     return getActiveUserRole() === ADMIN_ROLE;
 }
 
 function isUserLoggedIn() {
+
     return getActiveUserRole() !== GUEST_ROLE;
 }
 

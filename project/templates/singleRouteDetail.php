@@ -41,6 +41,7 @@ $userID = getActiveUserID();
 <head>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <link rel="stylesheet" type="text/css" href="../static/allRoutesTableStyle.css">
+    <link rel="stylesheet" type="text/css" href="../static/singleRouteStyle.css">
     <meta charset="UTF-8">
     <title>Route</title>
 </head>
@@ -51,30 +52,37 @@ echo getMenu();
 ?>
 
 <header>
-    <h1>Route</h1>
+    <h1>Route Details</h1>
 </header>
 
-<div class="content">
-
-    <div class="route-last-runs">
-        <h2>Last runs NIGGA</h2>
-    <?php
-        echo getLastRunsTable($routeID);
-    ?>
+<div class="content-route">
+    <div class="progress-bar-route">
+        <?php
+        echo createProgressBar__FAKE($routeID);
+        ?>
     </div>
 
+
+    <div class="wrap-inline">
+
+    <div id="map" style="border: 1px solid black"></div>
     <div class="route-description">
-        <h2>Description NIGGA</h2>
+        <h2>Route Description</h2>
     <?php
         printRouteDescription($routeID);
     ?>
     </div>
 
-    <div class="progress-bar-route">
-    <?php
-        echo createProgressBar__FAKE($routeID);
-    ?>
     </div>
+
+    <div class="route-last-runs">
+        <h2>Latest Contributors</h2>
+        <?php
+        echo getLastRunsTable($routeID);
+        ?>
+    </div>
+
+
 
 
 </div>
