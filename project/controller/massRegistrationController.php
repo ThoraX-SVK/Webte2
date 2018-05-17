@@ -11,7 +11,7 @@ include_once "../template_utils/tableGenerator.php";
 
 
 //check if in session there is admin logged in
-if (!isUserAdmin_YES__FAKE()) {
+if (!isUserAdmin()) {
     //user not ADMIN, print error
     redirectToRegisterWithMessage(ERROR_USER_NOT_ADMIN);
     return;

@@ -32,7 +32,6 @@ if ($routeID === null) {
 }
 
 // check route visibility to user
-$userID = getActiveUserID();
 if (!isRouteVisibleToUser(getActiveUserID(), $routeID)) {
     header("location: ../templates/allRoutes.php");
     return;
