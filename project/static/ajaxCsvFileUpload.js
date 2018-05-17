@@ -18,6 +18,7 @@ function ajaxSuccess(data) {
 
     data = JSON.parse(data);
 
+
     if (data.table) {
         $('#results-table')[0].innerHTML = "Results: \n <br/>"  + data.table;
     } else if (data.error) {
