@@ -357,6 +357,8 @@ function getAllUsersRuns($userID) {
     $stmn->execute();
 
     $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
 
     if(mysqli_num_rows($result) === 0) {
         return null;
