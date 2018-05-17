@@ -1,43 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <link rel="stylesheet" type="text/css" href="../static/allRoutesTableStyle.css">
     <meta charset="UTF-8">
     <title>All Routes</title>
+
     <script>
         function showPublicRoutes() {
-            if (document.getElementById("publicRoutes").style.display == "block") {
+            if (document.getElementById("publicRoutes").style.display == "none") {
                 document.getElementById("publicRoutesButton").value = "Show public routes";
-                document.getElementById("publicRoutes").style.display = "none";
+                document.getElementById("publicRoutes").style.display = "block";
             }
             else {
                 document.getElementById("publicRoutesButton").value = "Hide public routes";
-                document.getElementById("publicRoutes").style.display = "block";
+                document.getElementById("publicRoutes").style.display = "none";
             }
         }
 
         function showPrivateRoutes() {
-            if (document.getElementById("privateRoutes").style.display == "block") {
+            if (document.getElementById("privateRoutes").style.display == "none") {
                 document.getElementById("privateRoutesButton").value = "Show private routes";
-                document.getElementById("privateRoutes").style.display = "none";
+                document.getElementById("privateRoutes").style.display = "block";
             }
             else {
                 document.getElementById("privateRoutesButton").value = "Hide private routes";
-                document.getElementById("privateRoutes").style.display = "block";
+                document.getElementById("privateRoutes").style.display = "none";
             }
         }
 
         function showTeamRoutes() {
-            if (document.getElementById("teamRoutes").style.display == "block") {
+            if (document.getElementById("teamRoutes").style.display == "none") {
                 document.getElementById("teamRoutesButton").value = "Show team routes";
-                document.getElementById("teamRoutes").style.display = "none";
+                document.getElementById("teamRoutes").style.display = "block";
             }
             else {
                 document.getElementById("teamRoutesButton").value = "Hide team routes";
-                document.getElementById("teamRoutes").style.display = "block";
+                document.getElementById("teamRoutes").style.display = "none";
             }
         }
+
 
     </script>
 </head>
@@ -98,7 +101,29 @@ echo getMenu();
 
 
 </div>
+<script src="../static/sortTables.js"></script>
+<script>
 
+    var allThElements =  document.getElementsByTagName("th");
+    console.log(allThElements.length);
+    for(var i = 0; i < allThElements.length; i++){
+        console.log("i");
+        allThElements[i].setAttribute("id",i);
+        allThElements[i].addEventListener("click", function() {
+            sortTable(this.id,);
+        });
+    }
+    for(var j = 0; j < document.getElementsByTagName("table").length;j++){
+        var id = "table"+j;
+        document.getElementsByTagName("table")[j].setAttribute("id",id);
+
+    }
+
+
+
+
+
+</script>
 
 </body>
 </html>
