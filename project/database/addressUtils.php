@@ -145,14 +145,19 @@ function saveCity($city) {
 
 function getStateIDSaveIfNecessary($state) {
 
-    $cityID = getStateID($state);
-
-    if($cityID === null) {
-        saveState($state);
-        $cityID = getStateID($state);
+    //because .csv dont have state, dirty fix
+    if($state === null) {
+        $state = "";
     }
 
-    return $cityID;
+    $stateID = getStateID($state);
+
+    if($stateID === null) {
+        saveState($state);
+        $stateID = getStateID($state);
+    }
+
+    return $stateID;
 }
 
 function getStateID($state) {
