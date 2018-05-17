@@ -4,7 +4,6 @@ function latlong()
     include_once '../database/createConnection.php';
 
     $conn = createConnectionFromConfigFileCredentials();
-
     $sql = "SELECT id,street_fk,streetNumber,city_fk,state_fk FROM w2final.Address";
     $result = $conn->query($sql);
 
@@ -65,12 +64,13 @@ function latlong()
             } else {
                 $latlng[$i][3] = "0";
             }
-            echo $latlng[$i][0]." ".$latlng[$i][1]." ".$latlng[$i][2]." ".$latlng[$i][3]."<br>";
+            //echo $latlng[$i][0]." ".$latlng[$i][1]." ".$latlng[$i][2]." ".$latlng[$i][3]."<br>";
+            //echo $i;
             $i++;
         }
     }
     $conn->close();
     return $latlng;
 }
-latlong();
+//latlong();
 ?>

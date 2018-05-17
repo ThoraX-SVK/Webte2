@@ -1,8 +1,8 @@
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         mapTypeControl: false,
-        center: {lat: 48.385170, lng: 18.391269},
-        zoom: 7
+        center: {lat: 48.11, lng: 18.12},
+        zoom: 6
     });
 
     new AutocompleteDirectionsHandler(map);
@@ -16,9 +16,8 @@ function AutocompleteDirectionsHandler(map) {
     this.originPlaceId = null;
     this.destinationPlaceId = null;
     this.travelMode = 'WALKING';
-    var originInput = document.getElementById('origin');
-    var destinationInput = document.getElementById('destination');
-    var modeSelector = 'WALKING';
+    var originInput = document.getElementById('origin-input');
+    var destinationInput = document.getElementById('destination-input');
     this.directionsService = new google.maps.DirectionsService;
     this.directionsDisplay = new google.maps.DirectionsRenderer;
     this.directionsDisplay.setMap(map);
@@ -27,7 +26,7 @@ function AutocompleteDirectionsHandler(map) {
         originInput, {placeIdOnly: true});
     var destinationAutocomplete = new google.maps.places.Autocomplete(
         destinationInput, {placeIdOnly: true});
-    // Travel Mode set up
+
     var me = this;
     me.travelMode = 'WALKING';
     me.route();
@@ -36,7 +35,6 @@ function AutocompleteDirectionsHandler(map) {
     this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
     this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
 }
-
 
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
     var me = this;
@@ -48,11 +46,9 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
             return;
         }
         if (mode === 'ORIG') {
-            window.alert(place.place_id);
-            me.originPlaceId = place.getPlace();
+            me.originPlaceId = place.place_id;
         } else {
-            window.alert(place.place_id);
-            me.destinationPlaceId = place.getPlace();
+            me.destinationPlaceId = place.place_id;
         }
         me.route();
     });
