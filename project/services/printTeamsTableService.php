@@ -9,7 +9,7 @@ include_once "../template_utils/tableGenerator.php";
 function getTeamTables() {
 
     $tables = array();
-    $teams = getAllTeams();
+    $teams = getAllTeams__FAKE();
 
     $header = array("User ID", "Name", "Surname", "Email", "Is active");
     $htmlAttrs = array ("class" => "table-team");
@@ -22,7 +22,7 @@ function getTeamTables() {
         }
 
         foreach ($team["teamMembers"] as $member) {
-            $user = getUserFromUserId($member["userID"]);
+            $user = getUserFromUserId__FAKE($member["userID"]);
 
             $memberData = array(
                 $user["userID"],

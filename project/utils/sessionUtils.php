@@ -15,10 +15,12 @@ function isUserAdmin_FALSE__FAKE() {
 }
 
 function isUserAdmin() {
+    //return true;
     return getActiveUserRole() === ADMIN_ROLE;
 }
 
 function isUserLoggedIn() {
+    //return true;
     return getActiveUserRole() !== GUEST_ROLE;
 }
 
@@ -79,6 +81,14 @@ function createUserSession($userID, $email, $userRole) {
     $_SESSION["userID"] = $userID;
     $_SESSION["userEmail"] = $email;
     $_SESSION["userRole"] = $userRole;
+
+}
+
+function destroyUserSession() {
+
+    $_SESSION["userID"] = null;
+    $_SESSION["userEmail"] = null;
+    $_SESSION["userRole"] = null;
 
 }
 

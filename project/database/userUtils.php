@@ -313,6 +313,56 @@ function getAllUsers__FAKE() {
     return $users;
 }
 
+function getUserStatistics__FAKE($userID) {
+
+    return array(
+                array (
+                    'distance' => 10,
+                    'date' => '2018-12-30',
+                    'startAtTime' => '15:00:00',
+                    'endAtTime' => '16:00:00',
+                    'rating' => 5,
+                    'routeID' => 1,
+                    'routeName' => 'ROUTE_1'
+                ),
+                array (
+                    'distance' => 20,
+                    'date' => '2018-12-31',
+                    'startAtTime' => '17:00:00',
+                    'endAtTime' => '20:00:00',
+                    'rating' => 3,
+                    'routeID' => 2,
+                    'routeName' => 'ROUTE_2'
+                ),
+                array (
+                    'distance' => 10,
+                    'date' => null,
+                    'startAtTime' => null,
+                    'endAtTime' => null,
+                    'rating' => null,
+                    'routeID' => 1,
+                    'routeName' => 'ROUTE_1'
+                )
+            );
+}
+
+function getUserStatistics($userID) {
+
+}
+
+function getAllUsersRunIDs($userID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT id AS 'runID' FROM w2final.Run WHERE user_fk = ?");
+
+
+
+
+}
+
+
+
+
 
 
 

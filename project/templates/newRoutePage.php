@@ -2,13 +2,26 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/newTeamStyle.css">
     <meta charset="UTF-8">
     <title>Add new route</title>
 </head>
 <body>
+<?php
+include_once "../template_utils/menuGenerator.php";
 
 
-<div class="main">
+echo getMenu();
+
+?>
+
+<header>
+    <h1>
+        Add New Route
+    </h1>
+</header>
+
+<div class="content-home">
     <?php
     include_once "../services/printRouteModeSelectService.php";
     include_once "../services/printTeamsSelectService.php";
@@ -20,6 +33,9 @@
     // error message
     showMessage();
     ?>
+    <h2 align="left">New route detail</h2>
+    <div id="rightHolder">
+        <div id="homeStats" style="margin-top: 100px;">
 
     <form action="../controller/newRouteController.php" method="post">
 
@@ -46,6 +62,10 @@
         <input type="submit" value="Save">
 
     </form>
+</div>
+    </div>
+
+<div id="map"></div>
 </div>
 
 <script src="../static/newRouteScript.js"></script>

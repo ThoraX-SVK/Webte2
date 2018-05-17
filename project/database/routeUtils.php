@@ -34,21 +34,49 @@ function getRouteShortDescription__FAKE($routeID) {
 
 function getRouteShortDescription($routeID) {
 
-    //TODO: Look to DB and construct short description
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT name, distance FROM w2final.Route WHERE id = ?");
+    $stmn->bind_param("i", $routeID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    if(mysqli_num_rows($result) === 0) {
+        return null;
+    }
+
+    $row = $result->fetch_assoc();
+
+    return array(
+        'name' => $row['name'],
+        'totalDistance' => $row['distance']
+    );
 }
 
 function getRouteFullDescription__FAKE($routeID) {
 
     return array(
-        'name' => 'Za mesiac na mesiac',
-        'totalDistance' => 384000,
-        'more info' => 'This is full description btw!'
+        'name' => 'Toto je dlhe ako hmmm... ( ͡° ͜ʖ ͡°)',
+        'totalDistance' => 21,
+        'activeContributorsCount' => 3,
+        'routeMode' => PRIVATE_MODE
     );
 }
 
 function getRouteFullDescription($routeID) {
 
-    //TODO: Look to DB and construct full description
+    $shortInfo = getRouteShortDescription($routeID);
+    $activeContributorsCount = countActiveContributors($routeID);
+    $routeMode = getRouteMode($routeID);
+
+    return array(
+        'name' => $shortInfo['name'],
+        'totalDistance' => $shortInfo['distance'],
+        'activeContributorsCount' => $activeContributorsCount,
+        'routeMode' => $routeMode
+    );
 }
 
 function getRouteContributors__FAKE($routeId) {
@@ -64,6 +92,47 @@ function getRouteContributors($routeId) {
 
     //TODO: Look in DB and onstruct array of users and their km
 
+}
+
+function countActiveContributors($routeID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT COUNT(*) AS 'activeUsers' FROM w2final.Route
+                                    JOIN w2final.User ON Route.id = User.activeRoute_fk
+                                  WHERE Route.id = ?;");
+    $stmn->bind_param("i", $routeID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    $row = $result->fetch_assoc();
+
+    return $row['activeUsers'];
+}
+
+function getRouteMode__FAKE($routeID) {
+    return PRIVATE_MODE;
+}
+
+function getRouteMode($routeID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT mode_fk AS 'mode' FROM w2final.Route WHERE id = ?");
+    $stmn->bind_param("i",$routeID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    if(mysqli_num_rows($result) === 0) {
+        return null;
+    }
+
+    $row = $result->fetch_assoc();
+    return $row['mode'];
 }
 
 function saveRoute($createdByUserID, $name, $totalDistance, $mode,
@@ -429,7 +498,8 @@ function selectTeamRoutes($userID) {
                                     WHERE userInTeam = Team.id
                                   ) AS CAN_PARTICIPATE_IN
                                     RIGHT JOIN w2final.Route ON canParticipateTo = Route.id
-                                    LEFT JOIN w2final.User ON Route.id = User.activeRoute_fk");
+                                    LEFT JOIN w2final.User ON Route.id = User.activeRoute_fk
+                                    WHERE mode_fk = 3");
     $stmn->execute();
 
     $result = $stmn->get_result();

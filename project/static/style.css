@@ -330,6 +330,7 @@ input:-webkit-autofill {
 #map{
     height:600px;
     width: 600px;
+    border: solid 1px black;
 }
 #runFormHolder{
     width: 350px;
@@ -404,24 +405,29 @@ input:-webkit-autofill {
 .progress-bar{
     height: 100%;
     background-color: #7AD58E;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
 }
 #publicRoutes{
     height: auto;
     width: 100%;
     display: block;
-    border: solid 1px black;
+    margin: 25px 0px;
 }
 #privateRoutes{
     height: auto;
     width: 100%;
     display: block;
-    border: solid 1px black;
+    margin: 25px 0px;
+
 }
 #teamRoutes{
     height: auto;
     width: 100%;
     display: block;
-    border: solid 1px black;
+    margin: 25px 0px;
+
 }
 #routeButtonsHolder{
     width: 100%;
