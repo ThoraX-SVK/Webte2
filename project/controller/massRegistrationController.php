@@ -37,16 +37,16 @@ if ($csv !== null) {
 echo "AJAX RESPONSE:\n";
 echo "SUCCESSFUL:\n <br/>";
 foreach ($results["successful"] as $succ) {
-    foreach ($succ as $s) {
-        echo print_r($s) . " <br/>";
+    foreach ($succ as $k => $s) {
+        echo "<b>" . $k . "</b> " . var_dump($s) . " <br/>";
     }
     echo "\n ------------------------------------------<br/><br/>";
 }
 
 echo "FAILED:\n <br/>";
 foreach ($results["failed"] as $fa) {
-    foreach ($fa as $f) {
-        echo print_r($f) . " <br/>";
+    foreach ($fa as $k => $f) {
+        echo "<b>" . $k . "</b> " . var_dump($f) . " <br/>";
     }
     echo "\n ------------------------------------------<br/><br/>";
 }
