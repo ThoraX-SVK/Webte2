@@ -9,7 +9,7 @@ include_once "../utils/sessionUtils.php";
 function getAllUsersTable() {
 
     $attrs = array("class" => "all-users-table", "id" => "all-users-table");
-    $header = array("User ID", "Name", "Surname", "Email", "Is Activated", "User role");
+    $header = array("User ID", "Name", "Surname", "Email", "Is Activated", "User role", "Link to stats");
     $content = array();
 
     $users = getAllUsers__FAKE();
@@ -26,6 +26,7 @@ function getAllUsersTable() {
             $user["email"],
             $user["isActivated"] ? "Yes" : "No",
             $userRoleDisplay,
+            getLinkToUserStatsPage($user["userID"])
         );
 
         array_push($content, $tableRow);
@@ -49,4 +50,9 @@ function getUserRoleDisplayValue($userRole) {
             return "Unspecified (not supposed to happen)";
 
     }
+}
+
+function getLinkToUserStatsPage($userID) {
+
+    return '<a href="../templates/userStatsPage.php?userID=' . $userID . '">stats</a>';
 }
