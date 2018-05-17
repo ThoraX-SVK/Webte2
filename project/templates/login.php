@@ -32,7 +32,7 @@
         <button type="submit" class="bottom-left-button"><span style="color:white; font-size: 40px;"> +</span> New Account</button>
     </form>
 
-    <form action="passwordResetPage.php" class="bottom-right">
+    <form action="changePassword.php" class="bottom-right">
         <button type="submit" class="bottom-right-button">Need help<span style="color:white; font-size: 40px;">?</span></button>
     </form>
 

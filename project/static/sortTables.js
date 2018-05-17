@@ -3,10 +3,11 @@ function sortTable(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     //table = document.getElementById("myTable");
     table = document.getElementById(n).parentNode.parentNode.parentNode;
+    var num = table.getElementsByTagName("th").length;
     switching = true;
 
-    while(n>=5){
-        n=n-5;
+    while(n>=num){
+        n=n-num;
     }
     //Set the sorting direction to ascending:
     dir = "asc";
