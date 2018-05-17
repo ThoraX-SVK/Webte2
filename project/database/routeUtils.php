@@ -326,7 +326,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                     'done' => 120,
                     'remaining' => 180),
                 'name' => 'route1',
-                'isActiveForUser' => true
+                'isActiveForUser' => true,
+                'routeID' => 1
             ),
             array(
                 'distanceData' => array(
@@ -334,7 +335,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                     'done' => 0,
                     'remaining' => 1000),
                 'name' => 'route2',
-                'isActiveForUser' => false
+                'isActiveForUser' => false,
+                'routeID' => 1
             ),
             array(
                 'distanceData' => array(
@@ -342,7 +344,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                     'done' => 23,
                     'remaining' => 77),
                 'name' => 'route3',
-                'isActiveForUser' => false
+                'isActiveForUser' => false,
+                'routeID' => 1
             )
         );
             break;
@@ -355,7 +358,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                         'remaining' => 1000),
                     'name' => 'route1',
                     'isActiveForUser' => true,
-                    'isUserInTeam' => true
+                    'isUserInTeam' => true,
+                    'routeID' => 1
                 ),
                 array(
                     'distanceData' => array(
@@ -364,7 +368,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                         'remaining' => 750),
                     'name' => 'route2',
                     'isActiveForUser' => false,
-                    'isUserInTeam' => false
+                    'isUserInTeam' => false,
+                    'routeID' => 1
                 ),
                 array(
                     'distanceData' => array(
@@ -373,7 +378,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                         'remaining' => 80),
                     'name' => 'route3',
                     'isActiveForUser' => false,
-                    'isUserInTeam' => true
+                    'isUserInTeam' => true,
+                    'routeID' => 1
                 )
             );
         default:
