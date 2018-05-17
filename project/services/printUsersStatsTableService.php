@@ -8,8 +8,7 @@ include_once "../services/calculateAverageSpeedService.php";
 
 function getUserStatsTable($userID) {
 
-    $userStats = getUserStatistics__FAKE($userID);
-//    $userStats = getAllUsersRuns__FAKE($userID);
+    $userStats = getAllUsersRuns__FAKE($userID);
 
     if ($userStats === null) {
         return "No statistics found for given userID!";
