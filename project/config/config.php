@@ -2,8 +2,8 @@
 
 return array(
     'host' => '127.0.0.1',
-    'user' => 'xbezakt',
-    'password' => 'hesielko'
+    'user' => 'root',
+    'password' => 'TtJBzpcnHsl'
 );
 
 
