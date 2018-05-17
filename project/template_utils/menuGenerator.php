@@ -15,7 +15,7 @@ function getMenu() {
     $menu .= '<div class="topnav-right">';
 
     // only show when user is admin
-    if (isUserAdmin_YES__FAKE()) {
+    if (isUserAdmin()) {
 
         $menu .= '<a href="massRegisterPage.php">Mass register from CSV file</a>' . "\n";
         $menu .= '<a href="addNewsPage.php">Add News</a>' . "\n";
