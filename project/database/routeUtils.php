@@ -601,7 +601,33 @@ function getAllRoutesWithMode($mode) {
     return $res_arr->getArrayCopy();
 }
 
+function isRouteVisibleForUserID($routeID, $userID) {
 
+    $routeMode = getRouteMode($routeID);
+
+    switch($routeMode) {
+        case PRIVATE_MODE:
+            return isUserCreatorOfPrivateRoute($userID, $routeID);
+        case PUBLIC_MODE:
+        case TEAM_MODE:
+            return true;
+        default:
+            return false;
+    }
+}
+
+function isUserCreatorOfPrivateRoute($userID, $routeID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT id FROM w2final.Route
+                                    WHERE id = ? AND user_fk = ? AND mode_fk = 1");
+    $stmn->bind_param("ii",$routeID,$userID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+
+    return mysqli_num_rows($result) === 0 ? false : true;
+}
 
 
 
