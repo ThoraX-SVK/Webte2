@@ -16,12 +16,12 @@ function getRouteTables() {
     }
 
     $tables = array();
-    $privateRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(PRIVATE_MODE, $userID));
-    $publicRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(PUBLIC_MODE, $userID));
+    $privateRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID__FAKE(PRIVATE_MODE, $userID));
+    $publicRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID__FAKE(PUBLIC_MODE, $userID));
 
     //TODO: Return value changed a bit, please see function. Now returns, whether user is in team to allow/bock him from
     //TODO: assigning that route
-    $teamRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(TEAM_MODE, $userID));
+    $teamRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID__FAKE(TEAM_MODE, $userID));
 
     $header = array("Name of route", "Total Distance", "Distance ran", "Distance remaining", "Activity");
     $htmlAttrs = array ("class" => "table-routes", "id" => "table-routes");
