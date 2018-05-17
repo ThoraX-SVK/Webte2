@@ -498,7 +498,8 @@ function selectTeamRoutes($userID) {
                                     WHERE userInTeam = Team.id
                                   ) AS CAN_PARTICIPATE_IN
                                     RIGHT JOIN w2final.Route ON canParticipateTo = Route.id
-                                    LEFT JOIN w2final.User ON Route.id = User.activeRoute_fk");
+                                    LEFT JOIN w2final.User ON Route.id = User.activeRoute_fk
+                                    WHERE mode_fk = 3");
     $stmn->execute();
 
     $result = $stmn->get_result();

@@ -15,7 +15,7 @@ function getRouteModeSelect() {
         )
     );
 
-    if (isUserAdmin_YES__FAKE()) {
+    if (isUserAdmin()) {
         array_push($options,
             array (
                 "value" => PUBLIC_MODE,
