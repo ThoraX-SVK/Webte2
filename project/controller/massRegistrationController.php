@@ -26,8 +26,7 @@ if ($csv !== null) {
     $table = createMassRegisterResultsTable($results);
     sendMassEmailsToSuccessfulUsers($results["successful"]);
 
-
-   $resultsToPrintInTemplate = array ( "table" => $table );
+    $resultsToPrintInTemplate = array ( "table" => $table );
 
 // file NOT uploaded
 } else {
@@ -35,9 +34,26 @@ if ($csv !== null) {
     $resultsToPrintInTemplate = array ( "error" => "File not uploaded correctly!" );
 }
 
+echo "AJAX RESPONSE:\n";
+echo "SUCCESSFUL:\n <br/>";
+foreach ($results["successful"] as $succ) {
+    foreach ($succ as $s) {
+        echo print_r($s) . " <br/>";
+    }
+    echo "\n ------------------------------------------<br/><br/>";
+}
+
+echo "FAILED:\n <br/>";
+foreach ($results["failed"] as $fa) {
+    foreach ($fa as $f) {
+        echo print_r($f) . " <br/>";
+    }
+    echo "\n ------------------------------------------<br/><br/>";
+}
+
 // echo to response (from AJAX call)
 // do not remove
-echo json_encode($resultsToPrintInTemplate);
+//echo json_encode($resultsToPrintInTemplate);
 
 
 // methods
@@ -78,7 +94,7 @@ function getVerboseError($error) {
             return "Email is already taken";
 
         default:
-            return "Unknown error";
+            return $error;
     }
 }
 

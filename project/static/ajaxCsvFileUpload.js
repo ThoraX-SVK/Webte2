@@ -15,16 +15,20 @@ function uploadFiles(event) {
 }
 
 function ajaxSuccess(data) {
+    console.log(data);
 
-    data = JSON.parse(data);
+    $('#results-table')[0].innerHTML = data;
 
-    if (data.table) {
-        $('#results-table')[0].innerHTML = "Results: \n <br/>"  + data.table;
-    } else if (data.error) {
-        $('#results-table')[0].innerHTML = "Error: \n <br/>"  + data.error;
-    } else {
-        $('#results-table')[0].innerHTML = "Non-standard output: \n <br/>" + data;
-    }
+    // data = JSON.parse(data);
+    //
+    //
+    // if (data.table) {
+    //     $('#results-table')[0].innerHTML = "Results: \n <br/>"  + data.table;
+    // } else if (data.error) {
+    //     $('#results-table')[0].innerHTML = "Error: \n <br/>"  + data.error;
+    // } else {
+    //     $('#results-table')[0].innerHTML = "Non-standard output: \n <br/>" + data;
+    // }
 
 }
 
