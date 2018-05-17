@@ -22,6 +22,8 @@ include_once "../constants/newsConstants.php";
 loginRequired(ADMIN_ROLE);
 echo getMenu();
 
+showErrorMessage();
+
 ?>
 
 <header>
@@ -29,8 +31,6 @@ echo getMenu();
 </header>
 
 <div class="content">
-
-    <?php showErrorMessage(); ?>
 
     <form method="POST" action="../controller/addNewsController.php">
         <input type="text" placeholder="Enter header" name="header" required>
