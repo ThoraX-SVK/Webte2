@@ -13,7 +13,7 @@ function saveNews($header, $content) {
 function getAllNews() {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT id, header, content, added FROM w2final.News");
+    $stmn = $conn->prepare("SELECT id, header, content, added FROM w2final.News ORDER BY added DESC");
     $stmn->execute();
 
     $result = $stmn->get_result();
