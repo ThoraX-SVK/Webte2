@@ -16,6 +16,7 @@ include_once "../template_utils/menuGenerator.php";
 include_once "../utils/sessionUtils.php";
 include_once "../services/progressBarService.php";
 include_once "../services/singleRouteServices.php";
+include_once "../services/checkRouteVisibilityService.php";
 
 loginRequired();
 
@@ -30,10 +31,11 @@ if ($routeID === null) {
     return;
 }
 
-
-$userID = getActiveUserID();
-
-//TODO check user route visibility !!!
+// check route visibility to user
+if (!isRouteVisibleToUser(getActiveUserID(), $routeID)) {
+    header("location: ../templates/allRoutes.php");
+    return;
+}
 
 ?>
 
