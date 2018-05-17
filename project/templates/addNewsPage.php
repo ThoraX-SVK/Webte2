@@ -72,11 +72,11 @@ function getErrorMessage() {
 
         switch ($status) {
             case NOT_ENOUGH_DATA:
-                return "Not enough data sent";
+                return '<div class="error-message-wide">Not enough data sent</div>';
             case NEWS_SUCCESSFULLY_SAVED:
-                return "Newsletter article published";
+                return '<div class="success-message-wide">Newsletter article published</div>';
             case NEWS_SAVING_FAILED:
-                return "Newsletter article saving failed";
+                return '<div class="error-message-wide">Newsletter article saving failed</div>';
         }
 
         return null;

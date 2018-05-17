@@ -68,7 +68,7 @@ function getErrorMessage() {
 
         switch ($status) {
             case ERROR_USER_NOT_ADMIN:
-                return "Only administrators can mass register users";
+                return 'Only administrators can mass register users';
         }
     }
 

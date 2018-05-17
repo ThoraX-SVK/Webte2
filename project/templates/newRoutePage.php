@@ -13,6 +13,9 @@ include_once "../template_utils/menuGenerator.php";
 
 echo getMenu();
 
+// error message
+showMessage();
+
 ?>
 
 <header>
@@ -31,8 +34,7 @@ echo getMenu();
 
     loginRequired();
 
-    // error message
-    showMessage();
+
     ?>
     <h2 align="left">New route detail</h2>
     <div id="rightHolder">
@@ -78,9 +80,7 @@ echo getMenu();
 function showMessage() {
     $message = getInfoMessage();
     if ($message != null) {
-        echo "<div>";
         echo $message;
-        echo "</div>";
     }
 }
 
@@ -92,9 +92,9 @@ function getInfoMessage() {
 
         switch ($status) {
             case NOT_ENOUGH_DATA:
-                return "Not enough POST data to save route";
+                return '<div class="error-message-wide">Not enough POST data to save route</div>';
             case TEAM_REQUIRED:
-                return "Team has to be selected in this mode";
+                return '<div class="error-message-wide">Team has to be selected in this mode</div>';
         }
     }
 
