@@ -25,10 +25,10 @@ if (isset($_GET["routeID"])) {
     $routeID = null;
 }
 
-if ($routeID === null) {
+/*if ($routeID === null) {
     header("location: ../templates/allRoutes.php");
     return;
-}
+}*/
 
 $userID = getActiveUserID();
 
@@ -52,7 +52,7 @@ echo getMenu();
 ?>
 
 <header>
-    <h1>Route</h1>
+    <h1>Route Details</h1>
 </header>
 
 <div class="content-route">
@@ -67,7 +67,7 @@ echo getMenu();
 
     <div id="map" style="border: 1px solid black"></div>
     <div class="route-description">
-        <h2>Description NIGGA</h2>
+        <h2>Route Description</h2>
     <?php
         printRouteDescription($routeID);
     ?>
@@ -76,7 +76,7 @@ echo getMenu();
     </div>
 
     <div class="route-last-runs">
-        <h2>Last runs NIGGA</h2>
+        <h2>Latest Contributors</h2>
         <?php
         echo getLastRunsTable($routeID);
         ?>
