@@ -22,7 +22,7 @@ function getTeamTables() {
         }
 
         foreach ($team["teamMembers"] as $member) {
-            $user = getUserFromUserId($member["userID"]);
+            $user = getUserFromUserId__FAKE($member["userID"]);
 
             $memberData = array(
                 $user["userID"],
