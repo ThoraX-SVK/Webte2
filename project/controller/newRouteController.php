@@ -1,6 +1,7 @@
 <?php
 
 include_once "../constants/routeConstants.php";
+include_once "../constants/globallyUsedConstants.php";
 include_once '../utils/sessionUtils.php';
 include_once '../database/routeUtils.php';
 
