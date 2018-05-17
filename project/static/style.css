@@ -404,6 +404,9 @@ input:-webkit-autofill {
 .progress-bar{
     height: 100%;
     background-color: #7AD58E;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
 }
 #publicRoutes{
     height: auto;

@@ -1,0 +1,36 @@
+.content-route{
+    margin: auto;
+    width: 1000px;
+    padding: 30px;
+    background-color:#ffffff;
+    border: 3px solid #3CA180;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    text-align:center;
+    height: auto;
+}
+
+.progress-bar-wrapper{
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+table{
+    margin:auto;
+}
+#map{
+    height: 400px;
+    width: 600px;
+    float: left;
+    display: block;
+}
+
+
+.route-last-runs{
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.wrap-inline{
+    display: block;
+    overflow:hidden
+}
