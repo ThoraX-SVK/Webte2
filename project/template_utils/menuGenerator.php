@@ -21,6 +21,7 @@ function getMenu() {
         $menu .= '<a href="massRegisterPage.php">Mass register from CSV file</a>' . "\n";
         $menu .= '<a href="addNewsPage.php">Add News</a>' . "\n";
         $menu .= '<a href="allUsersStatsPage.php">All Users Stats</a>' . "\n";
+        $menu .= '<a href="newTeamPage.php">Add new team</a>' . "\n";
 
     }
     $menu .= '<a href="../controller/signOutController.php">Sign out</a>' . "\n";
