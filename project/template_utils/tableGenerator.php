@@ -29,6 +29,7 @@ function assembleTable($header, $content, $attrs = null) {
     $table = "<table " . $htmlAttrs . " >";
 
     $table .= assembleTableRow($header, TABLE_HEADER);
+    $table .= "<hr>";
 
     foreach ($content as $values) {
         $table .= assembleTableRow($values, TABLE_NORMAL);
