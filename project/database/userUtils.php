@@ -148,7 +148,6 @@ function getUserRoleFromUserId($userID) {
 function getUserRoleFromUserId__FAKE($userID) {
     return array(
         'roleID' => 2,
-        'role' => ADMIN_ROLE,
     );
 }
 

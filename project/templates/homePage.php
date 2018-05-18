@@ -122,7 +122,8 @@ showMessage();
         $userID = getActiveUserID();
         $routeID = findUsersActiveRoute($userID);
         $array = getRouteShortDescription($routeID);
-        //print_r($array);
+
+        echo "Your active route: <br>";
         echo $array["name"];
         echo "<br>";
 

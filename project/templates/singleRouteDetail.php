@@ -146,10 +146,13 @@ echo getMenu();
 function printRouteDescription($routeID) {
     $desc = getFullRouteDescription($routeID);
 
-    echo $desc["name"] . "<br/> \n";
-    echo $desc["totalDistance"] . "<br/> \n";
-    echo $desc["activeContributorsCount"] . "<br/> \n";
-    echo $desc["routeMode"] . "<br/> \n";
+    echo "<b>Route name:</b> <h2>" . $desc["name"] . "</h2>\n";
+    echo "<b>Active contributors count:</b> " . $desc["activeContributorsCount"] . "<br/> \n";
+    echo "<b>Route mode:</b> " . $desc["routeMode"] . "<br/> \n";
+
+    if ($desc["team"]) {
+        echo "<b>Team:</b> " . $desc["team"] . "<br/> \n";
+    }
 }
 
 ?>

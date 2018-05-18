@@ -8,7 +8,7 @@ include_once "../services/calculateAverageSpeedService.php";
 
 function getUserStatsTable($userID) {
 
-    $userStats = getAllUsersRuns__FAKE($userID);
+    $userStats = getAllUsersRuns($userID);
 
     if ($userStats === null) {
         return "No statistics found for given userID!";
@@ -40,6 +40,30 @@ function getUserStatsTable($userID) {
     }
 
     return assembleTable($header, $content, $attrs);
+}
+
+
+function getUserInfo($userID) {
+
+    $user = getUserFromUserId($userID);
+    $role = getUserRoleFromUserId($userID);
+
+    switch ($role) {
+        case ADMIN_ROLE:
+            $userRole = "Administrator";
+            break;
+        default:
+            $userRole = "Regular user";
+            break;
+    }
+
+    $info = "";
+    $info .= "<b>" . $user["name"] . " " . $user["surname"] . "</b> <br>";
+    $info .= "Email: " . $user["email"] . "<br>";
+    $info .= "Role: " . $userRole . "<br>";
+
+    return $info;
+
 }
 
 
