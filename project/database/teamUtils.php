@@ -25,12 +25,18 @@ function saveTeamToDB($teamData) {
     return $teamID;
 }
 
-function addUserToTeam(mysqli $conn, $teamId, $userID) {
+function addUserToTeam(mysqli $conn, $teamID, $userID) {
 
     $stmn = $conn->prepare("INSERT w2final.TeamMembers VALUES (?, ?)");
     $stmn->bind_param("ii", $teamID, $userID);
     $stmn->execute();
     $stmn->close();
+}
+
+function addUserToTeamSeparate($teamID, $userID) {
+    $conn = createConnectionFromConfigFileCredentials();
+
+    addUserToTeam($conn, $teamID, $userID);
 }
 
 function getTeamIdFromTeamName__FAKE($teamName) {
@@ -113,7 +119,7 @@ function getTeamInfo($teamID) {
     );
 }
 
-function getTeamIdFFromRouteID($routeID) {
+function getTeamIdFromRouteID($routeID) {
 
     $conn = createConnectionFromConfigFileCredentials();
     $stmn = $conn->prepare("SELECT team_fk AS 'teamID' FROM w2final.TeamRoutes WHERE route_fk = ?");
@@ -178,10 +184,23 @@ function getAllTeams() {
     return $res_arr->getArrayCopy();
 }
 
+
 function deleteUserFromTeam($teamID, $userID) {
 
     $conn = createConnectionFromConfigFileCredentials();
     $stmn = $conn->prepare("DELETE FROM w2final.TeamMembers WHERE user_fk = ? AND team_fk = ? ");
     $stmn->bind_param("ii", $userID, $teamID);
     $stmn->execute();
+}
+
+function isUserInTeam($teamID, $userID) {
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT team_fk, user_fk FROM w2final.TeamMembers WHERE user_fk = ? AND team_fk = ?");
+    $stmn->bind_param("ii", $userID, $teamID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+
+    return mysqli_num_rows($result) !== 0;
+
 }
