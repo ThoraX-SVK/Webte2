@@ -10,12 +10,7 @@ function printNewsByPage($page, $newsPerPage = null) {
         $newsPerPage = NEWS_PER_PAGE;
     }
 
-    $allNews = getAllNews();
-    if ($allNews === null) {
-        return array();
-    }
-
-    $newsForGivenPage = getNewsForGivenPage($allNews, $page, $newsPerPage);
+    $newsForGivenPage = getNewsForGivenPage($page, $newsPerPage);
     $formattedNews = array();
 
     foreach ($newsForGivenPage as $news) {
@@ -26,7 +21,13 @@ function printNewsByPage($page, $newsPerPage = null) {
 
 }
 
-function getNewsForGivenPage($allNews, $page, $newsPerPage) {
+function getNewsForGivenPage($page, $newsPerPage) {
+
+    $allNews = getAllNews();
+    if ($allNews === null) {
+        return array();
+    }
+
     $startingIndex = $newsPerPage * ($page - 1);
 
     $newsToShow = array_slice($allNews, $startingIndex, $newsPerPage);

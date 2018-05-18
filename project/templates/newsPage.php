@@ -71,7 +71,7 @@ function getPreviousPageLink() {
 function getNextPageLink() {
     $page = getPage();
 
-    if ($page + 1 !== 0) {
+    if (sizeof(getNewsForGivenPage($page + 1, 5)) > 0) {
         return '<a href="../templates/newsPage.php?page=' . ($page + 1) . '">Next Page</a>';
     } else {
         return "";
