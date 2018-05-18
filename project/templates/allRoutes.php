@@ -51,7 +51,7 @@ include_once "../utils/sessionUtils.php";
 
 loginRequired();
 echo getMenu();
-
+showMessage();
 ?>
 
 
@@ -96,9 +96,7 @@ echo getMenu();
     </div>
     <br>
 
-
     <a href="../templates/newRoutePage.php">Add new route</a>
-
 
 </div>
 <script src="../static/sortTables.js"></script>
@@ -106,4 +104,39 @@ echo getMenu();
 
 </body>
 </html>
+
+<?php
+
+function showMessage() {
+    $message = getInfoMessage();
+    if ($message != null) {
+        echo $message;
+    }
+}
+
+function getInfoMessage() {
+
+    if (isset($_GET["status"])) {
+
+        $status = $_GET["status"];
+
+        switch ($status) {
+            case NOT_ENOUGH_DATA:
+                return '<div class="error-message-wide">Not enough data</div>';
+            case ROUTE_ASSIGNED:
+                return '<div class="success-message-wide">Route assigned</div>';
+            case ROUTE_NOT_ASSIGNED:
+                return '<div class="error-message-wide">Cannot assign route</div>';
+            case ROUTE_ALREADY_ASSIGNED:
+                return '<div class="error-message-wide">Route is already assigned as active</div>';
+
+        }
+    }
+
+    return null;
+}
+
+
+
+?>
 
