@@ -122,6 +122,7 @@ showMessage();
 
     <div id="map"></div>
 
+
     <?php
     include_once '../services/progressBarService.php';
     echo createProgressBar__FAKE(null);
