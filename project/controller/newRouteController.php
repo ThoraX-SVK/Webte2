@@ -22,8 +22,8 @@ $endLongitude = $end[1];
 
 $userId = getActiveUserID();
 
-//echo $distance." ".$name." ".$mode." ".$team." ".$origin." ".$destination." ".$userId."<br>";
-//echo $startLatitude." ".$startLongitude." ".$endLatitude." ".$endLongitude."<br>";
+echo $distance." ".$name." ".$mode." ".$team." ".$origin." ".$destination." ".$userId."<br>";
+echo $startLatitude." ".$startLongitude." ".$endLatitude." ".$endLongitude."<br>";
 
 if (!nullCheck(array($distance, $name, $mode, $origin, $destination))) {
     redirectToHomePageWithMessage(NOT_ENOUGH_DATA);
@@ -59,8 +59,17 @@ switch ($mode) {
     default:
         break;
 }
+$conn = createConnectionFromConfigFileCredentials();
+$sql2 = "SELECT * FROM w2final.Route WHERE user_fk = '$userId' AND startLatitude = '$startLatitude' AND startLongitude = '$startLongitude' AND endLatitude = '$endLatitude' AND endLongitude = '$endLongitude'";
+$result2 = $conn->query($sql2);
+$new = 0;
+while ($row = $result2->fetch_assoc()) {
+    $new = $row['id'];
+}
+$sql = "UPDATE w2final.User SET activeRoute_fk = '$new' WHERE id = 1";
+$conn->query($sql);
 
-redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED,$routeID);
+//redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED,$routeID);
 
 
 function getDataFromPOST($key) {

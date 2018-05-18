@@ -220,7 +220,7 @@ function findUsersActiveRoute__FAKE_NULL($userID) {
 function findUsersActiveRoute($userID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT activeRoute_fk FROM w2final.User WHERE activeRoute_fk = ?");
+    $stmn = $conn->prepare("SELECT activeRoute_fk FROM w2final.User WHERE id = ?");
     $stmn->bind_param("i", $userID);
     $stmn->execute();
 

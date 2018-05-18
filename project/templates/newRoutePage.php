@@ -69,11 +69,11 @@ showMessage();
                 <br><br><span> Route name: </span>
                 <input type="text" class ="controls"name="routeName" required><br>
                 <br><br><span>Origin location: </span>
-                <input id="origin-input"name="origin" class ="controls" type="text" ><br>
+                <input id="origin-input"name="origin" class ="controls" type="text" required><br>
                 <br><br><span>Final location: </span>
-                <input id="destination-input" name="destination" class ="controls" type="text"><br>
+                <input id="destination-input" name="destination" class ="controls" type="text" required><br>
                 <br><br><span> Distance(km): </span>
-                <input type="text" class ="controls" id="distance" name="distance" required><br>
+                <input type="text" class ="controls" id="distance" name="distance" readonly required><br>
                 <p id="origin-hide" hidden></p><br>
                 <p id="destination-hide" hidden ></p><br>
 
