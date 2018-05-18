@@ -408,6 +408,7 @@ input:-webkit-autofill {
     font-weight: bold;
     text-align: center;
     line-height: 30px;
+    display: inline-block;
 }
 #publicRoutes{
     height: auto;
@@ -436,4 +437,44 @@ input:-webkit-autofill {
 }
 #routeButtonsHolder input[type=button]{
     width: 30%;
+}
+#results-table table{
+text-align: center;
+color: black;
+margin: auto;
+}
+#results-table hr{
+border: 0;
+height: 1px;
+background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+#color1{
+    background-color: #4d90fe;
+}
+#color2{
+    background-color: #3CA180;
+}
+#color3{
+    background-color: burlywood;
+}
+#color4{
+    background-color: #c75353;
+}
+#color5{
+    background-color: darkmagenta;
+}
+#color6{
+    background-color: gold;
+}
+#color7{
+    background-color: aqua;
+}
+#color8{
+    background-color: lawngreen;
+}
+#color9{
+    background-color: red;
+}
+#color10{
+    background-color: deeppink;
 }
