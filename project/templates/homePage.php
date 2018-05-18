@@ -46,13 +46,12 @@ showMessage();
             <form action="../controller/newRunController.php" method="POST">
                 <br><br><span> Distance </span>
                 <input type="text" name="distanceTraveled" required>
-                <br><br><span> Time of start </span>
+                <br><br><span> Date </span>
                 <input type="date" name="dateOfRun">
                 <br><br><span> Time of start </span>
                 <input type="time" name="startAtTime">
                 <br><br><span> Time of end </span>
                 <input type="time" name="finishAtTime">
-
 
                 <br><br><span> Start latitude </span>
                 <input type="number" step="0.00001" name="startLatitude">
@@ -62,14 +61,8 @@ showMessage();
                 <br><br><span> End latitude </span>
                 <input type="number" step="0.00001" name="endLatitude">
                 <br><br><span> End longitude </span>
+
                 <input type="number" step="0.00001" name="endLongitude">
-
-                <br><br><span> Start location</span>
-                <input id="origin"  type="text">
-                <br><br><span> End location</span>
-                <input id="destination" type="text">
-
-
                 <br><br><span> Rating </span>
                 <input type="number" step="1" min="0" max="5" name="rating">
                 <br><br><span> Note </span>
@@ -88,11 +81,9 @@ showMessage();
     function showRouteStats() {
         include_once "../database/routeUtils.php";
 
-
         $userID = getActiveUserID();
         $routeID = findUsersActiveRoute($userID);
         $array = getRouteShortDescription__FAKE($routeID);
-
         //print_r($array);
         echo $array["name"];
         echo "<br>";
@@ -128,8 +119,8 @@ showMessage();
     }
 
     ?>
-    <div id="map"></div>
 
+    <div id="map"></div>
 
     <?php
     include_once '../services/progressBarService.php';
