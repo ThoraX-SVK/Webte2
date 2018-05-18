@@ -1,7 +1,6 @@
 <?php
 
 include_once "../constants/routeConstants.php";
-include_once "../constants/globallyUsedConstants.php";
 include_once '../utils/sessionUtils.php';
 include_once '../database/routeUtils.php';
 
@@ -12,14 +11,21 @@ $distance= getDataFromPOST('distance');
 $name = getDataFromPOST('routeName');
 $mode = getDataFromPOST('mode');
 $team = getDataFromPOST('team');
-$startLatitude = getDataFromPOST('startLatitude');
-$startLongitude = getDataFromPOST('startLongitude');
-$endLatitude = getDataFromPOST('endLatitude');
-$endLongitude = getDataFromPOST('endLongitude');
+$origin = getDataFromPOST('origin');
+$destination = getDataFromPOST('destination');
+$start = addressToLatLong($origin);
+$end = addressToLatLong($destination);
+$startLatitude = $start[0];
+$startLongitude = $start[1];
+$endLatitude = $end[0];
+$endLongitude = $end[1];
 
 $userId = getActiveUserID();
 
-if (!nullCheck(array($distance, $name, $mode, $startLatitude, $startLongitude, $endLatitude, $endLongitude))) {
+//echo $distance." ".$name." ".$mode." ".$team." ".$origin." ".$destination." ".$userId."<br>";
+//echo $startLatitude." ".$startLongitude." ".$endLatitude." ".$endLongitude."<br>";
+
+if (!nullCheck(array($distance, $name, $mode, $origin, $destination))) {
     redirectToHomePageWithMessage(NOT_ENOUGH_DATA);
     return;
 }
@@ -47,14 +53,14 @@ switch ($mode) {
     case PUBLIC_MODE:
         loginRequired(ADMIN_ROLE);
         saveRoute($userId, $name ,$distance, $mode,
-                $startLatitude, $startLongitude, $endLatitude, $endLongitude);
+            $startLatitude, $startLongitude, $endLatitude, $endLongitude);
         break;
 
     default:
         break;
 }
 
-redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED);
+redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED,$routeID);
 
 
 function getDataFromPOST($key) {
@@ -65,7 +71,12 @@ function getDataFromPOST($key) {
     }
 }
 
-function redirectToHomePageWithMessage($status) {
+function redirectToHomePageWithMessage($status,$routeID) {
+    $query = array(
+      'status' => $status,
+      'routeID' => $routeID
+    );
+    $query = http_build_query($query);
     // TODO prevent input data loss -> send back in get if saving failed
     header('location: ../templates/homePage.php?status=' . $status);
 }
@@ -82,6 +93,17 @@ function nullCheck($array) {
         }
     }
     return true;
+}
+
+function addressToLatLong($dlocation){
+    $address = str_replace(',','',$dlocation);
+    $prepAddr = str_replace(' ','+',$address);
+    //$geocode=file_get_contents('https://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
+    $geocode=file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=true_or_false&key=AIzaSyBr8NV5cYhZlxoFvyaRrusfcmAMM7IQMw4');
+    $output= json_decode($geocode);
+    $latlon[0] = $output->results[0]->geometry->location->lat;
+    $latlon[1] = $output->results[0]->geometry->location->lng;
+    return $latlon;
 }
 
 
