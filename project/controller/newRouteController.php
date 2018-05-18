@@ -42,8 +42,12 @@ switch ($mode) {
         saveRoute($userId, $name ,$distance, $mode,
             $startLatitude, $startLongitude, $endLatitude, $endLongitude);
 
-        //TODO assign Team to Route and check if team exists
+        $routeID = getRouteIDForRouteName($name);
+        $teamID = getTeamIdFromTeamName($team);
 
+        if($routeID !== null and $teamID !== null) {
+            addRouteToTeam($teamID,$routeID);
+        }
         break;
 
     case PUBLIC_MODE:
