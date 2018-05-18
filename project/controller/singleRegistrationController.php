@@ -43,15 +43,17 @@ if ($saveResult["status"] === FAILED) {
 // user saving successful
 } else {
 
-    $emailData = constructActivationEmail($email, $saveResult["userID"], $password);
-    if ($emailData != null and isEmailValid($email)) {
-        sendEmail($email, $emailData["subject"], $emailData["body"], $emailData["from"]);
+//    $emailData = constructActivationEmail($email, $saveResult["userID"], $password);
+//    if ($emailData != null and isEmailValid($email)) {
+//        sendEmail($email, $emailData["subject"], $emailData["body"], $emailData["from"]);
+//
+//        redirectToRegistrationSuccess($email);
+//    }
 
-        // remove in case emails get implemented
-        createUserSession($saveResult["userID"], $email, USER_ROLE);
-
-        redirectToRegistrationSuccess($email);
-    }
+    // remove in case emails get implemented
+    createUserSession($saveResult["userID"], $email, USER_ROLE);
+//    redirectToRegistrationSuccess($email);
+    header("location: ../templates/homePage.php");
 
 }
 
