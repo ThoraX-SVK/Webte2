@@ -75,6 +75,7 @@ showMessage();
 
     <?php
 
+    include_once "../constants/globallyUsedConstants.php";
     include_once '../constants/messageConstants.php';
     include_once '../constants/routeConstants.php';
 
@@ -110,8 +111,6 @@ showMessage();
                     return '<div class="success-message-wide">Your run has been successfully saved';
                 case RUN_SAVING_FAILED:
                     return '<div class="error-message-wide">There has been an error and your run has NOT been saved';
-                case ROUTE_SUCCESSFULLY_SAVED:
-                    return '<div class="success-message-wide">Your new route has been saved';
             }
         }
 

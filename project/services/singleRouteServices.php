@@ -10,12 +10,14 @@ include_once "../constants/routeConstants.php";
 function getLastRunsTable($routeID) {
 
     $lastRuns = get_N_lastRuns($routeID);
+
     $header = array("User", "Distance ran", "Date", "Finished At");
+
     $htmlAttrs = array("class" => "last-runs-table");
     $tableContent = array();
 
     foreach ($lastRuns as $run) {
-        $user = getUserFromUserId__FAKE($run["userID"]);
+        $user = getUserFromUserId($run["userID"]);
         if ($user === null or sizeof($user) === 0) {
             continue;
         }
@@ -25,6 +27,32 @@ function getLastRunsTable($routeID) {
             $run["distance"] . " km",
             $run["date"],
             $run["endAtTime"]
+
+        );
+        array_push($tableContent, $tableRow);
+    }
+
+    return assembleTable($header, $tableContent, $htmlAttrs);
+}
+
+
+function getTopContributors($routeID) {
+    $topCont = get_N_topContributorsToRouteID($routeID);
+    $header = array("Name", "Surname", "Email", "Contribution");
+    $htmlAttrs = array("class" => "top-contributors-table");
+    $tableContent = array();
+
+    foreach ($topCont as $cont) {
+        $user = getUserFromUserId($cont["userID"]);
+        if ($user === null or sizeof($user) === 0) {
+            continue;
+        }
+
+        $tableRow = array(
+            $user["name"],
+            $user["surname"],
+            $user["email"],
+            $cont["distance"]
 
         );
         array_push($tableContent, $tableRow);
