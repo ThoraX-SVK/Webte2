@@ -12,10 +12,10 @@ function getAllUsersTable() {
     $header = array("User ID", "Name", "Surname", "Email", "Is Activated", "User role", "Link to stats");
     $content = array();
 
-    $users = getAllUsers__FAKE();
+    $users = getAllUsers();
 
     foreach ($users as $user) {
-        $userRole = getUserRoleFromUserId__FAKE($user["userID"]);
+        $userRole = getUserRoleFromUserId($user["userID"]);
 
         $userRoleDisplay = getUserRoleDisplayValue($userRole);
 
