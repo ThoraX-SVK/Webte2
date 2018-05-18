@@ -170,7 +170,49 @@ showMessage();
 
 </div>
 
-<script src="../static/pointToPointRouteScript.js"></script>
+<script>
+    function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: {lat: 48.12, lng: 25.12}
+        });
+        directionsDisplay.setMap(map);
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        directionsService.route({
+            origin:
+            <?php
+            include_once "../database/routeUtils.php";
+
+            $userID = getActiveUserID();
+            $routeID = findUsersActiveRoute($userID);
+            $array = getAlltDescription($routeID);
+            echo "{lat:".$array["startLatitude"].", lng:".$array["startLongitude"]."}";
+
+            ?>,
+            destination:
+            <?php
+            include_once "../database/routeUtils.php";
+
+            $userID = getActiveUserID();
+            $routeID = findUsersActiveRoute($userID);
+            $array = getAlltDescription($routeID);
+            echo "{lat:".$array["endLatitude"].", lng:".$array["endLongitude"]."}";
+            ?>,
+            travelMode: 'WALKING'
+        }, function(response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr8NV5cYhZlxoFvyaRrusfcmAMM7IQMw4&libraries=places&callback=initMap"
         async defer></script>
 </body>
