@@ -444,6 +444,7 @@ function selectPrivateRoutes($userID) {
         $routeInfo = calculateRouteRemainingAndDoneDistance($routeID);
 
         $res = array(
+            'routeID' => $routeID,
             'distanceData' => $routeInfo,
             'name' => $row['routeName'],
             'isActiveForUser' => $isActiveRoute
@@ -480,6 +481,7 @@ function selectPublicRoutes($userID) {
         $routeInfo = calculateRouteRemainingAndDoneDistance($routeID);
 
         $res = array(
+            'routeID' => $routeID,
             'distanceData' => $routeInfo,
             'name' => $row['routeName'],
             'isActiveForUser' => $isActiveRoute
@@ -522,6 +524,7 @@ function selectTeamRoutes($userID) {
         $routeInfo = calculateRouteRemainingAndDoneDistance($routeID);
 
         $res = array(
+            'routeID' => $routeID,
             'distanceData' => $routeInfo,
             'name' => $routeName,
             'isActiveForUser' => $isActiveForUser,
