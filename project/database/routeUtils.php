@@ -75,6 +75,33 @@ function getRouteShortDescription($routeID) {
     );
 }
 
+function getAlltDescription($routeID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT name, distance, startLatitude, startLongitude,endLatitude, endLongitude FROM w2final.Route WHERE id = ?");
+    $stmn->bind_param("i", $routeID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    if(mysqli_num_rows($result) === 0) {
+        return null;
+    }
+
+    $row = $result->fetch_assoc();
+
+    return array(
+        'name' => $row['name'],
+        'totalDistance' => $row['distance'],
+        'startLatitude' => $row['startLatitude'],
+        'startLongitude' => $row['startLongitude'],
+        'endLatitude' => $row['endLatitude'],
+        'endLongitude' => $row['endLongitude']
+    );
+}
+
 function getRouteFullDescription__FAKE($routeID) {
 
     return array(
