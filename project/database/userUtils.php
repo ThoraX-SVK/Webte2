@@ -283,15 +283,6 @@ function isUserActivated($userId) {
     return true;
 }
 
-function addRouteToTeam($teamID, $routeID) {
-
-    $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("INSERT w2final.TeamRoutes VALUES (?, ?)");
-    $stmn->bind_param("ii", $teamID, $routeID);
-    $stmn->execute();
-    $stmn->close();
-}
-
 function getAllUsers() {
 
     $conn = createConnectionFromConfigFileCredentials();
