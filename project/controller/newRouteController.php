@@ -3,13 +3,18 @@
 include_once "../constants/routeConstants.php";
 include_once '../utils/sessionUtils.php';
 include_once '../database/routeUtils.php';
+include_once '../database/teamUtils.php';
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 loginRequired();
 
 $distance= getDataFromPOST('distance');
 $name = getDataFromPOST('routeName');
 $mode = getDataFromPOST('mode');
-$team = getDataFromPOST('team');
+$teamID = getDataFromPOST('team');
 $origin = getDataFromPOST('origin');
 $destination = getDataFromPOST('destination');
 $start = addressToLatLong($origin);
@@ -33,20 +38,23 @@ switch ($mode) {
         break;
 
     case TEAM_MODE:
-        if ($team === null) {
+
+        if ($teamID === null) {
             redirectToNewRoutePageWithMessage(TEAM_REQUIRED);
             return;
         }
 
         loginRequired(ADMIN_ROLE);
+
         saveRoute($userId, $name ,$distance, $mode,
             $startLatitude, $startLongitude, $endLatitude, $endLongitude);
 
         $routeID = getRouteIDForRouteName($name);
-        $teamID = getTeamIdFromTeamName($team);
 
         if($routeID !== null and $teamID !== null) {
-            addRouteToTeam($teamID,$routeID);
+            echo "test1";
+            addRouteToTeam($teamID, $routeID);
+            echo "test2";
         }
         break;
 

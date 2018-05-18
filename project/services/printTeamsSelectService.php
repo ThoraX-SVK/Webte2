@@ -11,17 +11,17 @@ function getTeamsSelect() {
     $attrs = array("name" => "team");
     $options = array();
 
-    $teams = getAllTeams__FAKE();
+    $teams = getAllTeams();
 
     foreach ($teams as $team) {
+        $teamID = getTeamIdFromTeamName($team["teamName"]);
         $opt = array(
-            "value" => $team["teamID"],
+            "value" => $teamID,
             "inner" => $team["teamName"],
         );
 
         array_push($options, $opt);
     }
-
 
     return assembleSelect($options, $attrs);
 }

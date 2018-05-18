@@ -25,6 +25,16 @@ function saveTeamToDB($teamData) {
     return $teamID;
 }
 
+function addRouteToTeam($teamID, $routeID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("INSERT INTO w2final.TeamRoutes VALUES (?, ?)");
+    $stmn->bind_param("ii", $teamID, $routeID);
+    $stmn->execute();
+    $stmn->close();
+    $conn->close();
+}
+
 function addUserToTeam(mysqli $conn, $teamID, $userID) {
 
     $stmn = $conn->prepare("INSERT w2final.TeamMembers VALUES (?, ?)");
