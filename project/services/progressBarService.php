@@ -67,9 +67,21 @@ function createMultiProgressBar($routeID) {
     $progressBar .= '<div class="progress-bar-wrapper">' . "\n";
 
     $index = 1;
+
+    $allContributions = new ArrayObject();
+    $sum = 0;
+    foreach ($contributors as $user) {
+        $sum = $sum + $user['userContribution'];
+    }
+
+    $normalizeRatio = 1;
+    if($sum > $calculations['totalDistance']) {
+        $normalizeRatio = $calculations['totalDistance'] / $sum;
+    }
+
     foreach ($contributors as $user) {
         $userContributed = $user['userContribution'];
-        $percentToFill = floor(($userContributed / $calculations['totalDistance'])*100);
+        $percentToFill = (floor(($userContributed / $calculations['totalDistance'])*100))*$normalizeRatio ;
         $progressBar .= '<div class="progress-bar color' . $index .'" style="width:' .  $percentToFill . '%">' . $user['email'] . '</div>' . "\n";
         $index++;
 
