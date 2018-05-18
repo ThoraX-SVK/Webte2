@@ -62,11 +62,11 @@
                     <?php
 
                     include_once "../utils/sessionUtils.php";
-                    if (!isUserLoggedIn()) {
-                        echo '<li><a href="./login.php">Login</a></li>';
-                    } else {
-                        echo '<li><a href="./homePage.php">logged in</a></li>';
-                    }
+                        if (!isUserLoggedIn()) {
+                            echo '<li><a href="./login.php">Login</a></li>';
+                        } else {
+                            echo '<li><a href="./homePage.php">logged in</a></li>';
+                        }
                     ?>
 
                 </ul>
