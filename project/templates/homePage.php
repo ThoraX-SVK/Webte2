@@ -44,16 +44,25 @@ showMessage();
         </div>
         <div id="runFormHolder">
             <form action="../controller/newRunController.php" method="POST">
-                <br><br><span> Date of run </span>
+                <br><br><span> Distance </span>
+                <input type="text" name="distanceTraveled" required>
+                <br><br><span> Date </span>
                 <input type="date" name="dateOfRun">
                 <br><br><span> Time of start </span>
                 <input type="time" name="startAtTime">
                 <br><br><span> Time of end </span>
                 <input type="time" name="finishAtTime">
-                <br><br><span> Start location</span>
-                <input id="origin-input"  type="text">
-                <br><br><span> End location</span>
-                <input id="destination-input" type="text">
+
+                <br><br><span> Start latitude </span>
+                <input type="number" step="0.00001" name="startLatitude">
+                <br><br><span> Start longitude </span>
+                <input type="number" step="0.00001" name="startLongitude">
+
+                <br><br><span> End latitude </span>
+                <input type="number" step="0.00001" name="endLatitude">
+                <br><br><span> End longitude </span>
+
+                <input type="number" step="0.00001" name="endLongitude">
                 <br><br><span> Rating </span>
                 <input type="number" step="1" min="0" max="5" name="rating">
                 <br><br><span> Note </span>
@@ -112,7 +121,6 @@ showMessage();
     ?>
 
     <div id="map"></div>
-
 
     <?php
     include_once '../services/progressBarService.php';

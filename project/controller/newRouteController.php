@@ -6,7 +6,6 @@ include_once '../database/routeUtils.php';
 
 loginRequired();
 
-
 $distance= getDataFromPOST('distance');
 $name = getDataFromPOST('routeName');
 $mode = getDataFromPOST('mode');
@@ -22,10 +21,7 @@ $endLongitude = $end[1];
 
 $userId = getActiveUserID();
 
-//echo $distance." ".$name." ".$mode." ".$team." ".$origin." ".$destination." ".$userId."<br>";
-//echo $startLatitude." ".$startLongitude." ".$endLatitude." ".$endLongitude."<br>";
-
-if (!nullCheck(array($distance, $name, $mode, $origin, $destination))) {
+if (!nullCheck(array($distance, $name, $mode, $startLatitude, $startLongitude, $endLatitude, $endLongitude))) {
     redirectToHomePageWithMessage(NOT_ENOUGH_DATA);
     return;
 }
@@ -60,7 +56,7 @@ switch ($mode) {
         break;
 }
 
-redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED,$routeID);
+redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED);
 
 
 function getDataFromPOST($key) {
@@ -71,12 +67,7 @@ function getDataFromPOST($key) {
     }
 }
 
-function redirectToHomePageWithMessage($status,$routeID) {
-    $query = array(
-      'status' => $status,
-      'routeID' => $routeID
-    );
-    $query = http_build_query($query);
+function redirectToHomePageWithMessage($status) {
     // TODO prevent input data loss -> send back in get if saving failed
     header('location: ../templates/homePage.php?status=' . $status);
 }

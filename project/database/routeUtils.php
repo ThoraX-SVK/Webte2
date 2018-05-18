@@ -141,10 +141,13 @@ function saveRoute($createdByUserID, $name, $totalDistance, $mode,
 
     $conn = createConnectionFromConfigFileCredentials();
 
-    $sql = "INSERT INTO w2final.Route (id, user_fk, name, distance, mode_fk, startLatitude, startLongitude, endLatitude, endLongitude)
-            VALUES (NULL, '$createdByUserID', '$name', '$totalDistance', '$mode', '$startLatiude', '$startLongitude', '$endLatitude', '$endLongitude')";
-    $conn->query($sql);
+    $stmn = $conn->prepare("INSERT w2final.Route VALUES (DEFAULT, ?, ? ,? , ?, ?, ?, ?, ?)");
+    $stmn->bind_param('isiiiiii',$createdByUserID, $name, $totalDistance, $mode,
+        $startLatiude, $startLongitude,
+        $endLatitude, $endLongitude);
+    $stmn->execute();
 
+    $stmn->close();
     $conn->close();
 }
 
