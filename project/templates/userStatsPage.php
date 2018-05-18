@@ -15,6 +15,7 @@ include_once "../template_utils/menuGenerator.php";
 include_once "../utils/sessionUtils.php";
 include_once "../services/printUsersStatsTableService.php";
 include_once "../services/checkIfUserExistsService.php";
+include_once "../services/calculateAverageSpeedService.php";
 
 loginRequired();
 
@@ -40,6 +41,8 @@ if (!checkIfUserExists($userID)) {
     echo getUserInfo($userID);
 
     echo getUserStatsTable($userID);
+
+    echo "<b>Average speed for all runs:</b> " . getAverageSpeedOfUser($userID) . " [km/h]<br> \n";
 
     ?>
 
