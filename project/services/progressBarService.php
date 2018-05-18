@@ -3,7 +3,7 @@
 include_once "../database/routeUtils.php";
 
 function createProgressBar__FAKE($routeID) {
-    return createHTMLProgressBarString(42 , 42, 100);
+    return createHTMLProgressBarString(50 , 50, 100);
 }
 
 function createHTMLProgressBarString($filledToPercent, $done, $total) {

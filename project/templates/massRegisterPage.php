@@ -22,7 +22,7 @@ echo getMenu();
 
 
 <header>
-    <h1>Admin :: Mass Registration</h1>
+    <h1>Admin :: Mass Registration from CSV file</h1>
 </header>
 
 <?php

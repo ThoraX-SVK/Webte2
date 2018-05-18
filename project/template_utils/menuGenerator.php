@@ -17,10 +17,11 @@ function getMenu() {
     // only show when user is admin
     if (isUserAdmin()) {
 
-        $menu .= '<a href="massRegisterPage.php">Mass register from CSV file</a>' . "\n";
+        $menu .= '<a href="massRegisterPage.php">Mass registration</a>' . "\n";
         $menu .= '<a href="addNewsPage.php">Add News</a>' . "\n";
         $menu .= '<a href="allUsersStatsPage.php">All Users Stats</a>' . "\n";
         $menu .= '<a href="allTeams.php">All teams</a>' . "\n";
+        $menu .= '<a href="documentation.php">Documentation</a>' . "\n";
 
     }
     $menu .= '<a href="../controller/signOutController.php">Sign out</a>' . "\n";

@@ -23,7 +23,7 @@ echo getMenu();
 
 
 <header>
-    <h1>All User Stats</h1>
+    <h1>Admin :: All User Stats</h1>
 </header>
 
 <div class="content">
