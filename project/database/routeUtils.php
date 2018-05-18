@@ -141,13 +141,10 @@ function saveRoute($createdByUserID, $name, $totalDistance, $mode,
 
     $conn = createConnectionFromConfigFileCredentials();
 
-    $stmn = $conn->prepare("INSERT w2final.Route VALUES (DEFAULT, ?, ? ,? , ?, ?, ?, ?, ?)");
-    $stmn->bind_param('isiiiiii',$createdByUserID, $name, $totalDistance, $mode,
-        $startLatiude, $startLongitude,
-        $endLatitude, $endLongitude);
-    $stmn->execute();
+    $sql = "INSERT INTO w2final.Route (id, user_fk, name, distance, mode_fk, startLatitude, startLongitude, endLatitude, endLongitude)
+            VALUES (NULL, '$createdByUserID', '$name', '$totalDistance', '$mode', '$startLatiude', '$startLongitude', '$endLatitude', '$endLongitude')";
+    $conn->query($sql);
 
-    $stmn->close();
     $conn->close();
 }
 
@@ -326,7 +323,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                     'done' => 120,
                     'remaining' => 180),
                 'name' => 'route1',
-                'isActiveForUser' => true
+                'isActiveForUser' => true,
+                'routeID' => 1
             ),
             array(
                 'distanceData' => array(
@@ -334,7 +332,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                     'done' => 0,
                     'remaining' => 1000),
                 'name' => 'route2',
-                'isActiveForUser' => false
+                'isActiveForUser' => false,
+                'routeID' => 1
             ),
             array(
                 'distanceData' => array(
@@ -342,7 +341,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                     'done' => 23,
                     'remaining' => 77),
                 'name' => 'route3',
-                'isActiveForUser' => false
+                'isActiveForUser' => false,
+                'routeID' => 1
             )
         );
             break;
@@ -355,7 +355,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                         'remaining' => 1000),
                     'name' => 'route1',
                     'isActiveForUser' => true,
-                    'isUserInTeam' => true
+                    'isUserInTeam' => true,
+                    'routeID' => 1
                 ),
                 array(
                     'distanceData' => array(
@@ -364,7 +365,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                         'remaining' => 750),
                     'name' => 'route2',
                     'isActiveForUser' => false,
-                    'isUserInTeam' => false
+                    'isUserInTeam' => false,
+                    'routeID' => 1
                 ),
                 array(
                     'distanceData' => array(
@@ -373,7 +375,8 @@ function getAllRoutesWithModeVisibleForUserID__FAKE($mode, $userID = null) {
                         'remaining' => 80),
                     'name' => 'route3',
                     'isActiveForUser' => false,
-                    'isUserInTeam' => true
+                    'isUserInTeam' => true,
+                    'routeID' => 1
                 )
             );
         default:
@@ -601,7 +604,33 @@ function getAllRoutesWithMode($mode) {
     return $res_arr->getArrayCopy();
 }
 
+function isRouteVisibleForUserID($routeID, $userID) {
 
+    $routeMode = getRouteMode($routeID);
+
+    switch($routeMode) {
+        case PRIVATE_MODE:
+            return isUserCreatorOfPrivateRoute($userID, $routeID);
+        case PUBLIC_MODE:
+        case TEAM_MODE:
+            return true;
+        default:
+            return false;
+    }
+}
+
+function isUserCreatorOfPrivateRoute($userID, $routeID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT id FROM w2final.Route
+                                    WHERE id = ? AND user_fk = ? AND mode_fk = 1");
+    $stmn->bind_param("ii",$routeID,$userID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+
+    return mysqli_num_rows($result) === 0 ? false : true;
+}
 
 
 

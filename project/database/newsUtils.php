@@ -2,11 +2,18 @@
 
 include_once '../database/createConnection.php';
 
+function saveNews($header, $content) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("INSERT w2final.News VALUES (DEFAULT, ? , ?, CURRENT_DATE)");
+    $stmn->bind_param("ss", $header, $content);
+    return $stmn->execute();
+}
 
 function getAllNews() {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT id, header, content, added FROM w2final.News");
+    $stmn = $conn->prepare("SELECT id, header, content, added FROM w2final.News ORDER BY added DESC");
     $stmn->execute();
 
     $result = $stmn->get_result();

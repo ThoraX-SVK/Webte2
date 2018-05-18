@@ -3,6 +3,7 @@
 include_once '../utils/sessionUtils.php';
 include_once '../database/teamUtils.php';
 include_once '../constants/teamConstants.php';
+include_once '../constants/globallyUsedConstants.php';
 
 loginRequired(ADMIN_ROLE);
 
@@ -35,7 +36,7 @@ if ($teamID === null) {
 }
 
 
-redirectToHomePageWithMessage(TEAM_SUCCESSFULLY_SAVED);
+redirectToAllTeamsWithMessage(TEAM_SUCCESSFULLY_SAVED);
 
 
 function getDataFromPOST($key) {

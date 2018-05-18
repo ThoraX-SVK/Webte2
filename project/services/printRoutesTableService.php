@@ -9,7 +9,7 @@ include_once "../template_utils/tableGenerator.php";
 function getRouteTables() {
 
     //TODO: Slight change, userID CAN NOT be null.
-    $userID = getActiveUserID();
+    $userID = getActiveUserID__FAKE();
     if ($userID === null) {
         // $userID is null somehow (loginRequired implies that it is not)
         return "FAILED: USER ID NOT GIVEN, USER IS NOT LOGGED IN.";
@@ -42,7 +42,7 @@ function transformRouteArrayTo2D($routes) {
 
         array_push($result,
             array(
-            $route["name"],
+            getLinkToRoute($route["routeID"], $route["name"]),
             $route["distanceData"]["totalDistance"],
             $route["distanceData"]["done"],
             $route["distanceData"]["remaining"],
@@ -51,6 +51,10 @@ function transformRouteArrayTo2D($routes) {
         }
 
     return $result;
+}
+
+function getLinkToRoute($routeID, $routeName) {
+    return '<a href="../templates/singleRouteDetail.php?routeID=' . $routeID . '">' . $routeName . '</a>';
 }
 
 

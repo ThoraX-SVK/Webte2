@@ -23,7 +23,8 @@ echo getMenu();
     <?php
     include_once "../services/printTeamsTableService.php";
     include_once "../utils/sessionUtils.php";
-    include_once  "../constants/routeConstants.php";
+    include_once  "../constants/teamConstants.php";
+    include_once  "../constants/globallyUsedConstants.php";
     include_once "../database/teamUtils.php";
 
     loginRequired(ADMIN_ROLE);
@@ -69,9 +70,7 @@ function showTables() {
 function showMessage() {
     $message = getInfoMessage();
     if ($message != null) {
-        echo "<div>";
         echo $message;
-        echo "</div>";
     }
 }
 
@@ -83,11 +82,14 @@ function getInfoMessage() {
 
         switch ($status) {
             case NOT_ENOUGH_DATA:
-                return "Not enough POST data to save route";
-            case TEAM_REQUIRED:
-                return "Team has to be selected in this mode";
+                return '<div class="error-message-wide">Not enough POST data to save route</div>';
+            case TEAM_SUCCESSFULLY_SAVED:
+                return '<div class="success-message-wide">Team has been successfully saved</div>';
             case TEAM_SUCCESSFULLY_DELETED:
-                return "Team has been successfully deleted";
+                return '<div class="success-message-wide">Team has been successfully deleted</div>';
+            case TEAM_MEMBER_REMOVED:
+                return '<div class="success-message-wide">Team member has been successfully removed</div>';
+
         }
     }
 

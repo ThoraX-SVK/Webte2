@@ -1,9 +1,9 @@
 <?php
 
 return array(
-    'host' => '127.0.0.1',
+    'host' => 'localhost',
     'user' => 'root',
-    'password' => 'TtJBzpcnHsl'
+    'password' => 'TtJBzpcnHs1'
 );
 
 

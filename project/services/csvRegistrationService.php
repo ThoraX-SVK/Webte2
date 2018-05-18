@@ -9,51 +9,6 @@ define('CSV_LINE_DELIMITER', "\n");
 define('CSV_COLUMN_DELIMITER', ";");
 
 
-function processCsvFileAndSaveUsers__FAKE($csv) {
-
-    $results = array(
-        array (
-            "surname" => "PRIEZV",
-            "name" =>"MENO",
-            "email" => "EMAIL",
-            "password" => "HESLO",
-            "schoolName" => "SKOLA",
-            "schoolStreet" => "SKOLAAD",
-            "schoolStreetNo" => "SKOLA2",
-            "schoolPSC" => "SKOLAPSC",
-            "schoolCity" => "MESTO",
-            "userStreet" => "ULICA",
-            "userStreetNo" => "12",
-            "userCity" => "MESTO",
-            "userPSC" => "54556",
-        )
-    );
-
-    $failedResults = array(
-        array (
-            "surname" => "FAIL",
-            "name" =>"FAIL",
-            "email" => "FAIL EMAIL",
-            "password" => "HESLO",
-            "schoolName" => "SKOLA",
-            "schoolStreet" => "SKOLAAD",
-            "schoolStreetNo" => "SKOLA2",
-            "schoolPSC" => "SKOLAPSC",
-            "schoolCity" => "MESTO",
-            "userStreet" => "ULICA",
-            "userStreetNo" => "12",
-            "userCity" => "MESTO",
-            "userPSC" => "54556",
-            "FAILURE_REASON" => ERROR_EMAIL_INVALID
-        )
-    );
-
-    return array(
-        "successful" => $results,
-        "failed" => $failedResults
-    );
-}
-
 
 function processCsvFileAndSaveUsers($csv) {
 // use this function to save every user saveUser(), check if return is not === FAILED, if not, we can say
@@ -65,19 +20,12 @@ function processCsvFileAndSaveUsers($csv) {
     $successfulUsers = array();
 
 
-    //TODO remove later
-    // printData_DEBUG($userLabeledData);
-
     //for every user
     foreach ($userLabeledData as $user) {
         $user["password"] = createRandomPassword();
+        $user["passwordConfirm"] = $user["password"];
 
-        $userData = createEmptyUser();
-
-        //TODO: Please fill data to user
-
-
-        $result = saveUserSuccess__FAKE($userData);
+        $result = saveUser($user);
 
         if ($result["status"] == FAILED) {
             $user["FAILURE_REASON"] = $result["reason"];
@@ -189,17 +137,6 @@ function parseSchoolAddress($string) {
 }
 
 
-function printData_DEBUG($resultsMatrix) {
-    echo "\n <br/>";
-    //var_dump($resultsMatrix);
-    foreach ($resultsMatrix as $line) {
-        foreach ($line as $val) {
-            echo $val . "\n <br/>";
-
-        }
-        echo "-------------------------- \n <br/>";
-    }
-}
 
 
 

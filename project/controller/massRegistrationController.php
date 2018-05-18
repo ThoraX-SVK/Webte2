@@ -6,11 +6,12 @@ include_once "../services/csvRegistrationService.php";
 include_once "../services/sendEmailService.php";
 include_once "../utils/constructVerificationEmailContent.php";
 include_once "../constants/registerConstants.php";
+include_once "../constants/globallyUsedConstants.php";
 include_once "../template_utils/tableGenerator.php";
 
 
 //check if in session there is admin logged in
-if (!isUserAdmin_YES__FAKE()) {
+if (!isUserAdmin()) {
     //user not ADMIN, print error
     redirectToRegisterWithMessage(ERROR_USER_NOT_ADMIN);
     return;
@@ -25,8 +26,7 @@ if ($csv !== null) {
     $table = createMassRegisterResultsTable($results);
     sendMassEmailsToSuccessfulUsers($results["successful"]);
 
-
-   $resultsToPrintInTemplate = array ( "table" => $table );
+    $resultsToPrintInTemplate = array ( "table" => $table );
 
 // file NOT uploaded
 } else {
@@ -77,7 +77,7 @@ function getVerboseError($error) {
             return "Email is already taken";
 
         default:
-            return "Unknown error";
+            return "Unknown error - " . $error;
     }
 }
 

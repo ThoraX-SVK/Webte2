@@ -12,12 +12,11 @@
 <body>
 <?php
 include_once "../template_utils/menuGenerator.php";
+include_once "../services/printAllUsersTableService.php";
 include_once "../utils/sessionUtils.php";
-include_once  "../constants/routeConstants.php";
 
 loginRequired(ADMIN_ROLE);
 
-loginRequired();
 echo getMenu();
 
 ?>
@@ -29,8 +28,11 @@ echo getMenu();
 
 <div class="content">
 
+<?php
 
-    <!--TODO: print all users stats tables here-->
+echo getAllUsersTable();
+
+?>
 
 </div>
 

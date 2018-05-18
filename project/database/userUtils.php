@@ -313,42 +313,79 @@ function getAllUsers__FAKE() {
     return $users;
 }
 
-function getUserStatistics__FAKE($userID) {
+function getAllUsersRuns__FAKE($userID) {
 
     return array(
-        'averageDistancePerRun' => 10,
-        'runs' => array(
-            array(
-                'date' => '2018-12-30',
-                'timeOfStart' => '15:00:00',
-                'timeOfEnd' => '16:00:00',
-                'rating' => '5',
-                'distance' => 10,
-                'averageSpeed' => 1.6 //km per hour
-            ),
-            array(
-                'date' => '2018-12-30',
-                'timeOfStart' => '15:00:00',
-                'timeOfEnd' => '16:00:00',
-                'rating' => '5',
-                'distance' => 10,
-                'averageSpeed' => 1.6 //km per hour
-            ),
-            array(
-                'date' => null,
-                'timeOfStart' => null,
-                'timeOfEnd' => null,
-                'rating' => null,
-                'distance' => 10,
-                'averageSpeed' => null //km per hour
-            ),
-        )
-    );
+                array (
+                    'distance' => 10,
+                    'date' => '2018-12-30',
+                    'startAtTime' => '15:00:00',
+                    'endAtTime' => '16:00:00',
+                    'rating' => 5,
+                    'routeID' => 1,
+                    'routeName' => 'ROUTE_1'
+                ),
+                array (
+                    'distance' => 20,
+                    'date' => '2018-12-31',
+                    'startAtTime' => '17:00:00',
+                    'endAtTime' => '20:00:00',
+                    'rating' => 3,
+                    'routeID' => 2,
+                    'routeName' => 'ROUTE_2'
+                ),
+                array (
+                    'distance' => 10,
+                    'date' => null,
+                    'startAtTime' => null,
+                    'endAtTime' => null,
+                    'rating' => null,
+                    'routeID' => 1,
+                    'routeName' => 'ROUTE_1'
+                )
+            );
 }
 
-function getUserStatistics($userID) {
+function getAllUsersRuns($userID) {
 
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT Run.distance AS 'runDistance', date, startAtTime, endAtTime, rating, Route.id AS 'routeID', name
+                                   FROM w2final.Run
+                                      JOIN w2final.Route ON Run.route_fk = Route.id
+                                   WHERE Run.user_fk = ?");
+    $stmn->bind_param("i", $userID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    if(mysqli_num_rows($result) === 0) {
+        return null;
+    }
+
+    $res_arr = new ArrayObject();
+    foreach ($result as $row) {
+
+        $res = array (
+            'distance' => $row['runDistance'],
+            'date' => $row['date'],
+            'startAtTime' => $row['startAtTime'],
+            'endAtTime' => $row['endAtTime'],
+            'rating' => $row['rating'],
+            'routeID' => $row['routeID'],
+            'routeName' => $row['name']
+        );
+
+        $res_arr->append($res);
+    }
+
+    return $res_arr->getArrayCopy();
 }
+
+
+
+
 
 
 
