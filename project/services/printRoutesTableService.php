@@ -48,9 +48,9 @@ function transformRouteArrayTo2D($routes, $activeUserID, $mode) {
         array_push($result,
             array(
             getLinkToRoute($route["routeID"], $route["name"]),
-            $route["distanceData"]["totalDistance"],
-            $route["distanceData"]["done"],
-            $route["distanceData"]["remaining"],
+            $route["distanceData"]["totalDistance"] . " [km]",
+            $route["distanceData"]["done"] . " [km]",
+            $route["distanceData"]["remaining"] . " [km]",
             $route["isActiveForUser"] ? "Active" : "Inactive",
             getRouteAssignLink($route["routeID"], $activeUserID, $mode, $userCanJoin)
             ));
