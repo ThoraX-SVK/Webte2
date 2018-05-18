@@ -9,13 +9,13 @@ include_once "../constants/routeConstants.php";
 
 function getLastRunsTable($routeID) {
 
-    $lastRuns = get_N_lastRuns__FAKE($routeID);
+    $lastRuns = get_N_lastRuns($routeID);
     $header = array("User", "Distance ran", "Date", "Finishing time");
     $htmlAttrs = array("class" => "last-runs-table");
     $tableContent = array();
 
     foreach ($lastRuns as $run) {
-        $user = getUserFromUserId__FAKE($run["userID"]);
+        $user = getUserFromUserId($run["userID"]);
         if ($user === null or sizeof($user) === 0) {
             continue;
         }

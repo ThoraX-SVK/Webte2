@@ -39,3 +39,46 @@ function createProgressBar($routeID) {
 
     return createHTMLProgressBarString($percentToFill, $calculations['done'], $calculations['totalDistance']);
 }
+
+function createTeamProgressBar__FAKE() {
+
+    $progressBar = "";
+    $progressBar .= '<div class="progress-bar-wrapper">' . "\n";
+    $progressBar .= '<div class="progress-bar color1" style="width:10%"></div>' . "\n";
+    $progressBar .= '<div class="progress-bar color2" style="width:25%"></div>' . "\n";
+    $progressBar .= '<div class="progress-bar color3" style="width:20%"></div>' . "\n";
+    $progressBar .= '<div class="progress-bar color4" style="width:30%"></div>' . "\n";
+    $progressBar .= '</div>' . "\n";
+
+    return $progressBar;
+}
+
+function createTeamProgressBar($routeID) {
+
+    $calculations = calculateRouteRemainingAndDoneDistance($routeID);
+    $contributors = getRouteContributors($routeID);
+
+    if($calculations['totalDistance'] === null) {
+        //No track found
+        return null;
+    }
+
+    $progressBar = "";
+    $progressBar .= '<div class="progress-bar-wrapper">' . "\n";
+
+    $index = 1;
+    foreach ($contributors as $user) {
+        $userContributed = $user['userContribution'];
+        $percentToFill = floor(($userContributed / $calculations['totalDistance'])*100);
+        $progressBar .= '<div class="progress-bar color' . $index .'" style="width:' .  $percentToFill . '%"></div>' . "\n";
+        $index++;
+
+        if($index === 11) {
+            $index = 1;
+        }
+    }
+
+    $progressBar .= '</div>' . "\n";
+
+    return $progressBar;
+}
