@@ -15,13 +15,13 @@ function saveRun__FAKE($userID, $userActiveRouteID,
 }
 
 function saveRun_FALSE__FAKE($userID, $userActiveRouteID,
-                       $distanceTraveled,
-                       $dateOfRun,
-                       $startAtTime,$finishAtTime,
-                       $startLatitude,$startLongitude,
-                       $endLatitude,$endLongitude,
-                       $rating,
-                       $note) {
+                             $distanceTraveled,
+                             $dateOfRun,
+                             $startAtTime,$finishAtTime,
+                             $startLatitude,$startLongitude,
+                             $endLatitude,$endLongitude,
+                             $rating,
+                             $note) {
 
     return false;
 }
@@ -47,7 +47,7 @@ function saveRun($userID, $userActiveRouteID,
         $note,
         $userActiveRouteID,
         $userID
-        );
+    );
 
     $isExecuted = $stmn->execute();
     $stmn->close();

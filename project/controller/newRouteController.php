@@ -6,6 +6,7 @@ include_once '../database/routeUtils.php';
 
 loginRequired();
 
+
 $distance= getDataFromPOST('distance');
 $name = getDataFromPOST('routeName');
 $mode = getDataFromPOST('mode');
@@ -21,7 +22,10 @@ $endLongitude = $end[1];
 
 $userId = getActiveUserID();
 
-if (!nullCheck(array($distance, $name, $mode, $startLatitude, $startLongitude, $endLatitude, $endLongitude))) {
+echo $distance." ".$name." ".$mode." ".$team." ".$origin." ".$destination." ".$userId."<br>";
+echo $startLatitude." ".$startLongitude." ".$endLatitude." ".$endLongitude."<br>";
+
+if (!nullCheck(array($distance, $name, $mode, $origin, $destination))) {
     redirectToHomePageWithMessage(NOT_ENOUGH_DATA);
     return;
 }
@@ -42,12 +46,8 @@ switch ($mode) {
         saveRoute($userId, $name ,$distance, $mode,
             $startLatitude, $startLongitude, $endLatitude, $endLongitude);
 
-        $routeID = getRouteIDForRouteName($name);
-        $teamID = getTeamIdFromTeamName($team);
+        //TODO assign Team to Route and check if team exists
 
-        if($routeID !== null and $teamID !== null) {
-            addRouteToTeam($teamID,$routeID);
-        }
         break;
 
     case PUBLIC_MODE:
@@ -59,8 +59,17 @@ switch ($mode) {
     default:
         break;
 }
+$conn = createConnectionFromConfigFileCredentials();
+$sql2 = "SELECT * FROM w2final.Route WHERE user_fk = '$userId' AND startLatitude = '$startLatitude' AND startLongitude = '$startLongitude' AND endLatitude = '$endLatitude' AND endLongitude = '$endLongitude'";
+$result2 = $conn->query($sql2);
+$new = 0;
+while ($row = $result2->fetch_assoc()) {
+    $new = $row['id'];
+}
+$sql = "UPDATE w2final.User SET activeRoute_fk = '$new' WHERE id = 1";
+$conn->query($sql);
 
-redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED);
+//redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED,$routeID);
 
 
 function getDataFromPOST($key) {
@@ -71,7 +80,12 @@ function getDataFromPOST($key) {
     }
 }
 
-function redirectToHomePageWithMessage($status) {
+function redirectToHomePageWithMessage($status,$routeID) {
+    $query = array(
+        'status' => $status,
+        'routeID' => $routeID
+    );
+    $query = http_build_query($query);
     // TODO prevent input data loss -> send back in get if saving failed
     header('location: ../templates/homePage.php?status=' . $status);
 }
