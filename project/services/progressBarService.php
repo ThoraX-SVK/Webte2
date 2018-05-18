@@ -70,7 +70,7 @@ function createTeamProgressBar($routeID) {
     foreach ($contributors as $user) {
         $userContributed = $user['userContribution'];
         $percentToFill = floor(($userContributed / $calculations['totalDistance'])*100);
-        $progressBar .= '<div class="progress-bar color' . $index .'" style="width:' .  $percentToFill . '%"></div>' . "\n";
+        $progressBar .= '<div class="progress-bar color' . $index .'" style="width:' .  $percentToFill . '%">' . $user['email'] . '</div>' . "\n";
         $index++;
 
         if($index === 11) {

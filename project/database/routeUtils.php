@@ -145,7 +145,7 @@ function getRouteContributors__FAKE($routeId) {
 function getRouteContributors($routeId) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT User.id AS 'userID', SUM(distance) AS 'userContribution' 
+    $stmn = $conn->prepare("SELECT User.id AS 'userID', SUM(distance) AS 'userContribution', email AS 'email' 
                                    FROM w2final.Run
                                       JOIN w2final.User ON Run.user_fk = User.id
                                   WHERE route_fk = ?
@@ -165,6 +165,7 @@ function getRouteContributors($routeId) {
     foreach ($result as $row) {
 
         $res = array(
+            'email' => $row['email'],
             'userID' => $row['userID'],
             'userContribution' => $row['userContribution']
         );
