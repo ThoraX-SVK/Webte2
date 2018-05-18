@@ -11,14 +11,24 @@
 include_once "../template_utils/menuGenerator.php";
 include_once "../utils/sessionUtils.php";
 include_once "../services/printNewsService.php";
+include_once "../services/printUserSubscriptionInfoService.php";
 
 loginRequired();
 echo getMenu();
 
+$userID = getActiveUserID();
+if ($userID === null) {
+    // what the fuck could have happened?
+    exit;
+}
+
+showMessage();
 ?>
 
 <header>
     <h1>News Letter</h1>
+
+    <h2><?php echo getUserSubscriptionOptions($userID) ?></h2>
 </header>
 
 <div class="content">
@@ -34,6 +44,7 @@ echo getMenu();
 </html>
 
 <?php
+
 
 function printNews() {
     $news = printNewsByPage(getPage(), 5);
@@ -76,6 +87,30 @@ function getNextPageLink() {
     } else {
         return "";
     }
+}
+
+function showMessage() {
+    $message = getInfoMessage();
+    if ($message != null) {
+        echo $message;
+    }
+}
+
+function getInfoMessage() {
+
+    if (isset($_GET["status"])) {
+
+        $status = $_GET["status"];
+
+        switch ($status) {
+            case SUBSCRIBED:
+                return '<div class="success-message-wide">Subscribed</div>';
+            case UNSUBSCRIBED:
+                return '<div class="success-message-wide">Unsubscribed</div>';
+        }
+    }
+
+    return null;
 }
 
 ?>
