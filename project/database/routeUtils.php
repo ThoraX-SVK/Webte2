@@ -122,7 +122,7 @@ function getRouteContributors($routeId) {
                                    FROM w2final.Run
                                       JOIN w2final.User ON Run.user_fk = User.id
                                   WHERE route_fk = ?
-                                  GROUP BY User.id;");
+                                  GROUP BY User.id");
     $stmn->bind_param("i", $routeId);
     $stmn->execute();
 
@@ -153,7 +153,7 @@ function countActiveContributors($routeID) {
     $conn = createConnectionFromConfigFileCredentials();
     $stmn = $conn->prepare("SELECT COUNT(*) AS 'activeUsers' FROM w2final.Route
                                     JOIN w2final.User ON Route.id = User.activeRoute_fk
-                                  WHERE Route.id = ?;");
+                                  WHERE Route.id = ?");
     $stmn->bind_param("i", $routeID);
     $stmn->execute();
 
@@ -519,7 +519,7 @@ function selectPublicRoutes($userID) {
                                        WHERE id = $userID
                                        ) AS X
                                    JOIN w2final.Route
-                                   WHERE mode_fk = 2;");
+                                   WHERE mode_fk = 2");
     $stmn->execute();
     $result = $stmn->get_result();
 
@@ -639,7 +639,7 @@ function getAllRoutesWithMode($mode) {
     $conn = createConnectionFromConfigFileCredentials();
     $stmn = $conn->prepare("SELECT id AS 'routeID', Route.name AS 'routeName' , user_fk AS 'createdByUserID'
                                     FROM w2final.Route
-                                    WHERE mode_fk = ?;");
+                                    WHERE mode_fk = ?");
     $stmn->bind_param("i", $mode);
     $stmn->execute();
 
