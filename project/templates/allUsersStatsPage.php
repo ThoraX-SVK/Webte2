@@ -3,7 +3,7 @@
 <head>
 
     <link rel="stylesheet" type="text/css" href="../static/style.css">
-    <link rel="stylesheet" type="text/css" href="../static/allRoutesTableStyle.css">
+    <link rel="stylesheet" type="text/css" href="../static/allUsersStatsStyle.css">
     <meta charset="UTF-8">
     <title>All users stats</title>
 
@@ -26,7 +26,7 @@ echo getMenu();
     <h1>Admin :: All User Stats</h1>
 </header>
 
-<div class="content">
+<div class="content" style="width: 1000px">
 
     <?php
 
