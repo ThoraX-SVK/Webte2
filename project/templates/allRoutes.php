@@ -66,18 +66,41 @@ showMessage();
         <input type="button" onclick="showTeamRoutes()" value="Hide team routes" id="teamRoutesButton">
     </div>
     <br>
-    <form style="display: inline">
-        <strong>Filter by user email:<strong>
+    <?php
+
+        if(isUserAdmin()) {
+
+            if(isset($_GET['email'])) {
+                echo '<form style="display: inline" action="allRoutes.php" method="get">
+                                    <input type="submit" value="Back to admin view">
+                                                    </form>';
+            } else {
+
+                echo '<form style="display: inline" action="allRoutes.php" method="get">
+        <strong>Filter by user email:</strong>
         <input type="email" name="email">
         <input type="submit" value="Search">
-
-    </form>
+                </form>';
+            }
+        }
+    ?>
 
     <?php
     include_once "../services/printRoutesTableService.php";
     include_once "../constants/routeConstants.php";
 
-    $tables = getRouteTables();
+    $tables = null;
+    if(isUserAdmin()) {
+        if(isset($_GET['email'])) {
+            $email = $_GET['email'];
+            $routeID = getUserIdFromEmail($email);
+            $tables = getRouteTables($routeID);
+        } else {
+            $tables = getAllTables();
+        }
+    } else {
+        $tables = getRouteTables();
+    }
 
     ?>
     <br>

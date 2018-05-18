@@ -53,7 +53,7 @@ function createTeamProgressBar__FAKE() {
     return $progressBar;
 }
 
-function createTeamProgressBar($routeID) {
+function createMultiProgressBar($routeID) {
 
     $calculations = calculateRouteRemainingAndDoneDistance($routeID);
     $contributors = getRouteContributors($routeID);
