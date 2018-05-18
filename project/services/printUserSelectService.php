@@ -5,9 +5,11 @@ include_once "../database/userUtils.php";
 include_once "../utils/sessionUtils.php";
 
 
-function getUserSelect() {
+function getUserSelect($attrs = null) {
 
-    $attrs = array("name" => "userSelect", "id" => "userSelect");
+    if ($attrs === null) {
+        $attrs = array("name" => "userSelect", "id" => "userSelect");
+    }
     $options = array();
 
     $users = getAllUsers__FAKE();
