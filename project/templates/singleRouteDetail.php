@@ -61,7 +61,6 @@ echo getMenu();
 <div class="content-route">
     <div class="progress-bar-route">
         <?php
-
         if(getRouteMode($routeID) === TEAM_MODE) {
             echo createTeamProgressBar($routeID);
         } else {
@@ -77,7 +76,9 @@ echo getMenu();
     <div class="route-description">
         <h2>Route Description</h2>
     <?php
-        printRouteDescription($routeID);
+        $array = getAlltDescription($routeID);
+        echo "<h3>Name : ".$array["name"]."</h3>";
+        echo "<h3>Distance : ".$array["totalDistance"] . "km"."</h3>";
     ?>
     </div>
 
@@ -89,7 +90,6 @@ echo getMenu();
         echo getLastRunsTable($routeID);
         ?>
     </div>
-
     <div class="route-best-runs">
         <h2>Top Contributors</h2>
         <?php
@@ -97,11 +97,44 @@ echo getMenu();
         ?>
     </div>
 
-
-
-
 </div>
+<script>
+    function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: {lat: 48.12, lng: 25.12}
+        });
+        directionsDisplay.setMap(map);
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+    }
 
+    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        directionsService.route({
+            origin:
+            <?php
+                $array = getAlltDescription($routeID);
+                echo "{lat:".$array["startLatitude"].", lng:".$array["startLongitude"]."}";
+
+            ?>,
+            destination:
+            <?php
+            $array = getAlltDescription($routeID);
+            echo "{lat:".$array["endLatitude"].", lng:".$array["endLongitude"]."}";
+            ?>,
+            travelMode: 'WALKING'
+        }, function(response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr8NV5cYhZlxoFvyaRrusfcmAMM7IQMw4&libraries=places&callback=initMap"
+        async defer></script>
 </body>
 </html>
 
