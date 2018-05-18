@@ -67,7 +67,7 @@ showMessage();
 
     $userID = getActiveUserID();
     if (findUsersActiveRoute($userID) == null) {
-        echo 'You have no active route yet. You can either select one of <a href="routes.php"><em><strong> available routes</strong></em></a> or <a href="createRoute.php"><em><strong> create a new one</strong></em></a>.';
+        echo 'You have no active route yet. You can either select one of <a href="allRoutes.php"><em><strong> available routes</strong></em></a> or <a href="newRoutePage.php"><em><strong> create a new one</strong></em></a>.';
         exit(1);
     }
     ?>
