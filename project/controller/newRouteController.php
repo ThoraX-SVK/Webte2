@@ -48,9 +48,7 @@ switch ($mode) {
         $routeID = getRouteIDForRouteName($name);
 
         if($routeID !== null and $teamID !== null) {
-            echo "test1";
             addRouteToTeam($teamID, $routeID);
-            echo "test2";
         }
         break;
 
