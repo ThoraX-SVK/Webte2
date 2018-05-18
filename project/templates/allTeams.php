@@ -10,6 +10,7 @@
 <?php
 include_once "../template_utils/menuGenerator.php";
 include_once "../utils/sessionUtils.php";
+loginRequired(ADMIN_ROLE);
 
 echo getMenu();
 
@@ -30,9 +31,7 @@ showMessage();
     include_once  "../constants/teamConstants.php";
     include_once  "../constants/globallyUsedConstants.php";
     include_once "../database/teamUtils.php";
-
-    loginRequired(ADMIN_ROLE);
-
+    
     // team tables
     showTables();
 
