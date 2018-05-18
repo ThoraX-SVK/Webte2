@@ -58,6 +58,9 @@ function saveUser($userData) {
         );
     }
 
+    // remove if emails are implemented
+    activateUserAccount($newUserID);
+
     return array(
         "status" => SUCCESS,
         "userID" => $newUserID
