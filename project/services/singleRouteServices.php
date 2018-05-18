@@ -9,8 +9,8 @@ include_once "../constants/routeConstants.php";
 
 function getLastRunsTable($routeID) {
 
-    $lastRuns = get_N_lastRuns__FAKE($routeID);
-    $header = array("User", "Distance ran", "Date", "Finishing time");
+    $lastRuns = get_N_lastRuns($routeID);
+    $header = array("User", "Distance ran", "Date", "Finished At");
     $htmlAttrs = array("class" => "last-runs-table");
     $tableContent = array();
 
@@ -36,7 +36,7 @@ function getLastRunsTable($routeID) {
 
 function getFullRouteDescription($routeID) {
 
-    $desc = getRouteFullDescription__FAKE($routeID);
+    $desc = getRouteFullDescription($routeID);
 
     switch ($desc["routeMode"]) {
         case PRIVATE_MODE:
