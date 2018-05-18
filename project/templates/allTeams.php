@@ -31,6 +31,7 @@ showMessage();
     include_once  "../constants/teamConstants.php";
     include_once  "../constants/globallyUsedConstants.php";
     include_once "../database/teamUtils.php";
+
     
     // team tables
     showTables();
