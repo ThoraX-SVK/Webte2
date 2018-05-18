@@ -37,6 +37,8 @@ echo getMenu();
     <br>Ľuboš Petrovič - Google Maps
     </p>
 
+    <b><a href="https://github.com/ThoraX-SVK/Webte2">GitHub repository</a></b>
+
 </div>
 </body>
 </html>
