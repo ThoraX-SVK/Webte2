@@ -9,21 +9,21 @@ include_once "../template_utils/tableGenerator.php";
 function getRouteTables() {
 
     //TODO: Slight change, userID CAN NOT be null.
-    $userID = getActiveUserID__FAKE();
+    $userID = getActiveUserID();
     if ($userID === null) {
         // $userID is null somehow (loginRequired implies that it is not)
         return "FAILED: USER ID NOT GIVEN, USER IS NOT LOGGED IN.";
     }
 
     $tables = array();
-    $privateRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID__FAKE(PRIVATE_MODE, $userID));
-    $publicRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID__FAKE(PUBLIC_MODE, $userID));
+    $privateRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(PRIVATE_MODE, $userID), $userID, PRIVATE_MODE);
+    $publicRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(PUBLIC_MODE, $userID), $userID, PUBLIC_MODE);
 
     //TODO: Return value changed a bit, please see function. Now returns, whether user is in team to allow/bock him from
     //TODO: assigning that route
-    $teamRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID__FAKE(TEAM_MODE, $userID));
+    $teamRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(TEAM_MODE, $userID), $userID, TEAM_MODE);
 
-    $header = array("Name of route", "Total Distance", "Distance ran", "Distance remaining", "Activity");
+    $header = array("Name of route", "Total Distance", "Distance ran", "Distance remaining", "Activity", "Action");
     $htmlAttrs = array ("class" => "table-routes", "id" => "table-routes");
 
     $tables[PRIVATE_MODE] = assembleTable($header, $privateRoutes, $htmlAttrs);
@@ -34,11 +34,14 @@ function getRouteTables() {
 }
 
 
-function transformRouteArrayTo2D($routes) {
+function transformRouteArrayTo2D($routes, $activeUserID, $mode) {
 
     $result = array();
 
     foreach ($routes as $route) {
+
+        // assuming routes have been filtered before coming in from the DB
+        $userCanJoin = $mode === TEAM_MODE ? $route["isUserInTeam"] : true;
 
         array_push($result,
             array(
@@ -47,6 +50,7 @@ function transformRouteArrayTo2D($routes) {
             $route["distanceData"]["done"],
             $route["distanceData"]["remaining"],
             $route["isActiveForUser"] ? "Active" : "Inactive",
+            getRouteAssignLink($route["routeID"], $activeUserID, $mode, $userCanJoin)
             ));
         }
 
@@ -55,6 +59,22 @@ function transformRouteArrayTo2D($routes) {
 
 function getLinkToRoute($routeID, $routeName) {
     return '<a href="../templates/singleRouteDetail.php?routeID=' . $routeID . '">' . $routeName . '</a>';
+}
+
+function getRouteAssignLink($routeID, $userID, $mode, $userCanJoin) {
+
+    $link = '<a href="../controller/assignRouteToUser.php?routeID=' . $routeID . '&userID=' . $userID . '">Assign as active</a>';
+
+    switch ($mode) {
+        case TEAM_MODE:
+            if ($userCanJoin) {
+                return $link;
+            } else {
+                return "";
+            }
+        default:
+            return $link;
+    }
 }
 
 

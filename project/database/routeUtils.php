@@ -446,6 +446,7 @@ function selectPrivateRoutes($userID) {
         $res = array(
             'distanceData' => $routeInfo,
             'name' => $row['routeName'],
+            'routeID' => $routeID,
             'isActiveForUser' => $isActiveRoute
         );
 
@@ -482,6 +483,7 @@ function selectPublicRoutes($userID) {
         $res = array(
             'distanceData' => $routeInfo,
             'name' => $row['routeName'],
+            'routeID' => $routeID,
             'isActiveForUser' => $isActiveRoute
         );
 
@@ -524,6 +526,7 @@ function selectTeamRoutes($userID) {
         $res = array(
             'distanceData' => $routeInfo,
             'name' => $routeName,
+            'routeID' => $routeID,
             'isActiveForUser' => $isActiveForUser,
             'isUserInTeam' => $canUserParticipate
         );
@@ -544,6 +547,7 @@ function getAllRoutesWithMode__FAKE($mode) {
                 'done' => 120,
                 'remaining' => 180),
             'name' => 'route1',
+            'routeID' => 1,
             'createdByUserID' => 3
                ),
         array(
@@ -552,6 +556,7 @@ function getAllRoutesWithMode__FAKE($mode) {
                 'done' => 0,
                 'remaining' => 1000),
             'name' => 'route2',
+            'routeID' => 1,
             'createdByUserID' => 5
         ),
         array(
@@ -560,6 +565,7 @@ function getAllRoutesWithMode__FAKE($mode) {
                 'done' => 23,
                 'remaining' => 77),
             'name' => 'route3',
+            'routeID' => 1,
             'createdByUserID' => 9
         )
     );

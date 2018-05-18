@@ -220,7 +220,7 @@ function findUsersActiveRoute__FAKE_NULL($userID) {
 function findUsersActiveRoute($userID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT activeRoute_fk FROM w2final.User WHERE activeRoute_fk = ?");
+    $stmn = $conn->prepare("SELECT activeRoute_fk FROM w2final.User WHERE id = ?");
     $stmn->bind_param("i", $userID);
     $stmn->execute();
 
@@ -233,6 +233,25 @@ function findUsersActiveRoute($userID) {
 
     $row = $result->fetch_assoc();
     return $row['activeRoute_fk'];
+}
+
+
+/**
+ * assigns routeID to user given by userID as his active route
+ * @param $userID
+ * @param $routeID
+ * @return bool - is successful (true) or not (false)
+ */
+function setUserActiveRoute($userID, $routeID) {
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("UPDATE w2final.User SET activeRoute_fk = ? WHERE id = ?");
+    $stmn->bind_param("ii", $routeID, $userID);
+    $isSuccessful = $stmn->execute();
+
+    $stmn->close();
+    $conn->close();
+
+    return $isSuccessful;
 }
 
 /**
