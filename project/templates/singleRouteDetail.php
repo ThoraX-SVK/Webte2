@@ -61,7 +61,11 @@ echo getMenu();
 <div class="content-route">
     <div class="progress-bar-route">
         <?php
-        echo createProgressBar($routeID);
+        if(getRouteMode($routeID) === TEAM_MODE) {
+            echo createTeamProgressBar($routeID);
+        } else {
+            echo createProgressBar($routeID);
+        }
         ?>
     </div>
 
@@ -81,11 +85,18 @@ echo getMenu();
     </div>
 
     <div class="route-last-runs">
-        <h2>Latest Contributors</h2>
+        <h2>Latest Contributions</h2>
         <?php
         echo getLastRunsTable($routeID);
         ?>
     </div>
+    <div class="route-best-runs">
+        <h2>Top Contributors</h2>
+        <?php
+        echo getTopContributors($routeID);
+        ?>
+    </div>
+
 </div>
 <script>
     function initMap() {

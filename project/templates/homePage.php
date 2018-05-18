@@ -109,6 +109,7 @@ session_start()
 
     <?php
 
+    include_once "../constants/globallyUsedConstants.php";
     include_once '../constants/messageConstants.php';
     include_once '../constants/routeConstants.php';
 
@@ -146,8 +147,6 @@ session_start()
                     return '<div class="success-message-wide">Your run has been successfully saved';
                 case RUN_SAVING_FAILED:
                     return '<div class="error-message-wide">There has been an error and your run has NOT been saved';
-                case ROUTE_SUCCESSFULLY_SAVED:
-                    return '<div class="success-message-wide">Your new route has been saved';
             }
         }
 
@@ -161,7 +160,14 @@ session_start()
 
     <?php
     include_once '../services/progressBarService.php';
-    echo createProgressBar($_SESSION["routeID"]);
+
+    include_once "../database/routeUtils.php";
+
+    $userID = getActiveUserID();
+    $routeID = findUsersActiveRoute($userID);
+
+    echo createProgressBar($routeID);
+
     ?>
 
 </div>

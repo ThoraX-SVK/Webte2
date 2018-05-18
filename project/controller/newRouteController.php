@@ -3,6 +3,7 @@
 include_once "../constants/routeConstants.php";
 include_once '../utils/sessionUtils.php';
 include_once '../database/routeUtils.php';
+include_once '../database/teamUtils.php';
 
 loginRequired();
 
@@ -10,7 +11,7 @@ loginRequired();
 $distance= getDataFromPOST('distance');
 $name = getDataFromPOST('routeName');
 $mode = getDataFromPOST('mode');
-$team = getDataFromPOST('team');
+$teamID = getDataFromPOST('team');
 $origin = getDataFromPOST('origin');
 $destination = getDataFromPOST('destination');
 $start = addressToLatLong($origin);
@@ -22,11 +23,10 @@ $endLongitude = $end[1];
 
 $userId = getActiveUserID();
 
-echo $distance." ".$name." ".$mode." ".$team." ".$origin." ".$destination." ".$userId."<br>";
-echo $startLatitude." ".$startLongitude." ".$endLatitude." ".$endLongitude."<br>";
 
-if (!nullCheck(array($distance, $name, $mode, $origin, $destination))) {
-    redirectToHomePageWithMessage(NOT_ENOUGH_DATA);
+if (!nullCheck(array($distance, $name, $mode, $startLatitude, $startLongitude, $endLatitude, $endLongitude))) {
+    redirectToNewRoutePageWithMessage(NOT_ENOUGH_DATA);
+
     return;
 }
 
@@ -37,17 +37,23 @@ switch ($mode) {
         break;
 
     case TEAM_MODE:
-        if ($team === null) {
+
+        if ($teamID === null) {
             redirectToNewRoutePageWithMessage(TEAM_REQUIRED);
             return;
         }
 
         loginRequired(ADMIN_ROLE);
+
         saveRoute($userId, $name ,$distance, $mode,
             $startLatitude, $startLongitude, $endLatitude, $endLongitude);
 
-        //TODO assign Team to Route and check if team exists
 
+        $routeID = getRouteIDForRouteName($name);
+
+        if($routeID !== null and $teamID !== null) {
+            addRouteToTeam($teamID, $routeID);
+        }
         break;
 
     case PUBLIC_MODE:
@@ -69,7 +75,8 @@ while ($row = $result2->fetch_assoc()) {
 $sql = "UPDATE w2final.User SET activeRoute_fk = '$new' WHERE id = 1";
 $conn->query($sql);
 
-//redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED,$routeID);
+redirectToAllRoutesWithMessage(ROUTE_SUCCESSFULLY_SAVED);
+
 
 
 function getDataFromPOST($key) {
@@ -80,14 +87,11 @@ function getDataFromPOST($key) {
     }
 }
 
-function redirectToHomePageWithMessage($status,$routeID) {
-    $query = array(
-        'status' => $status,
-        'routeID' => $routeID
-    );
-    $query = http_build_query($query);
+
+function redirectToAllRoutesWithMessage($status) {
+
     // TODO prevent input data loss -> send back in get if saving failed
-    header('location: ../templates/homePage.php?status=' . $status);
+    header('location: ../templates/allRoutes.php?status=' . $status);
 }
 
 function redirectToNewRoutePageWithMessage($status) {

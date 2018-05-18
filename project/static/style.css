@@ -400,6 +400,10 @@ input:-webkit-autofill {
     height: 30px;
     border: 1px solid gray;
     margin-top: 50px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+
 }
 
 .progress-bar{
@@ -478,4 +482,12 @@ background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75
 }
 .color10{
     background-color: violet;
+}
+#middle{
+    margin: 0px;
+    z-index: 2;
+    position: absolute;
+    width: 1000px;
+    text-align: center;
+
 }

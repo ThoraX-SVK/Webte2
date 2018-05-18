@@ -10,7 +10,7 @@ function getMenu() {
     $menu .= '<a href="homePage.php">Home</a>' . "\n";
     $menu .= '<a href="allRoutes.php">Routes</a>' . "\n";
     $menu .= '<a href="newsPage.php">News</a>' . "\n";
-    $menu .= '<a href="userStatsPage.php">My Stats</a>' . "\n";
+    $menu .= '<a href="userStatsPage.php?userID=' . getActiveUserID() . '">My Stats</a>' . "\n";
     $menu .= '<a href="titlePage.php">About</a>' . "\n";
     $menu .= '<div class="topnav-right">';
 
