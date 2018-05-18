@@ -53,9 +53,7 @@ function getUserIdFromEmail_USER_NON_EXISTENT__FAKE($email) {
  * @return int|null
  */
 function getUserIdFromEmail($email) {
-
-    //TODO: Call DB, return email userID if there is, null if not
-
+    
     $conn = createConnectionFromConfigFileCredentials();
     $stmn = $conn->prepare("SELECT User.id FROM w2final.User WHERE email = ?");
     $stmn->bind_param("s",$email);
@@ -85,16 +83,7 @@ function isEmailAlreadyInDatabase($email) {
 }
 
 function getUserFromUserId__FAKE($userID) {
-
-//    //TODO: Add more stuff to represent user, might be class in future
-//    return array(
-//        'userID' => 1,
-//        'passwordHash' => 'hash',
-//        'salt' => 'salt',
-//        'name' => 'Jozko',
-//        'surname' => 'Mrkvicka',
-//        'City' => 'Bratislava'
-//    );
+    
     return array(
         'salt' => 'salt',
         'passwordHash' => 'hash',

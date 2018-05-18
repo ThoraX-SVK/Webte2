@@ -35,14 +35,10 @@ function latlong()
             $address = $address . "+" . $rows['streetNumber'];
         }
         if($rows['state_fk'] != NULL) {
-            $latlng[$i][0] = NULL;
-            $latlng[$i][1] = NULL;
-            while ($latlng[$i][0] == NULL || $latlng[$i][1] == NULL) {
-                $geocode = file_get_contents('http://maps.google.com/maps/api/geocode/json?address=' . $address . '&sensor=false');
-                $output = json_decode($geocode);
-                $latlng[$i][0] = $output->results[0]->geometry->location->lat;
-                $latlng[$i][1] = $output->results[0]->geometry->location->lng;
-            }
+            $geocode=file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$address.'&sensor=true_or_false&key=AIzaSyBr8NV5cYhZlxoFvyaRrusfcmAMM7IQMw4');
+            $output = json_decode($geocode);
+            $latlng[$i][0] = $output->results[0]->geometry->location->lat;
+            $latlng[$i][1] = $output->results[0]->geometry->location->lng;
             $sql4 = "SELECT * FROM w2final.User WHERE address_fk =" . $rows['id'];
             $result4 = $conn->query($sql4);
             $k = 0;
@@ -65,8 +61,6 @@ function latlong()
             } else {
                 $latlng[$i][3] = "0";
             }
-
-            echo $latlng[$i][0]." ".$latlng[$i][1]." ".$latlng[$i][2]." ".$latlng[$i][3]."<br>";
 
             $i++;
         }

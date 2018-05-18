@@ -37,6 +37,7 @@ function addUserToTeamSeparate($teamID, $userID) {
     $conn = createConnectionFromConfigFileCredentials();
 
     addUserToTeam($conn, $teamID, $userID);
+    $conn->close;
 }
 
 function getTeamIdFromTeamName__FAKE($teamName) {

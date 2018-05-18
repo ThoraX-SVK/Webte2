@@ -1,21 +1,23 @@
 <?php
 
 include_once "../constants/routeConstants.php";
-include_once "../constants/globallyUsedConstants.php";
 include_once '../utils/sessionUtils.php';
 include_once '../database/routeUtils.php';
 
 loginRequired();
 
-
 $distance= getDataFromPOST('distance');
 $name = getDataFromPOST('routeName');
 $mode = getDataFromPOST('mode');
 $team = getDataFromPOST('team');
-$startLatitude = getDataFromPOST('startLatitude');
-$startLongitude = getDataFromPOST('startLongitude');
-$endLatitude = getDataFromPOST('endLatitude');
-$endLongitude = getDataFromPOST('endLongitude');
+$origin = getDataFromPOST('origin');
+$destination = getDataFromPOST('destination');
+$start = addressToLatLong($origin);
+$end = addressToLatLong($destination);
+$startLatitude = $start[0];
+$startLongitude = $start[1];
+$endLatitude = $end[0];
+$endLongitude = $end[1];
 
 $userId = getActiveUserID();
 
@@ -40,14 +42,18 @@ switch ($mode) {
         saveRoute($userId, $name ,$distance, $mode,
             $startLatitude, $startLongitude, $endLatitude, $endLongitude);
 
-        //TODO assign Team to Route and check if team exists
+        $routeID = getRouteIDForRouteName($name);
+        $teamID = getTeamIdFromTeamName($team);
 
+        if($routeID !== null and $teamID !== null) {
+            addRouteToTeam($teamID,$routeID);
+        }
         break;
 
     case PUBLIC_MODE:
         loginRequired(ADMIN_ROLE);
         saveRoute($userId, $name ,$distance, $mode,
-                $startLatitude, $startLongitude, $endLatitude, $endLongitude);
+            $startLatitude, $startLongitude, $endLatitude, $endLongitude);
         break;
 
     default:
@@ -82,6 +88,17 @@ function nullCheck($array) {
         }
     }
     return true;
+}
+
+function addressToLatLong($dlocation){
+    $address = str_replace(',','',$dlocation);
+    $prepAddr = str_replace(' ','+',$address);
+    //$geocode=file_get_contents('https://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
+    $geocode=file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=true_or_false&key=AIzaSyBr8NV5cYhZlxoFvyaRrusfcmAMM7IQMw4');
+    $output= json_decode($geocode);
+    $latlon[0] = $output->results[0]->geometry->location->lat;
+    $latlon[1] = $output->results[0]->geometry->location->lng;
+    return $latlon;
 }
 
 

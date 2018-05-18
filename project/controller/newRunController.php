@@ -21,15 +21,12 @@ $rating = getDataFromPOST('rating');
 $note = getDataFromPOST('note');
 
 // no null checking - already present in loginRequired()
-$userID = getActiveUserID__FAKE();
+$userID = getActiveUserID();
 $userActiveRouteID = findUsersActiveRoute($userID);
 
-if ($userActiveRouteID === null) {
-    //TODO redirect to active route setting
+if($dateOfRun !== null) {
+    $dateOfRun = date("Y-m-d");
 }
-
-//TODO: Check if this is needed + if time is in right format!!! (HH:mm:ss)
-$dateOfRun = date("Y-m-d");
 
 $isSaved = saveRun($userID, $userActiveRouteID,
     $distanceTraveled,

@@ -8,7 +8,6 @@ include_once "../template_utils/tableGenerator.php";
 
 function getRouteTables() {
 
-    //TODO: Slight change, userID CAN NOT be null.
     $userID = getActiveUserID();
     if ($userID === null) {
         // $userID is null somehow (loginRequired implies that it is not)
@@ -16,12 +15,11 @@ function getRouteTables() {
     }
 
     $tables = array();
+
     $privateRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(PRIVATE_MODE, $userID), $userID, PRIVATE_MODE);
     $publicRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(PUBLIC_MODE, $userID), $userID, PUBLIC_MODE);
-
-    //TODO: Return value changed a bit, please see function. Now returns, whether user is in team to allow/bock him from
-    //TODO: assigning that route
     $teamRoutes = transformRouteArrayTo2D(getAllRoutesWithModeVisibleForUserID(TEAM_MODE, $userID), $userID, TEAM_MODE);
+
 
     $header = array("Name of route", "Total Distance", "Distance ran", "Distance remaining", "Activity", "Action");
     $htmlAttrs = array ("class" => "table-routes", "id" => "table-routes");
