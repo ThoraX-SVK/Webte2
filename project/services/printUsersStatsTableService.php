@@ -43,6 +43,30 @@ function getUserStatsTable($userID) {
 }
 
 
+function getUserInfo($userID) {
+
+    $user = getUserFromUserId($userID);
+    $role = getUserRoleFromUserId($userID);
+
+    switch ($role) {
+        case ADMIN_ROLE:
+            $userRole = "Administrator";
+            break;
+        default:
+            $userRole = "Regular user";
+            break;
+    }
+
+    $info = "";
+    $info .= "<b>" . $user["name"] . " " . $user["surname"] . "</b> <br>";
+    $info .= "Email: " . $user["email"] . "<br>";
+    $info .= "Role: " . $userRole . "<br>";
+
+    return $info;
+
+}
+
+
 function getLinkToRoute($routeID, $routeName) {
     return '<a href="../templates/singleRouteDetail.php?routeID=' . $routeID . '">' . $routeName . '</a>';
 }

@@ -8,7 +8,7 @@ function createProgressBar__FAKE($routeID) {
 
 function createHTMLProgressBarString($filledToPercent, $done, $total) {
 
-    $progressBar = "";
+    $progressBar = "<br><br>";
     $progressBar .= '<div class="progress-bar-wrapper"><p id="middle">' . $done . '/'. $total ."</p>\n";
     $progressBar .= '<div class="progress-bar" style="width:' .  $filledToPercent . '%">'. '</div> ' . "\n";
     $progressBar .= '</div>' . "\n";

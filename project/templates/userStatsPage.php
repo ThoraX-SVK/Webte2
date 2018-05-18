@@ -37,6 +37,8 @@ if (!checkIfUserExists($userID)) {
 
     <?php
 
+    echo getUserInfo($userID);
+
     echo getUserStatsTable($userID);
 
     ?>
@@ -58,10 +60,10 @@ function getUserID() {
     }
 }
 
-/*function redirectToAllUsersPage() {
+function redirectToAllUsersPage() {
     header("location: ../templates/allUsersStatsPage.php");
     exit;
-}*/
+}
 
 
 ?>
