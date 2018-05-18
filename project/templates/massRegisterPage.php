@@ -55,9 +55,11 @@ if ($errorMessage != null) {
     </form>
 
     <!--  response from AJAX is a table to be stored in this div  -->
+
     <div id="results-table">
 
     </div>
+
 
 </div>
 
