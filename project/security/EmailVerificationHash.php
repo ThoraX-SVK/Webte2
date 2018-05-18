@@ -1,5 +1,7 @@
 <?php
 
+include_once "../security/randomPasswordGenerator.php";
+
 function computeEmailVerificationHash__FAKE() {
 
     return 'emailHash';
