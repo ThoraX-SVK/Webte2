@@ -7,7 +7,6 @@ include_once '../database/teamUtils.php';
 
 loginRequired();
 
-
 $distance= getDataFromPOST('distance');
 $name = getDataFromPOST('routeName');
 $mode = getDataFromPOST('mode');
@@ -23,10 +22,8 @@ $endLongitude = $end[1];
 
 $userId = getActiveUserID();
 
-
 if (!nullCheck(array($distance, $name, $mode, $startLatitude, $startLongitude, $endLatitude, $endLongitude))) {
     redirectToNewRoutePageWithMessage(NOT_ENOUGH_DATA);
-
     return;
 }
 
@@ -48,7 +45,6 @@ switch ($mode) {
         saveRoute($userId, $name ,$distance, $mode,
             $startLatitude, $startLongitude, $endLatitude, $endLongitude);
 
-
         $routeID = getRouteIDForRouteName($name);
 
         if($routeID !== null and $teamID !== null) {
@@ -69,7 +65,6 @@ switch ($mode) {
 redirectToAllRoutesWithMessage(ROUTE_SUCCESSFULLY_SAVED);
 
 
-
 function getDataFromPOST($key) {
     if (isset($_POST[$key]) and $_POST[$key] !== "") {
         return $_POST[$key];
@@ -78,9 +73,7 @@ function getDataFromPOST($key) {
     }
 }
 
-
 function redirectToAllRoutesWithMessage($status) {
-
     // TODO prevent input data loss -> send back in get if saving failed
     header('location: ../templates/allRoutes.php?status=' . $status);
 }

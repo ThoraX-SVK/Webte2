@@ -11,11 +11,7 @@ function getLastRunsTable($routeID) {
 
     $lastRuns = get_N_lastRuns($routeID);
 
-    
-
-
     $header = array("User", "Distance ran", "Date", "Finished At");
-
 
     $htmlAttrs = array("class" => "last-runs-table");
     $tableContent = array();

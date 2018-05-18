@@ -51,7 +51,6 @@ include_once "../template_utils/menuGenerator.php";
 loginRequired();
 echo getMenu();
 showMessage();
-session_start()
 ?>
 
 
@@ -82,25 +81,29 @@ session_start()
         </div>
         <div id="runFormHolder">
             <form action="../controller/newRunController.php" method="POST">
-                <br><br><span> Date of run </span>
-                <input type="date" class ="controls" name="dateOfRun">
+                <br><br><span> Distance </span>
+                <input type="text" name="distanceTraveled" required>
+                <br><br><span> Date </span>
+                <input type="date" name="dateOfRun">
                 <br><br><span> Time of start </span>
-                <input type="time" class ="controls" name="startAtTime">
+                <input type="time" name="startAtTime">
                 <br><br><span> Time of end </span>
-                <input type="time" class ="controls" name="finishAtTime">
-                <br><br><span> Start location</span>
-                <input id="origin-input"name="origin" class ="controls" type="text" >
-                <br><br><span> End location</span>
-                <input id="destination-input" name="destination" class ="controls" type="text">
-                <br><br><span> Distance(km): </span>
-                <input type="text" class ="controls" id="distance" name="distance" readonly required>
-                <br><br><span> Rating </span>
-                <input type="number" class ="controls" step="1" min="0" max="5" name="rating">
-                <br><br><span> Note </span>
-                <input type="text" class ="controls" name="note">
+                <input type="time" name="finishAtTime">
 
-                <p id="origin-hide" hidden></p><br>
-                <p id="destination-hide" hidden ></p><br>
+                <br><br><span> Start latitude </span>
+                <input type="number" step="0.00001" name="startLatitude">
+                <br><br><span> Start longitude </span>
+                <input type="number" step="0.00001" name="startLongitude">
+
+                <br><br><span> End latitude </span>
+                <input type="number" step="0.00001" name="endLatitude">
+                <br><br><span> End longitude </span>
+
+                <input type="number" step="0.00001" name="endLongitude">
+                <br><br><span> Rating </span>
+                <input type="number" step="1" min="0" max="5" name="rating">
+                <br><br><span> Note </span>
+                <input type="text" name="note">
 
                 <br><br><input type="submit" value="Submit">
             </form>
@@ -120,12 +123,10 @@ session_start()
         $routeID = findUsersActiveRoute($userID);
         $array = getRouteShortDescription($routeID);
         //print_r($array);
-        //progressBar($routeID);
         echo $array["name"];
         echo "<br>";
 
         echo $array["totalDistance"] . "km";
-        $_SESSION["routeID"] = $routeID;
     }
 
     function showMessage() {
@@ -157,20 +158,18 @@ session_start()
 
     <div id="map"></div>
 
-
     <?php
     include_once '../services/progressBarService.php';
-
     include_once "../database/routeUtils.php";
 
     $userID = getActiveUserID();
     $routeID = findUsersActiveRoute($userID);
 
     echo createProgressBar($routeID);
-
     ?>
 
 </div>
+
 <script src="../static/pointToPointRouteScript.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr8NV5cYhZlxoFvyaRrusfcmAMM7IQMw4&libraries=places&callback=initMap"
         async defer></script>
