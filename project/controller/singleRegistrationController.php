@@ -52,7 +52,8 @@ if ($saveResult["status"] === FAILED) {
 
     // remove in case emails get implemented
     createUserSession($saveResult["userID"], $email, USER_ROLE);
-    redirectToRegistrationSuccess($email);
+//    redirectToRegistrationSuccess($email);
+    header("location: ../templates/homePage.php");
 
 }
 
