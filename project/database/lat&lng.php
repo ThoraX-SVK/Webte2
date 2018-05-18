@@ -21,7 +21,10 @@ function latlong()
             $sql2 = "SELECT cityName FROM w2final.City WHERE id = " . $rows['city_fk'];
             $result2 = $conn->query($sql2);
             while ($row = $result2->fetch_assoc()) {
-                $address = $address . "+" . str_replace(" ", "+", $row['cityName']);
+                if($address != "")
+                    $address = $address . "+" . str_replace(" ", "+", $row['cityName']);
+                else
+                    $address = str_replace(" ", "+", $row['cityName']);
             }
         }
         if($rows['street_fk'] != NULL) {
@@ -61,7 +64,11 @@ function latlong()
             } else {
                 $latlng[$i][3] = "0";
             }
-
+            if($latlng[$i][0] == NULL || $latlng[$i][1] == NULL){
+                $latlng[$i][2] = "0";
+                $latlng[$i][3] = "0";
+            }
+            //echo $latlng[$i][0]." ".$latlng[$i][1].$latlng[$i][2]." ".$latlng[$i][3]."<br>";
             $i++;
         }
     }
