@@ -9,7 +9,7 @@ loginRequired(ADMIN_ROLE);
 <head>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <meta charset="UTF-8">
-    <title>Documentation</title>
+    <title>Admin :: Documentation</title>
 </head>
 <body>
 <?php
