@@ -121,6 +121,7 @@ showMessage();
 
     <div id="map"></div>
 
+
     <?php
     include_once '../services/progressBarService.php';
     include_once "../database/routeUtils.php";
