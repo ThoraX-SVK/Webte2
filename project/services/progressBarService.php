@@ -81,7 +81,7 @@ function createMultiProgressBar($routeID) {
 
     foreach ($contributors as $user) {
         $userContributed = $user['userContribution'];
-        $percentToFill = (floor(($userContributed / $calculations['totalDistance'])*100))*$normalizeRatio ;
+        $percentToFill = ceil((floor(($userContributed / $calculations['totalDistance'])*100))*$normalizeRatio) ;
         $progressBar .= '<div class="progress-bar color' . $index .'" style="width:' .  $percentToFill . '%">' . $user['email'] . '</div>' . "\n";
         $index++;
 
