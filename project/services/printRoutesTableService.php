@@ -1,14 +1,18 @@
 <?php
 
 include_once "../database/routeUtils.php";
+include_once "../database/userUtils.php";
 include_once "../utils/sessionUtils.php";
 include_once "../constants/routeConstants.php";
 include_once "../template_utils/tableGenerator.php";
 
 
-function getRouteTables() {
+function getRouteTables($userID = null) {
 
-    $userID = getActiveUserID();
+    if($userID == null) {
+        $userID = getActiveUserID();
+    }
+
     if ($userID === null) {
         // $userID is null somehow (loginRequired implies that it is not)
         return "FAILED: USER ID NOT GIVEN, USER IS NOT LOGGED IN.";
@@ -53,6 +57,42 @@ function transformRouteArrayTo2D($routes, $activeUserID, $mode) {
         }
 
     return $result;
+}
+
+function transformRouteArrayTo2D__ADMIN_VIEW($routes) {
+
+    $result = array();
+
+    foreach ($routes as $route) {
+
+        array_push($result,
+            array(
+                getLinkToRoute($route["routeID"], $route["name"]),
+                $route["distanceData"]["totalDistance"],
+                $route["distanceData"]["done"],
+                $route["distanceData"]["remaining"],
+                getUserFromUserId($route['createdByUserID'])['email']
+            ));
+    }
+    return $result;
+}
+
+function getAllTables() {
+
+    $tables = array();
+
+    $privateRoutes = transformRouteArrayTo2D__ADMIN_VIEW(getAllRoutesWithMode(PRIVATE_MODE));
+    $publicRoutes = transformRouteArrayTo2D__ADMIN_VIEW(getAllRoutesWithMode(PUBLIC_MODE));
+    $teamRoutes = transformRouteArrayTo2D__ADMIN_VIEW(getAllRoutesWithMode(TEAM_MODE));
+
+    $header = array("Name of route", "Total Distance", "Distance ran", "Distance remaining", "Created by");
+    $htmlAttrs = array ("class" => "table-routes", "id" => "table-routes");
+
+    $tables[PRIVATE_MODE] = assembleTable($header, $privateRoutes, $htmlAttrs);
+    $tables[PUBLIC_MODE] = assembleTable($header, $publicRoutes, $htmlAttrs);
+    $tables[TEAM_MODE] = assembleTable($header, $teamRoutes, $htmlAttrs);
+
+    return $tables;
 }
 
 function getLinkToRoute($routeID, $routeName) {
