@@ -62,8 +62,8 @@ echo getMenu();
     <div class="progress-bar-route">
         <?php
 
-        if(getRouteMode($routeID) === TEAM_MODE) {
-            echo createTeamProgressBar($routeID);
+        if(getRouteMode($routeID) !== PRIVATE_MODE) {
+            echo createMultiProgressBar($routeID);
         } else {
             echo createProgressBar($routeID);
         }
@@ -147,6 +147,7 @@ function printRouteDescription($routeID) {
     $desc = getFullRouteDescription($routeID);
 
     echo "<b>Route name:</b> <h2>" . $desc["name"] . "</h2>\n";
+    echo "<b>Total distance: </b>" .$desc["totalDistance"] . "<br/> \n";
     echo "<b>Active contributors count:</b> " . $desc["activeContributorsCount"] . "<br/> \n";
     echo "<b>Route mode:</b> " . $desc["routeMode"] . "<br/> \n";
 

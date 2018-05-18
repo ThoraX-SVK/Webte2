@@ -55,7 +55,7 @@ function getRouteShortDescription__FAKE($routeID) {
 function getRouteShortDescription($routeID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT name, distance FROM w2final.Route WHERE id = ?");
+    $stmn = $conn->prepare("SELECT name, distance AS 'distance' FROM w2final.Route WHERE id = ?");
     $stmn->bind_param("i", $routeID);
     $stmn->execute();
 
@@ -120,7 +120,7 @@ function getRouteFullDescription($routeID) {
 
     return array(
         'name' => $shortInfo['name'],
-        'totalDistance' => $shortInfo['distance'],
+        'totalDistance' => $shortInfo['totalDistance'],
         'activeContributorsCount' => $activeContributorsCount,
         'routeMode' => $routeMode
     );
@@ -690,6 +690,7 @@ function getAllRoutesWithMode($mode) {
         $routeInfo = calculateRouteRemainingAndDoneDistance($routeID);
 
         $res = array(
+            'routeID' => $routeID,
             'distanceData' => $routeInfo,
             'name' => $row['routeName'],
             'createdByUserID' => $createdByUserID
