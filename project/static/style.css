@@ -409,6 +409,7 @@ input:-webkit-autofill {
     text-align: center;
     line-height: 30px;
     display: inline-block;
+    float: left;
 }
 #publicRoutes{
     height: auto;
@@ -448,33 +449,33 @@ border: 0;
 height: 1px;
 background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
-#color1{
+.color1{
     background-color: #4d90fe;
 }
-#color2{
-    background-color: #3CA180;
+.color2{
+    background-color: #7AD58E;
 }
-#color3{
+.color3{
     background-color: burlywood;
 }
-#color4{
+.color4{
     background-color: #c75353;
 }
-#color5{
+.color5{
     background-color: darkmagenta;
 }
-#color6{
-    background-color: gold;
+.color6{
+    background-color: khaki;
 }
-#color7{
-    background-color: aqua;
+.color7{
+    background-color: #c1f4eb;
 }
-#color8{
-    background-color: lawngreen;
+.color8{
+    background-color: lightgreen;
 }
-#color9{
-    background-color: red;
+.color9{
+    background-color: tomato;
 }
-#color10{
-    background-color: deeppink;
+.color10{
+    background-color: violet;
 }
