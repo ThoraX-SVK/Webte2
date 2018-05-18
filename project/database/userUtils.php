@@ -384,7 +384,7 @@ function getAllUsersRuns($userID) {
 function isUserSignedToNewsfilter($userID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT id FROM w2final.NewsleterSubscribers WHERE id = ?");
+    $stmn = $conn->prepare("SELECT id FROM w2final.NewsleterSubscribers WHERE user_fk = ?");
     $stmn->bind_param("i",$userID);
     $stmn->execute();
 

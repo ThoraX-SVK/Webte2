@@ -26,7 +26,7 @@ function getAverageSpeedOfUser($userID) {
 
     $sumOfSpeeds = 0;
     $divisor = 0;
-    
+
     foreach ($runs as $run) {
         $averageRunSpeed = getAverageSpeedBetweenTimes($run["startAtTime"], $run["endAtTime"], $run["distance"], 5);
 
