@@ -123,6 +123,8 @@ function getInfoMessage() {
         switch ($status) {
             case NOT_ENOUGH_DATA:
                 return '<div class="error-message-wide">Not enough data</div>';
+            case ROUTE_SUCCESSFULLY_SAVED:
+                return '<div class="success-message-wide">Your new route has been saved';
             case ROUTE_ASSIGNED:
                 return '<div class="success-message-wide">Route assigned</div>';
             case ROUTE_NOT_ASSIGNED:

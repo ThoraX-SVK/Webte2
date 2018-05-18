@@ -22,7 +22,7 @@ $endLongitude = $end[1];
 $userId = getActiveUserID();
 
 if (!nullCheck(array($distance, $name, $mode, $startLatitude, $startLongitude, $endLatitude, $endLongitude))) {
-    redirectToHomePageWithMessage(NOT_ENOUGH_DATA);
+    redirectToNewRoutePageWithMessage(NOT_ENOUGH_DATA);
     return;
 }
 
@@ -60,7 +60,7 @@ switch ($mode) {
         break;
 }
 
-redirectToHomePageWithMessage(ROUTE_SUCCESSFULLY_SAVED);
+redirectToAllRoutesWithMessage(ROUTE_SUCCESSFULLY_SAVED);
 
 
 function getDataFromPOST($key) {
@@ -71,9 +71,9 @@ function getDataFromPOST($key) {
     }
 }
 
-function redirectToHomePageWithMessage($status) {
+function redirectToAllRoutesWithMessage($status) {
     // TODO prevent input data loss -> send back in get if saving failed
-    header('location: ../templates/homePage.php?status=' . $status);
+    header('location: ../templates/allRoutes.php?status=' . $status);
 }
 
 function redirectToNewRoutePageWithMessage($status) {
