@@ -223,7 +223,7 @@ function saveRoute($createdByUserID, $name, $totalDistance, $mode,
     $conn = createConnectionFromConfigFileCredentials();
 
     $stmn = $conn->prepare("INSERT w2final.Route VALUES (DEFAULT, ?, ? ,? , ?, ?, ?, ?, ?)");
-    $stmn->bind_param('isiiiiii',$createdByUserID, $name, $totalDistance, $mode,
+    $stmn->bind_param('isiidddd',$createdByUserID, $name, $totalDistance, $mode,
         $startLatiude, $startLongitude,
         $endLatitude, $endLongitude);
     $stmn->execute();
