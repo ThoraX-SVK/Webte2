@@ -65,6 +65,13 @@ showMessage();
         <input type="button" onclick="showPrivateRoutes()" value="Hide private routes" id="privateRoutesButton">
         <input type="button" onclick="showTeamRoutes()" value="Hide team routes" id="teamRoutesButton">
     </div>
+    <br>
+    <form style="display: inline">
+        <strong>Filter by user email:<strong>
+        <input type="email" name="email">
+        <input type="submit" value="Search">
+
+    </form>
 
     <?php
     include_once "../services/printRoutesTableService.php";
