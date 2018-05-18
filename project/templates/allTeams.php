@@ -39,7 +39,7 @@ showMessage();
     ?>
 
 
-    <a href="../templates/newTeamPage.php">Add new team</a>
+    <h2><a href="../templates/newTeamPage.php">Add new team</a></h2>
 
 </div>
 

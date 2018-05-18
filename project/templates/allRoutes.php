@@ -96,7 +96,7 @@ showMessage();
     </div>
     <br>
 
-    <a href="../templates/newRoutePage.php">Add new route</a>
+    <h2><a href="../templates/newRoutePage.php">Add new route</a></h2>
 
 </div>
 <script src="../static/sortTables.js"></script>
