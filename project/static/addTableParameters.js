@@ -5,7 +5,7 @@ for(var i = 0; i < allThElements.length; i++){
     allThElements[i].setAttribute("id",i);
     allThElements[i].style.cursor = "pointer"
     allThElements[i].addEventListener("click", function() {
-        sortTable(this.id,);
+        sortTable(this.id);
     });
 }
 for(var j = 0; j < document.getElementsByTagName("table").length;j++){
