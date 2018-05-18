@@ -17,8 +17,12 @@ function saveVerificationHash__FAKE($hash, $userID) {
  */
 function saveVerificationHash($hash, $userID) {
 
+//    if (checkIfUserHasVerificationHash($userID)) {
+//        return false;
+//    }
+
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("INSERT w2final.VerificatonHash VALUES (DEFAULT, ?, ?)");
+    $stmn = $conn->prepare("INSERT INTO w2final.VerificatonHash VALUES (DEFAULT, ?, ?)");
     $stmn->bind_param("si",$hash,$userID);
     
     $isDone = $stmn->execute();
@@ -31,6 +35,23 @@ function saveVerificationHash($hash, $userID) {
 
 function getVerificationHashForUserID__FAKE($userID) {
     return 'emailHash';
+}
+
+function checkIfUserHasVerificationHash($userID) {
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT id FROM w2final.VerificatonHash WHERE user_fk = ?");
+    $stmn->bind_param('i', $userID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+    $stmn->close();
+    $conn->close();
+
+    if(mysqli_num_rows($result) === 0) {
+        return false;
+    }
+
+    return true;
 }
 
 /**
