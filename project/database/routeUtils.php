@@ -246,10 +246,16 @@ function calculateRouteRemainingAndDoneDistance($routeID) {
     $stmn->close();
     $conn->close();
 
+    $remaining = $row['total'] - $row['done'];
+
+    if($remaining <= 0) {
+        $remaining = "DONE!";
+    }
+
     return array(
         'totalDistance' => $row['total'],
         'done' => $row['done'],
-        'remaining' => $row['total'] - $row['done']
+        'remaining' => $remaining
     );
 }
 
@@ -550,7 +556,7 @@ function selectPublicRoutes($userID) {
 function selectTeamRoutes($userID) {
 
     $conn = createConnectionFromConfigFileCredentials();
-    $stmn = $conn->prepare("SELECT canParticipateTo AS 'canChoose', Route.id AS 'routeID', activeRoute_fk AS 'isActiveRoute' , Route.name FROM (
+    $stmn = $conn->prepare("SELECT canParticipateTo AS 'canChoose', Route.id AS 'routeID', activeRoute_fk AS 'userActiveRoute' , Route.name FROM (
                                         SELECT Route.id AS 'canParticipateTo' FROM w2final.Route
                                           JOIN w2final.TeamRoutes ON Route.id = TeamRoutes.route_fk
                                           JOIN w2final.Team ON TeamRoutes.team_fk = Team.id
@@ -560,8 +566,8 @@ function selectTeamRoutes($userID) {
                                     WHERE userInTeam = Team.id
                                   ) AS CAN_PARTICIPATE_IN
                                     RIGHT JOIN w2final.Route ON canParticipateTo = Route.id
-                                    LEFT JOIN w2final.User ON Route.id = User.activeRoute_fk
-                                    WHERE mode_fk = 3 AND User.id = $userID");
+                                    LEFT JOIN w2final.User U ON U.id = $userID
+                                    WHERE mode_fk = 3");
     $stmn->execute();
 
     $result = $stmn->get_result();
@@ -573,7 +579,7 @@ function selectTeamRoutes($userID) {
 
         $routeID = $row['routeID'];
         $canUserParticipate = $row['canChoose'] !== null;
-        $isActiveForUser = $row['isActiveRoute'] !== null;
+        $isActiveForUser = $row['userActiveRoute'] === $routeID;
         $routeName = $row['name'];
         $routeInfo = calculateRouteRemainingAndDoneDistance($routeID);
 

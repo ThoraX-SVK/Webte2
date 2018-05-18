@@ -61,7 +61,12 @@ echo getMenu();
 <div class="content-route">
     <div class="progress-bar-route">
         <?php
-        echo createProgressBar__FAKE($routeID);
+
+        if(getRouteMode($routeID) === TEAM_MODE) {
+            echo createTeamProgressBar($routeID);
+        } else {
+            echo createProgressBar($routeID);
+        }
         ?>
     </div>
 
