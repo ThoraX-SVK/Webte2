@@ -20,14 +20,20 @@ function constructActivationEmailBody__FAKE($email, $userID) {
  * @param $userID
  * @return null|string
  */
-function constructActivationEmailBody($email, $userID, $password) {
+function constructActivationEmailBody($email, $userID, $password = null) {
 
-    $verificationHash = computeEmailVerificationHash__FAKE();
+    $verificationHash = computeEmailVerificationHash();
 
-    if(saveVerificationHash__FAKE($verificationHash, $userID)) {
+    if(saveVerificationHash($verificationHash, $userID)) {
 
-        $emailBody = "Pre aktiváciu účtu registrovaného na email " . $email . " s heslom " . $password . " kliknite prosím na nasludujúci odkaz: " .
-            '<a href="http://147.175.98.166/project/controller/emailVerificationController.php?id=' . $userID . '&hash=' . $verificationHash . '">LINK</a>';
+        if ($password === null) {
+            $emailBody = "Pre aktiváciu účtu registrovaného na email " . $email . " s heslom " . $password . " kliknite prosím na nasludujúci odkaz: " .
+                '<a href="http://147.175.98.166/project/controller/emailVerificationController.php?id=' . $userID . '&hash=' . $verificationHash . '">LINK</a>';
+        } else {
+            $emailBody = "Pre aktiváciu účtu registrovaného na email " . $email . " kliknite prosím na nasludujúci odkaz: " .
+                '<a href="http://147.175.98.166/project/controller/emailVerificationController.php?id=' . $userID . '&hash=' . $verificationHash . '">LINK</a>';
+        }
+
 
         return $emailBody;
     }

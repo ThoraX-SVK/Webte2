@@ -11,7 +11,7 @@ function getUserStatsTable($userID) {
     $userStats = getAllUsersRuns($userID);
 
     if ($userStats === null) {
-        return "No statistics found for given userID!";
+        return "No statistics found for given userID! <br>";
     }
 
     $attrs = array("class" => "user-runs-table", "id" => "user-runs-table");

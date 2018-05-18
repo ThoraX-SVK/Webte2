@@ -3,6 +3,7 @@
 include_once "../services/saveUserService.php";
 include_once "../utils/constructVerificationEmailContent.php";
 include_once "../utils/EmailValidator.php";
+include_once "../utils/sessionUtils.php";
 include_once "../services/sendEmailService.php";
 include_once "../constants/registerConstants.php";
 include_once "../constants/globallyUsedConstants.php";
@@ -45,6 +46,10 @@ if ($saveResult["status"] === FAILED) {
     $emailData = constructActivationEmail($email, $saveResult["userID"], $password);
     if ($emailData != null and isEmailValid($email)) {
         sendEmail($email, $emailData["subject"], $emailData["body"], $emailData["from"]);
+
+        // remove in case emails get implemented
+        createUserSession($saveResult["userID"], $email, USER_ROLE);
+
         redirectToRegistrationSuccess($email);
     }
 

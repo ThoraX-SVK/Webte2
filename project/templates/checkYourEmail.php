@@ -14,7 +14,18 @@
 
     <p class="align-middle">
         <?php
-        echo getPageContents();
+        include_once "../utils/constructVerificationEmailContent.php";
+        include_once "../utils/sessionUtils.php";
+        include_once "../database/userUtils.php";
+
+        // remove if emails get implemented
+        loginRequired();
+
+        $userID = getActiveUserID();
+        $user = getUserFromUserId($userID);
+        echo constructActivationEmailBody($user["email"], $userID);
+
+        // echo getPageContents();
         ?>
     </p>
 

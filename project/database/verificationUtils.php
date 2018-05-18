@@ -55,5 +55,5 @@ function getVerificationHashForUserID($userID) {
         return null;
     }
     
-    return $result['hash'];
+    return $result->fetch_assoc()['hash'];
 }
