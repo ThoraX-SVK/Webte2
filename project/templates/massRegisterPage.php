@@ -55,35 +55,7 @@ if ($errorMessage != null) {
     </form>
 
     <!--  response from AJAX is a table to be stored in this div  -->
-    <div id="results-table">
-
-        <!-- TODO delete        -->
-        Results:
-        <br><hr><table><tbody><tr><th>User email</th>
-                <th>Save status</th>
-            </tr>
-            <tr><td>email1@gmail.com</td>
-                <td>Email is already taken</td>
-            </tr>
-            <tr><td>email2@gmail.com</td>
-                <td>Email is already taken</td>
-            </tr>
-            <tr><td>email3@gmail.com</td>
-                <td>Email is already taken</td>
-            </tr>
-            <tr><td>email4@gmail.com</td>
-                <td>Email is already taken</td>
-            </tr>
-            <tr><td>email5@gmail.com</td>
-                <td>Email is already taken</td>
-            </tr>
-            <tr><td>email6@gmail.com</td>
-                <td>Email is already taken</td>
-            </tr>
-            </table>
-
-        <!--    down to here    -->
-    </div>
+    <div id="results-table"></div>
 
 </div>
 

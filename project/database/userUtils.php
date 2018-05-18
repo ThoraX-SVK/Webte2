@@ -382,9 +382,34 @@ function getAllUsersRuns($userID) {
     return $res_arr->getArrayCopy();
 }
 
+function isUserSignedToNewsfilter($userID) {
+
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("SELECT id FROM w2final.NewsleterSubscribers WHERE id = ?");
+    $stmn->bind_param("i",$userID);
+    $stmn->execute();
+
+    $result = $stmn->get_result();
+
+    if(mysqli_num_rows($result) === 0) {
+        return false;
+    }
+
+    return true;
+}
 
 
+function addUserToNewsfilter($userID) {
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("INSERT w2final.NewsleterSubscribers VALUES (DEFAULT , ?)");
+    $stmn->bind_param("i",$userID);
+    $stmn->execute();
+}
 
+function deleteUserFromNewsfilter($userID) {
 
-
-
+    $conn = createConnectionFromConfigFileCredentials();
+    $stmn = $conn->prepare("DELETE FROM w2final.NewsleterSubscribers WHERE id = ?");
+    $stmn->bind_param("i",$userID);
+    $stmn->execute();
+}
