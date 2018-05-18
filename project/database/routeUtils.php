@@ -501,7 +501,6 @@ function selectPrivateRoutes($userID) {
             'routeID' => $routeID,
             'distanceData' => $routeInfo,
             'name' => $row['routeName'],
-            'routeID' => $routeID,
             'isActiveForUser' => $isActiveRoute
         );
 
@@ -539,7 +538,6 @@ function selectPublicRoutes($userID) {
             'routeID' => $routeID,
             'distanceData' => $routeInfo,
             'name' => $row['routeName'],
-            'routeID' => $routeID,
             'isActiveForUser' => $isActiveRoute
         );
 
@@ -583,7 +581,6 @@ function selectTeamRoutes($userID) {
             'routeID' => $routeID,
             'distanceData' => $routeInfo,
             'name' => $routeName,
-            'routeID' => $routeID,
             'isActiveForUser' => $isActiveForUser,
             'isUserInTeam' => $canUserParticipate
         );
