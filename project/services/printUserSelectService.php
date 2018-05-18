@@ -12,7 +12,7 @@ function getUserSelect($attrs = null) {
     }
     $options = array();
 
-    $users = getAllUsers__FAKE();
+    $users = getAllUsers();
 
     foreach ($users as $user) {
         $opt = "[" . $user["userID"] . "] " . $user["name"] . " " . $user["surname"] . " - " . $user["email"];
