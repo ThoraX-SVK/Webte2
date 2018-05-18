@@ -28,13 +28,16 @@ echo getMenu();
 
 <div class="content">
 
-<?php
+    <?php
 
-echo getAllUsersTable();
+    echo getAllUsersTable();
 
-?>
+    ?>
 
 </div>
+<script src="../static/sortTables.js"></script>
+<script src="../static/addTableParameters.js"></script>
+
 
 </body>
 </html>

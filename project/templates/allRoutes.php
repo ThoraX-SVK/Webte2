@@ -76,22 +76,22 @@ echo getMenu();
     <br>
     <div id="publicRoutes">
         <?php
-            echo '<h2 class="tableHeader">Public routes</h2>';
-            echo $tables[PUBLIC_MODE];
+        echo '<h2 class="tableHeader">Public routes</h2>';
+        echo $tables[PUBLIC_MODE];
         ?>
     </div>
     <br>
     <div id="privateRoutes">
         <?php
-            echo '<h2 class="tableHeader">Private routes</h2>';
-            echo $tables[PRIVATE_MODE];
+        echo '<h2 class="tableHeader">Private routes</h2>';
+        echo $tables[PRIVATE_MODE];
         ?>
     </div>
     <br>
     <div id="teamRoutes">
         <?php
-            echo '<h2 class="tableHeader">Team routes</h2>';
-            echo $tables[TEAM_MODE];
+        echo '<h2 class="tableHeader">Team routes</h2>';
+        echo $tables[TEAM_MODE];
         ?>
     </div>
     <br>
@@ -102,28 +102,7 @@ echo getMenu();
 
 </div>
 <script src="../static/sortTables.js"></script>
-<script>
-
-    var allThElements =  document.getElementsByTagName("th");
-    console.log(allThElements.length);
-    for(var i = 0; i < allThElements.length; i++){
-        console.log("i");
-        allThElements[i].setAttribute("id",i);
-        allThElements[i].addEventListener("click", function() {
-            sortTable(this.id,);
-        });
-    }
-    for(var j = 0; j < document.getElementsByTagName("table").length;j++){
-        var id = "table"+j;
-        document.getElementsByTagName("table")[j].setAttribute("id",id);
-
-    }
-
-
-
-
-
-</script>
+<script src="../static/addTableParameters.js"></script>
 
 </body>
 </html>
