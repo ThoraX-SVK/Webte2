@@ -27,7 +27,7 @@ showErrorMessage();
 ?>
 
 <header>
-    <h1>Add News Letter</h1>
+    <h1>Admin :: Add News Letter</h1>
 </header>
 
 <div class="content">

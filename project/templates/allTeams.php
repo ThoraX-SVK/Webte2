@@ -20,7 +20,7 @@ showMessage();
 ?>
 
 <header>
-    <h1>All Teams</h1>
+    <h1>Admin :: All Teams</h1>
 </header>
 
 <div class="content">
