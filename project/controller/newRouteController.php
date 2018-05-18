@@ -34,7 +34,6 @@ switch ($mode) {
         break;
 
     case TEAM_MODE:
-
         if ($teamID === null) {
             redirectToNewRoutePageWithMessage(TEAM_REQUIRED);
             return;

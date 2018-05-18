@@ -8,7 +8,7 @@ function checkIfUserExists($userID) {
         return false;
     }
 
-    $user = getUserFromUserId__FAKE($userID);
+    $user = getUserFromUserId($userID);
 
     return $user !== null;
 

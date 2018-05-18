@@ -12,10 +12,10 @@ function getAllUsersTable() {
     $header = array("User ID", "Name", "Surname", "Email", "Is Activated", "User role", "Link to stats");
     $content = array();
 
-    $users = getAllUsers__FAKE();
+    $users = getAllUsers();
 
     foreach ($users as $user) {
-        $userRole = getUserRoleFromUserId__FAKE($user["userID"]);
+        $userRole = getUserRoleFromUserId($user["userID"]);
 
         $userRoleDisplay = getUserRoleDisplayValue($userRole);
 
@@ -37,11 +37,11 @@ function getAllUsersTable() {
 }
 
 function getUserRoleDisplayValue($userRole) {
-    if ($userRole === null or !array_key_exists("role", $userRole)) {
+    if ($userRole === null) {
         return "Unspecified (not supposed to happen)";
     }
 
-    switch ($userRole["role"]) {
+    switch ($userRole) {
         case ADMIN_ROLE:
             return "Administrator";
         case USER_ROLE:

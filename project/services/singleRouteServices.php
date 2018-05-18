@@ -2,6 +2,7 @@
 
 include_once "../template_utils/tableGenerator.php";
 include_once "../database/routeUtils.php";
+include_once "../database/teamUtils.php";
 include_once "../database/userUtils.php";
 include_once "../services/printRoutesTableService.php";
 include_once "../constants/routeConstants.php";
@@ -75,6 +76,7 @@ function getFullRouteDescription($routeID) {
             break;
         case TEAM_MODE:
             $desc["routeMode"] = "Team mode";
+            $desc["team"] = getTeamInfo(getTeamIdFromRouteID($routeID))["teamName"];
             break;
         default:
             $desc["routeMode"] = "Unknown mode - this is not supposed to happen";
